@@ -1,0 +1,343 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 日本語 resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+#ifdef _WIN32
+LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
+#pragma code_page(932)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)\r\n"
+    "LANGUAGE 17, 1\r\n"
+    "#pragma code_page(932)\r\n"
+    "#include ""res\\H2E_SampleApp.rc2""  // Microsoft Visual C++ 以外で編集されたリソース\r\n"
+    "#include ""l.JPN\\afxres.rc""      // 標準コンポーネント\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\H2E_SampleApp.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 170, 62
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "バージョン情報 H2E_SampleApp"
+FONT 9, "MS UI Gothic", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,21,20
+    LTEXT           "H2E_SampleApp, Version 1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2012",IDC_STATIC,42,26,114,8
+    DEFPUSHBUTTON   "OK",IDOK,113,41,50,14,WS_GROUP
+END
+
+IDD_H2E_SAMPLEAPP_DIALOG DIALOGEX 0, 0, 391, 459
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "H2E_SampleApp"
+FONT 9, "MS UI Gothic", 0, 0, 0x1
+BEGIN
+    LTEXT           "スタティック",IDC_STATIC_FNAME,7,9,160,11
+    CONTROL         "",IDC_LIST_TMPLIST,"SysListView32",LVS_REPORT | LVS_SORTASCENDING | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,14,62,162,90
+    EDITTEXT        IDC_EDIT_COMMENT,202,63,153,62,ES_MULTILINE | ES_AUTOVSCROLL | ES_WANTRETURN | WS_VSCROLL
+    LTEXT           "Templates List",IDC_STATIC_TLIST,20,52,44,8
+    LTEXT           "Comment",IDC_STATIC_COMMENT,204,53,31,8
+    GROUPBOX        "",IDC_STATIC_CGBOX,7,21,369,139,BS_FLAT,WS_EX_TRANSPARENT
+    PUSHBUTTON      "End",IDC_BUTTON_END,335,433,49,20
+    COMBOBOX        IDC_COMBO_COMPORT,34,29,41,104,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "COM :",IDC_STATIC_FNAME2,12,31,19,8
+    PUSHBUTTON      "Open",IDC_BUTTON_COMOPEN,157,28,37,21
+    LTEXT           "Firmware Ver.",IDC_STATIC_FWVER,203,129,42,8
+    LTEXT           "Serial Number",IDC_STATIC_SERIAL,203,143,42,8
+    LTEXT           "0123456789",IDC_STATIC_SET_FWVER,253,129,109,8
+    LTEXT           "0123456789",IDC_STATIC_SET_SERIAL,253,143,105,8
+    LTEXT           "[12345]",IDC_STATIC_TEMPS,148,52,23,8
+    EDITTEXT        IDC_EDIT_11VERBANK,24,270,96,12,ES_RIGHT | ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_11VERTEMP,24,296,96,12,ES_RIGHT | ES_AUTOHSCROLL
+    PUSHBUTTON      "1：1\nVerification",IDC_BUTTON_11VERIF,127,287,52,24,BS_MULTILINE
+    LTEXT           "Group number（0000h～7FFFh）",IDC_STATIC,27,259,98,8
+    LTEXT           "Template number(0000h～FFFFh)",IDC_STATIC,26,286,98,8
+    GROUPBOX        "1：1 Verification",IDC_STATIC_11VER,17,249,164,64
+    EDITTEXT        IDC_EDIT_N1BANK,21,335,96,12,ES_RIGHT | ES_AUTOHSCROLL
+    PUSHBUTTON      "1：N\nVerification",IDC_BUTTON_1NVERIF,127,323,52,24,BS_MULTILINE
+    LTEXT           "Group number（0000h～7FFFh）",IDC_STATIC,25,324,98,8
+    GROUPBOX        "1：N Verification",IDC_STATIC_1NVER,16,314,164,38
+    EDITTEXT        IDC_EDIT_STARTBANK,24,376,96,12,ES_RIGHT | ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_ENDBANK,24,402,96,12,ES_RIGHT | ES_AUTOHSCROLL
+    PUSHBUTTON      "Verification\nacross group",IDC_BUTTON_VERIF_AB,126,389,52,24,BS_MULTILINE
+    LTEXT           "Start Group number",IDC_STATIC,27,365,98,8
+    LTEXT           "End Group number",IDC_STATIC,26,391,98,8
+    GROUPBOX        "Verification across banks",IDC_STATIC_VERACBANK,16,354,164,64
+    EDITTEXT        IDC_EDIT_DELONE_BANK,200,248,96,12,ES_RIGHT | ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_DELBANK,199,320,96,12,ES_RIGHT | ES_AUTOHSCROLL
+    PUSHBUTTON      "Delete Template",IDC_BUTTON_DELTEMP,305,272,58,17
+    PUSHBUTTON      "Delete group",IDC_BUTTON_DELGROUP,306,316,56,17
+    PUSHBUTTON      "Delete all",IDC_BUTTON_DELALL,306,352,55,17
+    GROUPBOX        "Delete one template",IDC_STATIC_DELETETMP,190,223,177,74
+    LTEXT           "Group number（0000h～7FFFh）",IDC_STATIC,200,238,98,8
+    LTEXT           "Template number(0000h～7FFFh)",IDC_STATIC,200,267,102,8
+    EDITTEXT        IDC_EDIT_DELONE_TEMP,200,277,96,12,ES_RIGHT | ES_AUTOHSCROLL
+    GROUPBOX        "Delete group",IDC_STATIC_DELETEBANK,190,300,177,41
+    LTEXT           "Group number（0000h～7FFFh）",IDC_STATIC,199,310,98,8
+    GROUPBOX        "Delete all templates",IDC_STATIC_DELETEALL,190,344,177,33
+    PUSHBUTTON      "Download\r\n(PC⇒H2E)",IDC_BUTTON_DOWNLOAD,286,183,55,30,BS_MULTILINE
+    GROUPBOX        "Upload/Download Template",IDC_STATIC_DELETEALL2,190,172,177,47
+    PUSHBUTTON      "Check",IDC_BUTTON_CHECK,306,389,55,17
+    GROUPBOX        "Quality level check",IDC_STATIC_DELETEALL3,190,381,177,33
+    GROUPBOX        "",IDC_STATIC_CGBOX2,7,162,369,266,BS_FLAT,WS_EX_TRANSPARENT
+    PUSHBUTTON      "Upload\r\n(H2E⇒PC)",IDC_BUTTON_UPLOAD,212,183,55,30,BS_MULTILINE
+    EDITTEXT        IDC_EDIT_ENROLL_BANK,25,199,96,12,ES_RIGHT | ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_ENROLL_TMPNO,25,225,96,12,ES_RIGHT | ES_AUTOHSCROLL
+    PUSHBUTTON      "Enroll",IDC_BUTTON_ENROLL,129,217,49,24
+    LTEXT           "Group number（0000h～7FFFh）",IDC_STATIC,28,188,98,8
+    LTEXT           "Template number（0000h～FFFFh）",IDC_STATIC,27,215,102,8
+    GROUPBOX        "Enroll template",IDC_STATIC_ENROLL,17,172,164,75
+    LTEXT           "Speed :",IDC_STATIC_FNAME3,82,31,22,8
+    COMBOBOX        IDC_COMBO_SPEED,107,29,43,104,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "TOUCH_OUT1",IDC_TOUCH_OUT1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,293,26,54,14
+    CONTROL         "TOUCH_OUT2",IDC_TOUCH_OUT2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,293,38,54,14
+    LTEXT           "Polling Line :",IDC_STATIC_FNAME4,248,33,40,8
+END
+
+IDD_TUCH_DIALOG DIALOGEX 0, 0, 74, 94
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME,7,6,60,81
+    CONTROL         "",IDC_STATIC_TUCH1,"Static",SS_BLACKRECT,20,16,34,18
+    CONTROL         "",IDC_STATIC_TUCH2,"Static",SS_BLACKRECT,20,60,34,18
+    CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME,12,11,50,28
+    CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME,12,55,50,28
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041103a4"
+        BEGIN
+            VALUE "CompanyName", "TODO: <会社名>"
+            VALUE "FileDescription", "TODO: <ファイルの説明>"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "H2E_SampleApp.exe"
+            VALUE "LegalCopyright", "TODO: (C) <会社名>.  All rights reserved."
+            VALUE "OriginalFilename", "H2E_SampleApp.exe"
+            VALUE "ProductName", "TODO: <製品名>"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x411, 932
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 163
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 55
+    END
+
+    IDD_H2E_SAMPLEAPP_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 384
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 452
+    END
+
+    IDD_TUCH_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 67
+        TOPMARGIN, 6
+        BOTTOMMARGIN, 87
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_ABOUTBOX            "バージョン情報 H2E_SampleApp(&A)..."
+    IDS_ABOUTBOX2           "バージョン情報 H2E_SampleApp(&A)..."
+    IDS_COMOPEN             "COM Open Success(%1)"
+    IDS_ERR_COMOPEN         "COM Open Error(%1)"
+    IDS_SEND_TEMPLATES      "Send Templates Command."
+    IDS_SEND_COMPLETE       "Complete!! Send Template Command ."
+    IDS_SEND_INFO           "(Group:%1!04X!h,Template:%2!04X!h,[%3!4d!/%4!4d!])"
+    IDS_ERR_INFO            "[Error:%1!d!  Detail:%2!08X!h]"
+    IDS_GUIDE_BANK          "Please input a right Group nummber!"
+    IDS_GUIDE_TEMP          "Please input a right Template nummber!"
+    IDS_APP_NAME            "H2E sample aplication"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_SETTING_END         "End application and device setting(%1!s!). "
+    IDS_GUIDE_PLACE_FINGER  "Please place Finger!"
+    IDS_ENROLL_COMPLETE     "Complete!! Enroll Template."
+    IDS_GROUPTEMP_INFO      "(Group:%1!04X!h,Template:%2!04X!h, Qlevel:%3!d!)"
+    IDS_DEL_COMPLETE_TEMP   "Complete!! Delete TempLate"
+    IDS_DEL_COMPLETE_BANK   "Complete!! Delete TempLate of Group(%1!04X!h)"
+    IDS_DEL_COMPLETE_ALL    "Complete!! Delete all TempLates."
+    IDS_GUIDE_DELALL        "Start delete all  Templates!!"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_SEND_VERIF          "Send Verification Command"
+    IDS_VERIF_11            "(1:1)"
+    IDS_VERIF_1N            "(1:N)"
+    IDS_VERIF_ACBANK        "(Across Bank)"
+    IDS_VERIF_WTEMP         "(with Template)"
+    IDS_SEND_GETDEVINFO     "Send Get Device Infomation Command"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_SEND_ENROLL         "Send Enroll Command!!"
+    IDS_SEND_DELTEMP        "Send Delete Template Command!!"
+    IDS_SEND_GDELTEMP       "Send Delete Group Template Command"
+    IDS_SEND_DELALLTMP      "Send Delete All Template Command"
+    IDS_GUIDE_RELEASE_FINGER "Please release finger!"
+    IDS_SUBID_FVERSION      "(Firmwar version)"
+    IDS_SUBID_SERIAL        "(Serial nummber)"
+    IDS_SEND_GETTEMP_INFO   "Send Get Template Infomation Command"
+    IDS_VERIF_COMPLETE      "Complete!!Verification"
+    IDS_VERIF_INFO          "(Group:%1!04X!h,Template:%2!04X!h, Vlevel:%3!d!)"
+    IDS_DEL_INFO            "(Group:%1!04X!h,Template:%2!04X!h)"
+    IDS_DEL_INFO2           "(Group:%1!04X!h)"
+    IDS_TEMP_NON            "Enrolled template non."
+    IDS_UPLOAD_COMPLETE     "Complete!! Upload Template"
+    IDS_DOWNLOAD_COMPLETE   "Complete!! Download Template"
+    IDS_SEND_WRITE_TEMP     "Send Write Template Command"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_SEND_READ_TEMP      "Send Read Template Command"
+    IDS_READ_COMPLETE       "Complete!! Read Template"
+    IDS_WRITE_COMPLETE      "Complete!! Write Template"
+    IDS_ENROLL_NG           "Failure!! Enroll Template"
+    IDS_VERIF_SUCCESS       "Verification was successful!!"
+    IDS_VERIF_NG            "Verification was failure."
+    IDS_TEMPFULL            "Failure!! Enroll Template.Templates are full."
+    IDS_POLLING_TIMEOUT     "Timeout!!Polling touch sensor."
+END
+
+#endif    // 日本語 resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+LANGUAGE 17, 1
+#pragma code_page(932)
+#include "res\H2E_SampleApp.rc2"  // Microsoft Visual C++ 以外で編集されたリソース
+#include "l.JPN\afxres.rc"      // 標準コンポーネント
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

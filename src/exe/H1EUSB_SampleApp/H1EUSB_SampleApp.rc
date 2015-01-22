@@ -1,0 +1,421 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 日本語 resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+#ifdef _WIN32
+LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
+#pragma code_page(932)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)\r\n"
+    "LANGUAGE 17, 1\r\n"
+    "#pragma code_page(932)\r\n"
+    "#include ""res\\H1EUSB_SampleApp.rc2""  // Microsoft Visual C++ 以外で編集されたリソース\r\n"
+    "#include ""afxres.rc""     // 標準コンポーネント\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\H1EUSB_SampleApp.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 235, 55
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "バージョン情報 H1E-USB_SampleApp"
+FONT 9, "MS UI Gothic", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "H1E-USB_SampleApp Version 1.0.0.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2011, Hitachi, Ltd.",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "OK",IDOK,178,7,50,16,WS_GROUP
+END
+
+IDD_DIALOG_DETAILS DIALOGEX 0, 0, 383, 415
+STYLE DS_SETFONT | DS_MODALFRAME | WS_CAPTION | WS_SYSMENU
+CAPTION "H1E-USB_Sample"
+FONT 9, "MS UI Gothic", 400, 0, 0x80
+BEGIN
+    CONTROL         "",IDC_DTAILS_TAB,"SysTabControl32",0x0,8,165,369,220
+    LTEXT           "スタティック",IDC_STATIC_FNAME,7,12,160,11
+    CONTROL         "",IDC_LIST_TMPLIST,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,14,64,162,90
+    EDITTEXT        IDC_EDIT_SST,270,31,54,13,ES_CENTER | ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_COMMENT,202,64,153,62,ES_MULTILINE | ES_AUTOVSCROLL | ES_WANTRETURN
+    LTEXT           "Templates List",IDC_STATIC_TLIST,20,53,44,8
+    LTEXT           "Touch Sensor status",IDC_STATIC_TSSTAT,202,33,62,8
+    LTEXT           "Comment",IDC_STATIC_COMMENT,204,53,31,8
+    GROUPBOX        "",IDC_STATIC_CGBOX,7,24,369,139,BS_FLAT,WS_EX_TRANSPARENT
+    PUSHBUTTON      "End",IDC_BUTTON_MAIN,327,388,49,20
+    COMBOBOX        IDC_COMBO_COMPORT,47,31,48,104,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "COM :",IDC_STATIC_FNAME2,21,33,19,8
+    PUSHBUTTON      "SET",IDC_BUTTON_COMSET,135,30,37,15
+    LTEXT           "Firmware Ver.",IDC_STATIC_FWVER,203,131,42,8
+    LTEXT           "Serial Number",IDC_STATIC_SERIAL,203,146,42,8
+    LTEXT           "0123456789",IDC_STATIC_SET_FWVER,253,131,109,8
+    LTEXT           "0123456789",IDC_STATIC_SET_SERIAL,253,146,105,8
+    RTEXT           "[12345/2000]",IDC_STATIC_TEMPS,130,53,47,8
+    CONTROL         "polling",IDC_CHECK_POL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,332,31,37,13
+END
+
+IDD_DIALOG_TAB0 DIALOGEX 0, 0, 368, 200
+STYLE DS_SETFONT | WS_CHILD | WS_BORDER
+EXSTYLE WS_EX_TRANSPARENT
+FONT 9, "MS UI Gothic", 400, 0, 0x80
+BEGIN
+    EDITTEXT        IDC_EDIT_ENROLL_BANK,18,35,96,12,ES_RIGHT | ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_ENROLL_TMPNO,18,61,96,12,ES_RIGHT | ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_COPYBANK,17,113,96,12,ES_RIGHT | ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT_COPYCOUNT,17,141,96,12,ES_RIGHT | ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_DELONE_BANK,187,33,96,12,ES_RIGHT | ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_DELBANK,186,105,96,12,ES_RIGHT | ES_AUTOHSCROLL
+    PUSHBUTTON      "Enroll",IDC_BUTTON_ENROLL,122,53,46,17
+    PUSHBUTTON      "Copy",IDC_BUTTON_COPY,122,138,47,17
+    PUSHBUTTON      "Save",IDC_BUTTON_SAVE,21,169,44,17
+    PUSHBUTTON      "Open",IDC_BUTTON_OPEN,71,169,44,17
+    PUSHBUTTON      "Delete Template",IDC_BUTTON_DELTEMP,292,57,58,17
+    PUSHBUTTON      "Delete bank",IDC_BUTTON_DELBANK,292,101,56,17
+    PUSHBUTTON      "Delete all",IDC_BUTTON_DELALL,292,137,55,17
+    LTEXT           "Bank number（0000h～FFFFh）",IDC_STATIC,21,24,98,8
+    LTEXT           "Template number（00h～63h）",IDC_STATIC,20,51,98,8
+    LTEXT           "The number of banks to be able to copy",IDC_STATIC,17,103,128,8
+    LTEXT           "The number of banks to copy",IDC_STATIC,18,131,94,8
+    GROUPBOX        "Enroll template",IDC_STATIC_ENROLL,10,8,164,75
+    GROUPBOX        "Copy templates of bank ""0000h""",IDC_STATIC_COPYTEMP,10,85,164,77
+    GROUPBOX        "Delete one template",IDC_STATIC_DELETETMP,177,8,177,74
+    LTEXT           "Bank number（0000h～FFFFh）",IDC_STATIC,187,23,98,8
+    LTEXT           "Template number（00h～63h）",IDC_STATIC,187,52,98,8
+    EDITTEXT        IDC_EDIT_DELONE_TEMP,187,62,96,12,ES_RIGHT | ES_AUTOHSCROLL
+    GROUPBOX        "Delete bank",IDC_STATIC_DELETEBANK,177,85,177,41
+    LTEXT           "Bank number（0000h～FFFFh）",IDC_STATIC,186,95,98,8
+    GROUPBOX        "Delete all templates",IDC_STATIC_DELETEALL,177,129,177,33
+END
+
+IDD_DIALOG_TAB1 DIALOGEX 0, 0, 368, 200
+STYLE DS_SETFONT | WS_CHILD | WS_BORDER
+EXSTYLE WS_EX_TRANSPARENT
+FONT 9, "MS UI Gothic", 400, 0, 0x80
+BEGIN
+    EDITTEXT        IDC_EDIT_11VERBANK,19,30,96,12,ES_RIGHT | ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_11VERTEMP,19,56,96,12,ES_RIGHT | ES_AUTOHSCROLL
+    PUSHBUTTON      "1：1\nVerification",IDC_BUTTON_11VERIF,119,47,50,20,BS_MULTILINE
+    LTEXT           "Bank number（0000h～FFFFh）",IDC_STATIC,22,19,98,8
+    LTEXT           "Template number（00h～63h）",IDC_STATIC,21,47,98,8
+    GROUPBOX        "1：1 Verification",IDC_STATIC_11VER,11,8,164,64
+    PUSHBUTTON      "Verification\nwith\ntemplate",IDC_BUTTON_VERIFWT,292,39,58,28,BS_MULTILINE
+    GROUPBOX        "Verification with template",IDC_STATIC_VERTEMP,177,8,177,175
+    LTEXT           "The 1st template",IDC_STATIC,183,20,98,8
+    EDITTEXT        IDC_EDIT_N1BANK,16,98,96,12,ES_RIGHT | ES_AUTOHSCROLL
+    PUSHBUTTON      "1：N\nVerification",IDC_BUTTON_1NVERIF,119,89,50,21,BS_MULTILINE
+    LTEXT           "Bank number（0000h～FFFFh）",IDC_STATIC,20,87,98,8
+    GROUPBOX        "1：N Verification",IDC_STATIC_1NVER,11,76,164,38
+    EDITTEXT        IDC_EDIT_STARTBANK,19,141,96,12,ES_RIGHT | ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_ENDBANK,19,167,96,12,ES_RIGHT | ES_AUTOHSCROLL
+    PUSHBUTTON      "Verification\nacross banks",IDC_BUTTON_VERIF_AB,119,158,52,20,BS_MULTILINE
+    LTEXT           "Start bank number",IDC_STATIC,22,130,98,8
+    LTEXT           "End bank number",IDC_STATIC,21,158,98,8
+    GROUPBOX        "Verification across banks",IDC_STATIC_VERACBANK,11,119,164,64
+    COMBOBOX        IDC_COMB_TEMP1,182,29,96,152,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "The 2nd template",IDC_STATIC,184,48,98,8
+    COMBOBOX        IDC_COMB_TEMP2,182,58,96,135,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "The 3rd template",IDC_STATIC,184,75,98,8
+    COMBOBOX        IDC_COMB_TEMP3,182,84,96,136,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "The 4th template",IDC_STATIC,183,103,98,8
+    COMBOBOX        IDC_COMB_TEMP4,182,114,96,124,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "The 5th template",IDC_STATIC,184,129,98,8
+    COMBOBOX        IDC_COMB_TEMP5,182,139,96,117,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "The 6th template",IDC_STATIC,184,156,98,8
+    COMBOBOX        IDC_COMB_TEMP6,182,166,96,134,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_DIALOG_TAB2 DIALOGEX 0, 0, 368, 200
+STYLE DS_SETFONT | WS_CHILD | WS_BORDER
+EXSTYLE WS_EX_TRANSPARENT
+FONT 9, "MS UI Gothic", 400, 0, 0x80
+BEGIN
+    PUSHBUTTON      "ON",IDC_BUTTON_BUZON,15,36,30,25,WS_GROUP
+    PUSHBUTTON      "OFF",IDC_BUTTON_BUZOFF,47,36,30,25,WS_GROUP
+    PUSHBUTTON      "Low",IDC_BUTTON_SECLOW,192,36,30,25,WS_GROUP
+    PUSHBUTTON      "Mid-Low",IDC_BUTTON_SECMLOW,224,36,30,25,WS_GROUP
+    PUSHBUTTON      "Middle",IDC_BUTTON_SECMID,256,36,30,25,WS_GROUP
+    PUSHBUTTON      "Mid-High",IDC_BUTTON_SECMIDHG,288,36,30,25,WS_GROUP
+    PUSHBUTTON      "High",IDC_BUTTON_SECHIGH,320,36,30,25,WS_GROUP
+    PUSHBUTTON      "Green",IDC_BUTTON_LEDGREEN,15,123,30,25,WS_GROUP
+    PUSHBUTTON      "Red",IDC_BUTTON_LEDRED,47,123,30,25,WS_GROUP
+    PUSHBUTTON      "Green\n+Red",IDC_BUTTON_LEDGR,79,123,30,25,BS_MULTILINE | WS_GROUP
+    PUSHBUTTON      "OFF",IDC_BUTTON_LEDOFF,136,123,30,25,WS_GROUP
+    PUSHBUTTON      "Reset",IDC_BUTTON20,201,123,30,25,NOT WS_VISIBLE
+    GROUPBOX        "Control buzzer",IDC_STATIC_CTRBUZZER,12,17,164,75
+    GROUPBOX        "Control indicator LED",IDC_STATIC_CTRLED,12,96,164,75
+    GROUPBOX        "Set security level",IDC_STATIC_SETSECURITY,189,20,164,75
+    GROUPBOX        "Reset H1E-USB",IDC_STATIC_H1ERESET,189,96,164,75,NOT WS_VISIBLE
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,0
+ PRODUCTVERSION 1,0,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041103a4"
+        BEGIN
+            VALUE "CompanyName", "Hitachi, Ltd."
+            VALUE "FileDescription", "Finger vein HlE‐USB sample application"
+            VALUE "FileVersion", "1.0.0.0"
+            VALUE "InternalName", "H1EUSB_SampleApp.exe"
+            VALUE "LegalCopyright", "Copyright (C) 2011, Hitachi, Ltd."
+            VALUE "LegalTrademarks", "H1E-USB"
+            VALUE "OriginalFilename", "H1E-USB_SampleApp.exe"
+            VALUE "ProductName", "H1E-USB"
+            VALUE "ProductVersion", "01-00"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x411, 932
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_DIALOG_DETAILS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 376
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 408
+    END
+
+    IDD_DIALOG_TAB0, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 361
+        VERTGUIDE, 10
+        VERTGUIDE, 122
+        VERTGUIDE, 292
+        TOPMARGIN, 4
+        BOTTOMMARGIN, 193
+        HORZGUIDE, 186
+    END
+
+    IDD_DIALOG_TAB1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 361
+        VERTGUIDE, 11
+        VERTGUIDE, 119
+        VERTGUIDE, 182
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 193
+    END
+
+    IDD_DIALOG_TAB2, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 361
+        VERTGUIDE, 12
+        VERTGUIDE, 189
+        TOPMARGIN, 6
+        BOTTOMMARGIN, 192
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_ABOUTBOX            "バージョン情報 H1E-USB_SampleApp(&A)..."
+    IDS_COMOPEN             "COM Open Success(%1)"
+    IDS_ERR_COMOPEN         "COM Open Error(%1)"
+    IDS_SEND_TEMPLATES      "Send Templates Command."
+    IDS_SEND_COMPLETE       "Complete!! Send Template Command ."
+    IDS_SEND_INFO           "(Bank:%1!04X!h,Template:%2!02X!h,[%3!4d!/%4!4d!])"
+    IDS_ERR_INFO            "[Error:%1!d!  Detail:%2!08X!h]"
+    IDS_GUIDE_BANK          "Please input a right Bank nummber!"
+    IDS_GUIDE_TEMP          "Please input a right Template nummber!"
+    IDS_GUIDE_COPY          "Please input a right The nummber of banks to Copy!"
+    IDS_NOTEXIST_BANK0000   "Not exist Bank:0000h Template!"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_GUIDE_PLACE_FINGER  "Please place Finger!"
+    IDS_ENROLL_COMPLETE     "Complete!! Enroll Template."
+    IDS_BANKTEMP_INFO       "(Bank:%1!04X!h,Template:%2!02X!h)"
+    IDS_COPY_COMPLETE       "Commplete!! Copy Templates of bank(%1!04X!h)."
+    IDS_DEL_COMPLETE_TEMP   "Commplete!! Delete TempLate"
+    IDS_DEL_COMPLETE_BANK   "Commplete!! Delete TempLate of bank(%1!04X!h)."
+    IDS_DEL_COMPLETE_ALL    "Commplete!! Delete all TempLates."
+    IDS_GUIDE_DELALL        "Start delete all  Templates!!"
+    IDS_SEND_LED            "Send LED Control Command"
+    IDS_SEND_LEDCOMPLETE    "Complete!! Send LED Contorol Command."
+    IDS_LED_GREEN           "(Green)"
+    IDS_LED_RED             "(Red)"
+    IDS_LED_GREENRED        "(Green + Red)"
+    IDS_LED_OFF             "(Off)"
+    IDS_SEND_SEC            "Send Security level Command"
+    IDS_SEC_LOW             "(Low level)"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_SEC_MIDLOW          "(Mid-Low level)"
+    IDS_SEC_MID             "(Middle level)"
+    IDS_SEC_MIDHIGH         "(Mid-High level)"
+    IDS_SEC_HIGH            "(High level)"
+    IDS_SEND_BUZ            "Send Buzzer Contorl Command"
+    IDS_BUZ_ON              "(On)"
+    IDS_BUZ_OFF             "(Off)"
+    IDS_SEND_VERIF          "Send Verification Command"
+    IDS_VERIF_11            "(1:1)"
+    IDS_VERIF_1N            "(1:N)"
+    IDS_VERIF_ACBANK        "(Across Bank)"
+    IDS_VERIF_WTEMP         "(with Template)"
+    IDS_COPY_TEMPFILE       "Copy Template files!"
+    IDS_SEND_HWRESET        "Send Hardware Reset Command"
+    IDS_SEND_SCRAMBLE       "Send Scramble Command"
+    IDS_SEND_DEVINFO        "Send Get Device Infomation Command"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_FW_VERSION          "(Firmware version)"
+    IDS_SER_NUMMBER         "(Serial nummber)"
+    IDS_SND_TSENNOTFY       "Send Touch Sensor Notification Command"
+    IDS_TSENNOTYFY_ENABLE   "(Enable)"
+    IDS_ENROLL_NG           "Failure!! Enroll Template"
+    IDS_SEND_GETTEMP        "Send Get Template Command"
+    IDS_VERIF_SUCCESS       "Verification was successful!!"
+    IDS_VERIF_NG            "Verification was failure."
+    IDS_BANKINFO            "(Bank:%1!04X!h)"
+    IDS_ACROSBKINFO         "(StartBank:%1!04X!h, EndBank:%2!04X!h)"
+    IDS_TEMPFULL            "Failure!! Enroll Template.Templates are full."
+    IDS_SETTING_END         "End application and device setting(%1!s!). "
+    IDS_POLLING_TIMEOUT     "Timeout!!Polling touch sensor."
+    IDS_NON_SELECT          "Please select Bank and Template nummber!"
+    IDS_ERR_GENMSG          "[Error:%1!d!  %2!s!]"
+    IDS_ERR_G_TRANTOUT      "Transaction Error!! (Timeout)"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ERR_G_READFILE      "Read File Error!!(Com port )"
+    IDS_ERR_G_WRITEFILE     "Write File Error!!(Com port )"
+    IDS_ERR_G_RECVDATANON   "Receive data Non!!"
+    IDS_ERR_G_TMPFILE_NOTOPEN "Template file not open!!"
+    IDS_ERR_G_INVALIDRESP   "Received error respons!!"
+    IDS_ERR_G_TEMPNON       "Template file non!!"
+    IDS_ERR_G_TEMPDELETE    "Template file delete error!!"
+    IDS_ERR_G_TEMPCOPY      "Template file copy error!!"
+END
+
+#endif    // 日本語 resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+LANGUAGE 17, 1
+#pragma code_page(932)
+#include "res\H1EUSB_SampleApp.rc2"  // Microsoft Visual C++ 以外で編集されたリソース
+#include "afxres.rc"     // 標準コンポーネント
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
