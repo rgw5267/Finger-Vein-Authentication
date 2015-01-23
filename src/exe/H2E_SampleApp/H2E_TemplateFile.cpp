@@ -1,4 +1,4 @@
-#include "stdafx.h"
+Ôªø#include "stdafx.h" 
 #include "H2E_TemplateFile.h"
 #include <direct.h>
 
@@ -192,8 +192,8 @@ CString CTemplateFile::GetFileName(BOOL bMode)
 
 	CString strDefaultName;
 	if(bMode){
-		//strDefaultName = m_strTenplatePath + _T("\\");			//\Å®XPÇ≈äJÇ©Ç»Ç¢ 2012.02.15
-		strDefaultName = m_strTenplatePath + _T("\\*.tp2");			//*.tp2Ç∆Ç∑ÇÈ 2012.02.15
+		//strDefaultName = m_strTenplatePath + _T("\\");			//\‚ÜíXP„ÅßÈñã„Åã„Å™„ÅÑ 2012.02.15
+		strDefaultName = m_strTenplatePath + _T("\\*.tp2");			//*.tp2„Å®„Åô„Çã 2012.02.15
 	}
 	else{
 		strDefaultName.Format(_T("%s\\H2E%04d%02d%02d_%02d%02d.tp2"), 

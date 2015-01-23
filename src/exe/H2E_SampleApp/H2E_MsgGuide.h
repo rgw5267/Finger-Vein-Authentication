@@ -1,6 +1,6 @@
-#pragma once
+ï»¿#pragma once 
 #include "afx.h"
-#include "resource.h"		// ƒƒCƒ“ ƒVƒ“ƒ{ƒ‹
+#include "resource.h"		// ãƒ¡ã‚¤ãƒ³ ã‚·ãƒ³ãƒœãƒ«
 #include "H2E.h"
 
 //Send Command Message Guidance id.

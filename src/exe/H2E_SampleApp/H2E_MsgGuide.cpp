@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h" 
 #include "H2E_MsgGuide.h"
 
 CMsgGuide::CMsgGuide(void)

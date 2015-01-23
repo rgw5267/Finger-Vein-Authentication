@@ -1,0 +1,29 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
+<TITLE>对象 test 的 ATL 测试页</TITLE>
+</HEAD>
+<BODY>
+
+
+<OBJECT ID="test" CLASSID="CLSID:E3CFA3DD-24FE-43B6-ACE7-58A5513E39A6"></OBJECT>
+    <input type="button" value="OpenCom" onclick="opencom();" />
+
+        <script type="text/javascript">
+            function opencom() {
+                var com = 0;
+                var speed = 0x00000001;
+                var opencom1 = document.getElementById("test");
+                var returnVal = opencom1.OpenCom2(com, speed);
+                if (returnVal == 0) {
+                    alert("OK! COM:  " + (com + 1) + " Opend!");
+                }
+                else {
+                    alert("ErrCode: " + returnVal + " )");
+                }
+
+            }
+    </script>
+
+</BODY>
+</HTML>

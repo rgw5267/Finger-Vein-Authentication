@@ -2,7 +2,7 @@
 #include "afx.h"
 #include "H2E.h"
 
-class CTemplateFile :
+class CTemplateFile : 
 	public CObject
 {
 public:

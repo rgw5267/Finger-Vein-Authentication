@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ generated include file.
-// Used by H2E_SampleApp.rc
+// Microsoft Visual C++ 生成的包含文件。
+// 供 H2E_SampleApp.rc 使用
 //
 #define IDM_ABOUTBOX                    0x0010
 #define IDD_ABOUTBOX                    100
@@ -35,11 +35,11 @@
 #define IDS_LED_GREENRED                125
 #define IDS_LED_OFF                     126
 #define IDS_SEND_SEC                    127
-#define IDR_MAINFRAME                   128
 #define IDS_SEC_LOW                     128
 #define IDD_TUCH_DIALOG                 128
 #define IDS_SEC_MIDLOW                  129
 #define IDS_SEC_MID                     130
+#define IDR_MAINFRAME                   130
 #define IDS_SEC_MIDHIGH                 131
 #define IDS_SEC_HIGH                    132
 #define IDS_SEND_BUZ                    133
@@ -137,7 +137,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        129
+#define _APS_NEXT_RESOURCE_VALUE        131
 #define _APS_NEXT_COMMAND_VALUE         32771
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101

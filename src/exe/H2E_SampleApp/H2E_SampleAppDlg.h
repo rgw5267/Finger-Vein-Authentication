@@ -1,5 +1,5 @@
 // H2E_SampleAppDlg.h : 
-//
+// 
 
 #pragma once
 #include "afxwin.h"
@@ -81,4 +81,9 @@ private:
 	CDlgTuch* m_pDlgTuch;
 	CFont m_ftFName;
 
+public:
+	afx_msg void OnBnClickedTouchOut1();
+	afx_msg void OnCbnSelchangeComboComport();
+	afx_msg void OnStnClickedStaticFname();
+	afx_msg void OnStnClickedStaticTlist();
 };

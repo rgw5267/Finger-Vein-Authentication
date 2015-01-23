@@ -111,3 +111,4 @@ typedef struct _tempInfo
 //Tuch Sensor Status
 #define H2E_TOUCH_OUT1						0x0001		//TUCH_OUT1 line active  
 #define H2E_TOUCH_OUT2						0x0002		//TUCH_OUT2 line active
+ 

@@ -1,95 +1,95 @@
 ================================================================================
-MICROSOFT FOUNDATION CLASS 儔僀僽儔儕: H2E_SampleApp 僾儘僕僃僋僩偺奣梫
+MICROSOFT FOUNDATION CLASS ライブラリ: H2E_SampleApp プロジェクトの概要
 ===============================================================================
 
-傾僾儕働乕僔儑儞 僂傿僓乕僪偑嶌惉偟偨 H2E_SampleApp 偵偼 Microsoft 
-Foundation Class 偺婎杮揑側巊偄曽偑帵偝傟偰偄傑偡丅傾僾儕働乕僔儑儞嶌惉偺傂側宆
-偲偟偰偍巊偄偔偩偝偄丅
+アプリケーション ウィザードが作成した H2E_SampleApp には Microsoft 
+Foundation Class の基本的な使い方が示されています。アプリケーション作成のひな型
+としてお使いください。
 
-偙偺僼傽僀儖偵偼 H2E_SampleApp 傾僾儕働乕僔儑儞傪峔惉偟偰偄傞奺僼傽僀
-儖偺奣梫愢柧偑娷傑傟傑偡丅
+このファイルには H2E_SampleApp アプリケーションを構成している各ファイ
+ルの概要説明が含まれます。
 
 H2E_SampleApp.vcproj
-   偙傟偼傾僾儕働乕僔儑儞 僂傿僓乕僪偱惗惉偝傟偨 VC++ 僾儘僕僃僋僩偺儊僀儞 僾
-   儘僕僃僋僩 僼傽僀儖偱偡丅僼傽僀儖偑惗惉偝傟偨 Visual C++ 偺僶乕僕儑儞忣曬偑
-   娷傑傟偰偄傑偡丅傑偨丄傾僾儕働乕僔儑儞 僂傿僓乕僪偱慖戰偟偨僾儔僢僩僼僅乕
-   儉丄峔惉偍傛傃僾儘僕僃僋僩婡擻偵娭偡傞忣曬傕娷傑傟偰偄傑偡丅
+   これはアプリケーション ウィザードで生成された VC++ プロジェクトのメイン プ
+   ロジェクト ファイルです。ファイルが生成された Visual C++ のバージョン情報が
+   含まれています。また、アプリケーション ウィザードで選択したプラットフォー
+   ム、構成およびプロジェクト機能に関する情報も含まれています。
 
 H2E_SampleApp.h
-   偙傟偼傾僾儕働乕僔儑儞偺儊僀儞 僿僢僟乕 僼傽僀儖偱偡丅偙偺僼傽僀儖偵偼丄
-   Resource.h 傪娷傓丄偦偺懠偺僾儘僕僃僋僩屌桳偺僿僢僟乕偑娷傑傟偰偄偰丄
-   CH2E_SampleAppApp 傾僾儕働乕僔儑儞 僋儔僗傪愰尵偟傑偡丅
+   これはアプリケーションのメイン ヘッダー ファイルです。このファイルには、
+   Resource.h を含む、その他のプロジェクト固有のヘッダーが含まれていて、
+   CH2E_SampleAppApp アプリケーション クラスを宣言します。
 
 H2E_SampleApp.cpp
-   偙傟偼丄傾僾儕働乕僔儑儞 僋儔僗 CH2E_SampleAppApp 傪娷傓儊僀儞 傾僾儕働乕
-   僔儑儞 僜乕僗 僼傽僀儖偱偡丅
+   これは、アプリケーション クラス CH2E_SampleAppApp を含むメイン アプリケー
+   ション ソース ファイルです。
 
 H2E_SampleApp.rc
-   偙傟偼丄僾儘僌儔儉偑巊梡偡傞 Microsoft Windows 偺儕僜乕僗偺堦棗僼傽僀儖偱
-   偡丅偙偺僼傽僀儖偵偼 RES 僒僽僨傿儗僋僩儕偵曐懚偝傟偰偄傞傾僀僐儞丄價僢僩儅
-   僢僾丄僇乕僜儖偑娷傑傟偰偄傑偡丅偙偺僼傽僀儖偼丄Microsoft Visual C++ 偱捈愙
-   曇廤偡傞偙偲偑偱偒傑偡丅僾儘僕僃僋僩 儕僜乕僗偼 1041 偵偁傝傑偡丅
+   これは、プログラムが使用する Microsoft Windows のリソースの一覧ファイルで
+   す。このファイルには RES サブディレクトリに保存されているアイコン、ビットマ
+   ップ、カーソルが含まれています。このファイルは、Microsoft Visual C++ で直接
+   編集することができます。プロジェクト リソースは 1041 にあります。
 
 res\H2E_SampleApp.ico
-   偙傟偼丄傾僾儕働乕僔儑儞偺傾僀僐儞偲偟偰巊梡偝傟傞傾僀僐儞僼傽僀儖偱偡丅偙偺
-   傾僀僐儞偼儊僀儞 儕僜乕僗 僼傽僀儖 H2E_SampleApp.rc 偵娷傑傟偰偄傑
-   偡丅
+   これは、アプリケーションのアイコンとして使用されるアイコンファイルです。この
+   アイコンはメイン リソース ファイル H2E_SampleApp.rc に含まれていま
+   す。
 
 res\H2E_SampleApp.rc2
-   偙偺僼傽僀儖偼 Microsoft Visual C++ 傪巊梡偟側偄偱曇廤偝傟偨儕僜乕僗傪娷傫偱
-   偄傑偡丅儕僜乕僗 僄僨傿僞偱曇廤偱偒側偄儕僜乕僗偼偡傋偰偙偺僼傽僀儖偵擖傟偰
-   偔偩偝偄丅
+   このファイルは Microsoft Visual C++ を使用しないで編集されたリソースを含んで
+   います。リソース エディタで編集できないリソースはすべてこのファイルに入れて
+   ください。
 
 
 /////////////////////////////////////////////////////////////////////////////
 
-傾僾儕働乕僔儑儞 僂傿僓乕僪偼 1 偮偺僟僀傾儘僌 僋儔僗傪嶌惉偟傑偡:
+アプリケーション ウィザードは 1 つのダイアログ クラスを作成します:
 
-H2E_SampleAppDlg.h, H2E_SampleAppDlg.cpp - 僟僀傾儘僌
-   偙傟傜偺僼傽僀儖偼 CH2E_SampleAppDlg 僋儔僗傪娷傒傑偡丅偙偺僋儔僗偼傾僾
-   儕働乕僔儑儞偺儊僀儞 僟僀傾儘僌偺摦嶌傪掕媊偟傑偡丅僟僀傾儘僌 僥儞僾儗乕僩偼
-   Microsoft Visual C++ 偱曇廤壜擻側 H2E_SampleApp.rc 偵娷傑傟傑偡丅
+H2E_SampleAppDlg.h, H2E_SampleAppDlg.cpp - ダイアログ
+   これらのファイルは CH2E_SampleAppDlg クラスを含みます。このクラスはアプ
+   リケーションのメイン ダイアログの動作を定義します。ダイアログ テンプレートは
+   Microsoft Visual C++ で編集可能な H2E_SampleApp.rc に含まれます。
 
-
-/////////////////////////////////////////////////////////////////////////////
-
-偦偺懠偺婡擻:
-
-ActiveX 僐儞僩儘乕儖
-   傾僾儕働乕僔儑儞偼 ActiveX 僐儞僩儘乕儖偺巊梡偵娭偡傞僒億乕僩傪娷傒傑偡丅
 
 /////////////////////////////////////////////////////////////////////////////
 
-偦偺懠偺昗弨僼傽僀儖:
+その他の機能:
+
+ActiveX コントロール
+   アプリケーションは ActiveX コントロールの使用に関するサポートを含みます。
+
+/////////////////////////////////////////////////////////////////////////////
+
+その他の標準ファイル:
 
 StdAfx.h, StdAfx.cpp
-   偙傟傜偺僼傽僀儖偼丄婛偵僐儞僷僀儖偝傟偨僿僢僟乕 僼傽僀儖 (PCH) 
-   H2E_SampleApp.pch 傗婛偵僐儞僷僀儖偝傟偨宆偺僼傽僀儖 StdAfx.obj 傪
-   價儖僪偡傞偨傔偵巊梡偝傟傑偡丅
+   これらのファイルは、既にコンパイルされたヘッダー ファイル (PCH) 
+   H2E_SampleApp.pch や既にコンパイルされた型のファイル StdAfx.obj を
+   ビルドするために使用されます。
 
 Resource.h
-   偙傟偼怴婯儕僜乕僗 ID 傪掕媊偡傞昗弨僿僢僟乕 僼傽僀儖偱偡丅Microsoft 
-   Visual C++ 偼偙偺僼傽僀儖偺撉傒庢傝偲峏怴傪峴偄傑偡丅
+   これは新規リソース ID を定義する標準ヘッダー ファイルです。Microsoft 
+   Visual C++ はこのファイルの読み取りと更新を行います。
 
 H2E_SampleApp.manifest
-   傾僾儕働乕僔儑儞 儅僯僼僃僗僩 僼傽僀儖偼 Windows XP 偱丄Side-by-Side 傾僙儞
-   僽儕偺摿掕偺僶乕僕儑儞偵娭偡傞傾僾儕働乕僔儑儞偺埶懚娭學傪愢柧偡傞偨傔偵巊梡
-   偝傟傑偡丅儘乕僟乕偼偙偺忣曬傪巊梡偟偰丄傾僙儞僽儕 僉儍僢僔儏偐傜揔愗側傾僙
-   儞僽儕傪丄傑偨偼傾僾儕働乕僔儑儞偐傜僾儔僀儀乕僩 傾僙儞僽儕傪撉傒崬傒傑偡丅
-   傾僾儕働乕僔儑儞 儅僯僼僃僗僩偼嵞斝晍梡偵丄幚峴壜擻傾僾儕働乕僔儑儞偲摨偠僼
-   僅儖僟偵僀儞僗僩乕儖偝傟傞奜晹 .manifest 僼傽僀儖偲偟偰娷傑傟偰偄傞偐丄傑偨
-   偼儕僜乕僗偺僼僅乕儉撪偺幚峴壜擻僼傽僀儖偵娷傑傟偰偄傑偡丅
+   アプリケーション マニフェスト ファイルは Windows XP で、Side-by-Side アセン
+   ブリの特定のバージョンに関するアプリケーションの依存関係を説明するために使用
+   されます。ローダーはこの情報を使用して、アセンブリ キャッシュから適切なアセ
+   ンブリを、またはアプリケーションからプライベート アセンブリを読み込みます。
+   アプリケーション マニフェストは再頒布用に、実行可能アプリケーションと同じフ
+   ォルダにインストールされる外部 .manifest ファイルとして含まれているか、また
+   はリソースのフォーム内の実行可能ファイルに含まれています。
 /////////////////////////////////////////////////////////////////////////////
 
-偦偺懠偺拲堄:
+その他の注意:
 
-傾僾儕働乕僔儑儞 僂傿僓乕僪偼 "TODO:" 偱巒傑傞僐儊儞僩傪巊梡偟偰丄捛壛偟偨傝僇
-僗僞儅僀僘偡傞昁梫偑偁傞僜乕僗 僐乕僪偺晹暘傪帵偟傑偡丅
+アプリケーション ウィザードは "TODO:" で始まるコメントを使用して、追加したりカ
+スタマイズする必要があるソース コードの部分を示します。
 
-傾僾儕働乕僔儑儞偑嫟桳 DLL 撪偱 MFC 傪巊梡偡傞応崌偼丄MFC DLL 傪嵞斝晍偡傞昁梫
-偑偁傝傑偡丅傑偨丄傾僾儕働乕僔儑儞偑僆儁儗乕僥傿儞僌 僔僗僥儉偺儘働乕儖埲奜偺尵
-岅傪巊梡偟偰偄傞応崌傕丄懳墳偡傞儘乕僇儔僀僘偝傟偨儕僜乕僗 MFC90XXX.DLL 傪嵞斝
-晍偡傞昁梫偑偁傝傑偡丅偙傟傜偺僩僺僢僋偺徻嵶偵偮偄偰偼丄MSDN 僪僉儏儊儞僩偺 
-Visual C++ 傾僾儕働乕僔儑儞偺嵞斝晍偵娭偡傞僙僋僔儑儞傪嶲徠偟偰偔偩偝偄丅
+アプリケーションが共有 DLL 内で MFC を使用する場合は、MFC DLL を再頒布する必要
+があります。また、アプリケーションがオペレーティング システムのロケール以外の言
+語を使用している場合も、対応するローカライズされたリソース MFC90XXX.DLL を再頒
+布する必要があります。これらのトピックの詳細については、MSDN ドキュメントの 
+Visual C++ アプリケーションの再頒布に関するセクションを参照してください。
 
 /////////////////////////////////////////////////////////////////////////////

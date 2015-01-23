@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h" 
 #include <winioctl.h>
 #include <setupapi.h>
 #include "H2E_Com.h"
@@ -7,7 +7,7 @@ CH2ECom::CH2ECom(void)
 {
 	int i;
 
-	//Initialize H2E interface table
+	//Initialize H2E interface table 
 	int iLoop = sizeof(m_pH2EInterface)/sizeof(CH2EInterface*);
 	for(i=0; i<iLoop; i++)
 	{
@@ -172,11 +172,11 @@ int CH2ECom::SensingLine(LPDWORD pdwTuchStatus)
 		//get modem state.
 		bReturn = GetCommModemStatus(m_hCom, &dwModemStatus);
 		if(bReturn){
-			if(dwModemStatus & MS_RLSD_ON){
+			if(dwModemStatus & MS_RLSD_ON){//MS_RLSD_ON
 				//TUCH_OUT1 active
 				dwTStatus |= H2E_TOUCH_OUT1;
 			}
-			if(dwModemStatus & MS_RING_ON){
+			if(dwModemStatus & MS_RING_ON){//MS_RING_ON
 				//TUCH_OUT2 active
 				dwTStatus |= H2E_TOUCH_OUT2;
 			}

@@ -1,0 +1,11 @@
+HKCR
+{
+	NoRemove AppID
+	{
+		'%APPID%' = s 'MFCActiveXControltest'
+				'MFCActiveXControltest.DLL'
+				{
+			val AppID = s '%APPID%'
+		}
+	}
+}

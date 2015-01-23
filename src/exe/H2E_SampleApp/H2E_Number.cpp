@@ -1,4 +1,4 @@
-#include "H2E_Number.h"
+﻿#include "H2E_Number.h" 
 
 CNumber::CNumber(void)
 {

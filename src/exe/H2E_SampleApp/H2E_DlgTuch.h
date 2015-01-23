@@ -1,25 +1,25 @@
-#pragma once
+Ôªø#pragma once 
 #include "afxwin.h"
 #include "H2E.h"
 
-// CDlgTuch É_ÉCÉAÉçÉO
+// CDlgTuch „ÉÄ„Ç§„Ç¢„É≠„Ç∞
 
 class CDlgTuch : public CDialog
 {
 	DECLARE_DYNAMIC(CDlgTuch)
 
 public:
-	CDlgTuch(CWnd* pParent = NULL);   // ïWèÄÉRÉìÉXÉgÉâÉNÉ^
+	CDlgTuch(CWnd* pParent = NULL);   // Ê®ôÊ∫ñ„Ç≥„É≥„Çπ„Éà„É©„ÇØ„Çø
 	virtual ~CDlgTuch();
 
 	void SetTuchState(DWORD dwState);
 	CStatic m_stTuch2;
 
-// É_ÉCÉAÉçÉO ÉfÅ[É^
+// „ÉÄ„Ç§„Ç¢„É≠„Ç∞ „Éá„Éº„Çø
 	enum { IDD = IDD_TUCH_DIALOG };
 
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV ÉTÉ|Å[Ég
+	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV „Çµ„Éù„Éº„Éà
 
 	DECLARE_MESSAGE_MAP()
 private:

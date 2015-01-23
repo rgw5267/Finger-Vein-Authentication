@@ -1,4 +1,4 @@
-// H2E_SampleAppDlg.cpp : �����t�@�C��
+﻿// H2E_SampleAppDlg.cpp : 実装ファイル 
 //
 
 #include "stdafx.h"
@@ -90,6 +90,7 @@ BEGIN_MESSAGE_MAP(CH2E_SampleAppDlg, CDialog)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_LIST_TMPLIST, &CH2E_SampleAppDlg::OnLvnItemchangedListTmplist)
 	ON_BN_CLICKED(IDC_BUTTON_1NVERIF, &CH2E_SampleAppDlg::OnBnClickedButton1nverif)
 	ON_EN_CHANGE(IDC_EDIT_ENROLL_BANK, &CH2E_SampleAppDlg::OnEnChangeEditEnrollBank)
+	ON_BN_CLICKED(IDC_TOUCH_OUT1, &CH2E_SampleAppDlg::OnBnClickedTouchOut1)
 END_MESSAGE_MAP()
 
 
@@ -208,8 +209,8 @@ void CH2E_SampleAppDlg::initDialogControl()
 	initTemplateListControl();
 
 	//Set tuch sensor default polling line.
-	m_btnCheckTuchOut1.SetCheck(TRUE);
-	m_btnCheckTuchOut2.SetCheck(TRUE);
+	m_btnCheckTuchOut1.SetCheck(FALSE);
+	m_btnCheckTuchOut2.SetCheck(FALSE);
 
 }
 
@@ -270,7 +271,7 @@ int CH2E_SampleAppDlg::formatTemplateListControl()
 {
     LVCOLUMN    lvc;
     int         i;
-	TCHAR*      caption[] = {_T("Group"), _T("Template"), _T("QLev.") ,_T("Time")};
+	TCHAR*      caption[] = {_T("组号"), _T("模板号"), _T("质量") ,_T("日期")};
 	int			iWidth[] = {50,50,50,120};
 	CListCtrl* pLCtrl = (CListCtrl*)GetDlgItem(IDC_LIST_TMPLIST) ;
     const int   clmNum = sizeof caption /sizeof(TCHAR*) ;
@@ -477,7 +478,7 @@ void CH2E_SampleAppDlg::OnBnClickedButtonComopen()
 	}
 
 	//COM port open
-	iReturn = m_pH2ECom->Open(strComName, uiSpeed, &dwError);
+	iReturn = m_pH2ECom->Open(strComName, uiSpeed, &dwError);	//打开串口
 	if(iReturn != H2E_OK){
 		strComment.FormatMessage(IDS_ERR_COMOPEN, strComName);
 		SetComment(H2E_COMMENT_PLUS, strComment, dwError);
@@ -578,16 +579,19 @@ void CH2E_SampleAppDlg::OnBnClickedButtonEnroll()
 	OpenTuchSensorPanel();
 
 	int i;
-	for(i=0; i<2; i++){
+	for(i=0; i<2; i++)
+	{
 		//Display "place finger message"
 		strMessage = msgGuide.GuidePlaceFingerFormatMessage(TRUE, i+1, 2);
 		SetComment(H2E_COMMENT_NON, strMessage, 0);
 
 		//Wait Tuch Sensor State!
 		iReturn = WaitTuchSensorState();
-		if(iReturn != H2E_OK){
+		if(iReturn != H2E_OK)
+		{
 			//Polling timeout!!
-			if(i > 0){
+			if(i > 0)
+			{
 				//Do dummy enroll opelation.
 				enrollOpelation(uiGroup, uiTemp, 1, TRUE);
 			}
@@ -599,7 +603,8 @@ void CH2E_SampleAppDlg::OnBnClickedButtonEnroll()
 
 		//Enroll sequence
 		iReturn = enrollOpelation(uiGroup, uiTemp, i, FALSE);
-		if(iReturn < H2E_OK){
+		if(iReturn < H2E_OK)
+		{
 			strMessage = msgGuide.EnrollNGMessage();
 			SetComment(H2E_COMMENT_ADD, strMessage, 0);
 			break;
@@ -750,7 +755,9 @@ void CH2E_SampleAppDlg::OnBnClickedButton11verif()
 		SetComment(H2E_COMMENT_ADD, strMessage, 0);
 		return;
 	}
-
+	GeneralTransaction
+		(H2E_COM_PASS_DRVER_CAN, 0x00, 0x0000, 2, MSGGUID_SEND_PASS_DRIVER, H2E_COMMENT_UOP);
+		
 	//Display "Commplete" message
 	strMessage.FormatMessage(IDS_VERIF_COMPLETE);
 	strWork.FormatMessage(IDS_VERIF_INFO, uiBank, uiTemp, m_pH2ECom->m_byVerifLevel);
@@ -811,7 +818,9 @@ void CH2E_SampleAppDlg::OnBnClickedButton1nverif()
 		SetComment(H2E_COMMENT_ADD, strMessage, 0);
 		return;
 	}
-
+	GeneralTransaction
+		(H2E_COM_PASS_DRVER_CAN, 0x00, 0x0000, 2, MSGGUID_SEND_PASS_DRIVER, H2E_COMMENT_UOP);
+		
 	//Display "Commplete" message
 	strMessage.FormatMessage(IDS_VERIF_COMPLETE);
 	strWork.FormatMessage(IDS_VERIF_INFO, uiBank, m_pH2ECom->m_wVerifTemp, m_pH2ECom->m_byVerifLevel);
@@ -902,8 +911,11 @@ void CH2E_SampleAppDlg::OnBnClickedButtonVerifAb()
 			return;
 		}
 
+		//iReturn = GeneralTransaction
+		//	(H2E_COM_VER_G_1TON, 0x80, pwOption, (WORD)(sizeof(WORD)*dwCounts), MSGGUID_SEND_VERIF_1N_GROUP, H2E_COMMENT_UOP);
 		iReturn = GeneralTransaction
-					(H2E_COM_VER_G_1TON, 0x80, pwOption, (WORD)(sizeof(WORD)*dwCounts), MSGGUID_SEND_VERIF_1N_GROUP, H2E_COMMENT_UOP);
+			(H2E_COM_VER_1TON, 0x80, NULL, 0, MSGGUID_SEND_VERIF_1N_ALL, H2E_COMMENT_UOP);
+		
 		if(pwOption){
 			delete[] pwOption;
 		}
@@ -911,6 +923,9 @@ void CH2E_SampleAppDlg::OnBnClickedButtonVerifAb()
 		CloseTuchSensorPanel();
 
 		if(iReturn == H2E_OK){
+			GeneralTransaction
+			(H2E_COM_PASS_DRVER_CAN, 0x00, 0x0000, 2, MSGGUID_SEND_PASS_DRIVER, H2E_COMMENT_UOP);
+		
 			strMessage.FormatMessage(IDS_VERIF_COMPLETE);
 			strWork.FormatMessage(IDS_VERIF_INFO, m_pH2ECom->m_wVerifGroup, m_pH2ECom->m_wVerifTemp, m_pH2ECom->m_byVerifLevel);
 			strMessage += strWork;
@@ -934,8 +949,8 @@ void CH2E_SampleAppDlg::OnBnClickedButtonUpload()
 	CString strMessage;
 	CString strWork;
 
-	DWORD dwTemplates;
-	PTEMPLIST pTempLateList;
+	DWORD dwTemplates;			//模板总数
+	PTEMPLIST pTempLateList;	//模板详细信息
 
 	//Get Template infomation.
 	m_pTemplateFile->GetTemplateLists(&dwTemplates, &pTempLateList);
@@ -1307,7 +1322,7 @@ int CH2E_SampleAppDlg::GeneralTransaction(UINT uiTransID, BYTE byParam, LPVOID p
 		}
 	}
 	if(iReturn < H2E_OK){
-		strMessage.Format(_T("Error:%d[From device:%02xh]"), iReturn, m_pH2ECom->m_DevErrCode);
+		strMessage.Format(_T("错误号:%d[设备错误号:%02xh]"), iReturn, m_pH2ECom->m_DevErrCode);
 		SetComment(H2E_COMMENT_ADD, strMessage, 0);
 	}
 	EnabeleControl(NULL, TRUE);
@@ -1364,7 +1379,7 @@ void CH2E_SampleAppDlg::SetComment(DWORD dwMode, LPCTSTR pMessage, DWORD dwError
 
 	CEdit *pEdit = (CEdit *)GetDlgItem(IDC_EDIT_COMMENT);
 	strComment	= pMessage;
-	strErr.Format(_T("[Error=%08Xh]"),dwError);
+	strErr.Format(_T("[错误号=%08Xh]"),dwError);
 	strWork.Empty();
 	if(dwMode&H2E_COMMENT_ADD){
 		pEdit->GetWindowText(strWork);
@@ -1665,4 +1680,10 @@ void CH2E_SampleAppDlg::DoEvents()
 			return;
 		}
 	}
+}
+
+
+void CH2E_SampleAppDlg::OnBnClickedTouchOut1()
+{
+	// TODO: 在此添加控件通知处理程序代码
 }

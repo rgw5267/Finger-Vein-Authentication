@@ -1,0 +1,82 @@
+// MFCActiveXControltest.idl : ActiveX 控件项目的类型库源。
+
+// 此文件将由 MIDL 编译器工具处理以
+// 产生类型库(MFCActiveXControltest.tlb)，该类型库将成为
+// MFCActiveXControltest.ocx.
+
+#include <olectl.h>
+#include <idispids.h>
+
+import "ocidl.idl";
+import "oaidl.idl";
+[
+	object,
+	uuid(4DD03953-0BE0-4022-BA39-5800C6CA75B1),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface Itest : IDispatch{
+	[id(1)] HRESULT OpenCom([in] int nIdx);
+	[id(2)] HRESULT OpenCom2([in] int nIdx, UINT uiSpeed, [out,retval] ULONG* retval);
+};
+
+[ uuid(F29C2F06-70EC-4831-86C0-7AC82DF2D10D), version(1.0),
+  control ]
+library MFCActiveXControltestLib
+{
+	importlib(STDOLE_TLB);
+
+	//  CMFCActiveXControltestCtrl 的主调度接口
+	[ 
+		uuid(18D04B97-826C-4467-B165-BB6462162E8D)	
+	]
+	dispinterface _DMFCActiveXControltest
+	{
+		properties:
+		methods:
+
+			[id(DISPID_ABOUTBOX)] void AboutBox();
+	};
+
+	//  CMFCActiveXControltestCtrl 的事件调度接口
+
+	[ 
+		uuid(E310A839-E33B-4FD9-A05D-BC250DE64198)	
+	]
+	dispinterface _DMFCActiveXControltestEvents
+	{
+		properties:
+			//  事件接口没有任何属性
+
+		methods:
+	};
+
+	//  CMFCActiveXControltestCtrl 的类信息
+	[
+		uuid(2FB8CA42-B918-4454-9A75-5B0B78743FA4)
+	]
+	coclass MFCActiveXControltest
+	{
+		[default] dispinterface _DMFCActiveXControltest;
+		[default, source] dispinterface _DMFCActiveXControltestEvents;
+	};
+
+	[
+		uuid(27226375-53B7-42AB-B3C8-2FBC0B8E97C7)		
+	]
+	dispinterface _ItestEvents
+	{
+		properties:
+		methods:
+	};
+	[
+		uuid(E3CFA3DD-24FE-43B6-ACE7-58A5513E39A6),		
+		control
+	]
+	coclass test
+	{
+		[default] interface Itest;
+		[default, source] dispinterface _ItestEvents;
+	};
+};

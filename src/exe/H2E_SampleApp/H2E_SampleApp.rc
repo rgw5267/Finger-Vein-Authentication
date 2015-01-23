@@ -16,13 +16,11 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// 擔杮岅 resources
+// 日语(日本) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
-#ifdef _WIN32
 LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
 #pragma code_page(932)
-#endif //_WIN32
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -54,23 +52,24 @@ BEGIN
     "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)\r\n"
     "LANGUAGE 17, 1\r\n"
     "#pragma code_page(932)\r\n"
-    "#include ""res\\H2E_SampleApp.rc2""  // Microsoft Visual C++ 埲奜偱曇廤偝傟偨儕僜乕僗\r\n"
-    "#include ""l.JPN\\afxres.rc""      // 昗弨僐儞億乕僱儞僩\r\n"
+    "#include ""res\\H2E_SampleApp.rc2""  // Microsoft Visual C++ ????????????\r\n"
+    "#include ""l.JPN\\afxres.rc""      // ?????????\r\n"
     "#endif\r\n"
     "\0"
 END
 
 #endif    // APSTUDIO_INVOKED
 
+#endif    // 日语(日本) resources
+/////////////////////////////////////////////////////////////////////////////
+
 
 /////////////////////////////////////////////////////////////////////////////
-//
-// Icon
-//
+// 非特定语言(默认值) resources
 
-// Icon with lowest ID value placed first to ensure application icon
-// remains consistent on all systems.
-IDR_MAINFRAME           ICON                    "res\\H2E_SampleApp.ico"
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEUD)
+LANGUAGE LANG_NEUTRAL, SUBLANG_DEFAULT
+#pragma code_page(936)
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -78,82 +77,82 @@ IDR_MAINFRAME           ICON                    "res\\H2E_SampleApp.ico"
 //
 
 IDD_ABOUTBOX DIALOGEX 0, 0, 170, 62
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "僶乕僕儑儞忣曬 H2E_SampleApp"
-FONT 9, "MS UI Gothic", 0, 0, 0x1
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "微澜手指静脉识别"
+FONT 9, "宋体", 400, 0, 0x0
 BEGIN
-    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,21,20
-    LTEXT           "H2E_SampleApp, Version 1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
-    LTEXT           "Copyright (C) 2012",IDC_STATIC,42,26,114,8
-    DEFPUSHBUTTON   "OK",IDOK,113,41,50,14,WS_GROUP
+    ICON            128,IDC_STATIC,14,14,21,21
+    LTEXT           "微澜手指静脉识别, 版本 1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2014",IDC_STATIC,42,26,114,8
+    DEFPUSHBUTTON   "确定",IDOK,113,41,50,14,WS_GROUP
 END
 
 IDD_H2E_SAMPLEAPP_DIALOG DIALOGEX 0, 0, 391, 459
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION
 EXSTYLE WS_EX_APPWINDOW
-CAPTION "H2E_SampleApp"
-FONT 9, "MS UI Gothic", 0, 0, 0x1
+CAPTION "微澜手指静脉识别"
+FONT 9, "宋体", 400, 0, 0x0
 BEGIN
-    LTEXT           "僗僞僥傿僢僋",IDC_STATIC_FNAME,7,9,160,11
+    LTEXT           "微澜手指静脉识别",IDC_STATIC_FNAME,7,8,160,11
     CONTROL         "",IDC_LIST_TMPLIST,"SysListView32",LVS_REPORT | LVS_SORTASCENDING | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,14,62,162,90
     EDITTEXT        IDC_EDIT_COMMENT,202,63,153,62,ES_MULTILINE | ES_AUTOVSCROLL | ES_WANTRETURN | WS_VSCROLL
-    LTEXT           "Templates List",IDC_STATIC_TLIST,20,52,44,8
-    LTEXT           "Comment",IDC_STATIC_COMMENT,204,53,31,8
+    LTEXT           "指静脉模板列表",IDC_STATIC_TLIST,20,52,44,8
+    LTEXT           "结果",IDC_STATIC_COMMENT,204,53,31,8
     GROUPBOX        "",IDC_STATIC_CGBOX,7,21,369,139,BS_FLAT,WS_EX_TRANSPARENT
-    PUSHBUTTON      "End",IDC_BUTTON_END,335,433,49,20
+    PUSHBUTTON      "关闭",IDC_BUTTON_END,335,433,49,20
     COMBOBOX        IDC_COMBO_COMPORT,34,29,41,104,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "COM :",IDC_STATIC_FNAME2,12,31,19,8
-    PUSHBUTTON      "Open",IDC_BUTTON_COMOPEN,157,28,37,21
-    LTEXT           "Firmware Ver.",IDC_STATIC_FWVER,203,129,42,8
-    LTEXT           "Serial Number",IDC_STATIC_SERIAL,203,143,42,8
+    PUSHBUTTON      "打开",IDC_BUTTON_COMOPEN,157,28,37,21
+    LTEXT           "固件版本",IDC_STATIC_FWVER,203,129,42,8
+    LTEXT           "序列号",IDC_STATIC_SERIAL,203,143,42,8
     LTEXT           "0123456789",IDC_STATIC_SET_FWVER,253,129,109,8
     LTEXT           "0123456789",IDC_STATIC_SET_SERIAL,253,143,105,8
-    LTEXT           "[12345]",IDC_STATIC_TEMPS,148,52,23,8
+    LTEXT           "[12345]",IDC_STATIC_TEMPS,140,52,31,8
     EDITTEXT        IDC_EDIT_11VERBANK,24,270,96,12,ES_RIGHT | ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT_11VERTEMP,24,296,96,12,ES_RIGHT | ES_AUTOHSCROLL
-    PUSHBUTTON      "1丗1\nVerification",IDC_BUTTON_11VERIF,127,287,52,24,BS_MULTILINE
-    LTEXT           "Group number乮0000h乣7FFFh乯",IDC_STATIC,27,259,98,8
-    LTEXT           "Template number(0000h乣FFFFh)",IDC_STATIC,26,286,98,8
-    GROUPBOX        "1丗1 Verification",IDC_STATIC_11VER,17,249,164,64
+    PUSHBUTTON      "1：1\n认证",IDC_BUTTON_11VERIF,127,287,52,24,BS_MULTILINE
+    LTEXT           "组号（0000h～7FFFh）",IDC_STATIC,27,259,98,8
+    LTEXT           "模板号(0000h～FFFFh)",IDC_STATIC,26,286,98,8
+    GROUPBOX        "1：1 认证",IDC_STATIC_11VER,17,249,164,64
     EDITTEXT        IDC_EDIT_N1BANK,21,335,96,12,ES_RIGHT | ES_AUTOHSCROLL
-    PUSHBUTTON      "1丗N\nVerification",IDC_BUTTON_1NVERIF,127,323,52,24,BS_MULTILINE
-    LTEXT           "Group number乮0000h乣7FFFh乯",IDC_STATIC,25,324,98,8
-    GROUPBOX        "1丗N Verification",IDC_STATIC_1NVER,16,314,164,38
+    PUSHBUTTON      "1：N\n认证",IDC_BUTTON_1NVERIF,127,323,52,24,BS_MULTILINE
+    LTEXT           "组号（0000h～7FFFh）",IDC_STATIC,25,324,98,8
+    GROUPBOX        "1：N 认证",IDC_STATIC_1NVER,16,314,164,38
     EDITTEXT        IDC_EDIT_STARTBANK,24,376,96,12,ES_RIGHT | ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT_ENDBANK,24,402,96,12,ES_RIGHT | ES_AUTOHSCROLL
-    PUSHBUTTON      "Verification\nacross group",IDC_BUTTON_VERIF_AB,126,389,52,24,BS_MULTILINE
-    LTEXT           "Start Group number",IDC_STATIC,27,365,98,8
-    LTEXT           "End Group number",IDC_STATIC,26,391,98,8
-    GROUPBOX        "Verification across banks",IDC_STATIC_VERACBANK,16,354,164,64
+    PUSHBUTTON      "跨组认证",IDC_BUTTON_VERIF_AB,126,389,52,24,BS_MULTILINE
+    LTEXT           "起始组号",IDC_STATIC,27,365,98,8
+    LTEXT           "结束组号",IDC_STATIC,26,391,98,8
+    GROUPBOX        "跨组认证",IDC_STATIC_VERACBANK,16,354,164,64
     EDITTEXT        IDC_EDIT_DELONE_BANK,200,248,96,12,ES_RIGHT | ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT_DELBANK,199,320,96,12,ES_RIGHT | ES_AUTOHSCROLL
-    PUSHBUTTON      "Delete Template",IDC_BUTTON_DELTEMP,305,272,58,17
-    PUSHBUTTON      "Delete group",IDC_BUTTON_DELGROUP,306,316,56,17
-    PUSHBUTTON      "Delete all",IDC_BUTTON_DELALL,306,352,55,17
-    GROUPBOX        "Delete one template",IDC_STATIC_DELETETMP,190,223,177,74
-    LTEXT           "Group number乮0000h乣7FFFh乯",IDC_STATIC,200,238,98,8
-    LTEXT           "Template number(0000h乣7FFFh)",IDC_STATIC,200,267,102,8
+    PUSHBUTTON      "删除模板",IDC_BUTTON_DELTEMP,305,272,58,17
+    PUSHBUTTON      "删除组",IDC_BUTTON_DELGROUP,306,316,56,17
+    PUSHBUTTON      "删除所有模板",IDC_BUTTON_DELALL,306,352,55,17
+    GROUPBOX        "删除模板",IDC_STATIC_DELETETMP,190,223,177,74
+    LTEXT           "组号（0000h～7FFFh）",IDC_STATIC,200,238,98,8
+    LTEXT           "模板号(0000h～7FFFh)",IDC_STATIC,200,267,102,8
     EDITTEXT        IDC_EDIT_DELONE_TEMP,200,277,96,12,ES_RIGHT | ES_AUTOHSCROLL
-    GROUPBOX        "Delete group",IDC_STATIC_DELETEBANK,190,300,177,41
-    LTEXT           "Group number乮0000h乣7FFFh乯",IDC_STATIC,199,310,98,8
-    GROUPBOX        "Delete all templates",IDC_STATIC_DELETEALL,190,344,177,33
-    PUSHBUTTON      "Download\r\n(PC佀H2E)",IDC_BUTTON_DOWNLOAD,286,183,55,30,BS_MULTILINE
-    GROUPBOX        "Upload/Download Template",IDC_STATIC_DELETEALL2,190,172,177,47
-    PUSHBUTTON      "Check",IDC_BUTTON_CHECK,306,389,55,17
-    GROUPBOX        "Quality level check",IDC_STATIC_DELETEALL3,190,381,177,33
+    GROUPBOX        "删除组",IDC_STATIC_DELETEBANK,190,300,177,41
+    LTEXT           "组号（0000h～7FFFh）",IDC_STATIC,199,310,98,8
+    GROUPBOX        "删除所有模板",IDC_STATIC_DELETEALL,190,344,177,33
+    PUSHBUTTON      "下载\r\n(PC?H2E)",IDC_BUTTON_DOWNLOAD,286,183,55,30,BS_MULTILINE
+    GROUPBOX        "上传/下载 模板",IDC_STATIC_DELETEALL2,190,172,177,47
+    PUSHBUTTON      "Check",IDC_BUTTON_CHECK,306,389,55,17,NOT WS_VISIBLE
+    GROUPBOX        "Quality level check",IDC_STATIC_DELETEALL3,190,381,177,33,NOT WS_VISIBLE
     GROUPBOX        "",IDC_STATIC_CGBOX2,7,162,369,266,BS_FLAT,WS_EX_TRANSPARENT
-    PUSHBUTTON      "Upload\r\n(H2E佀PC)",IDC_BUTTON_UPLOAD,212,183,55,30,BS_MULTILINE
+    PUSHBUTTON      "上传\r\n(H2E?PC)",IDC_BUTTON_UPLOAD,212,183,55,30,BS_MULTILINE
     EDITTEXT        IDC_EDIT_ENROLL_BANK,25,199,96,12,ES_RIGHT | ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT_ENROLL_TMPNO,25,225,96,12,ES_RIGHT | ES_AUTOHSCROLL
-    PUSHBUTTON      "Enroll",IDC_BUTTON_ENROLL,129,217,49,24
-    LTEXT           "Group number乮0000h乣7FFFh乯",IDC_STATIC,28,188,98,8
-    LTEXT           "Template number乮0000h乣FFFFh乯",IDC_STATIC,27,215,102,8
-    GROUPBOX        "Enroll template",IDC_STATIC_ENROLL,17,172,164,75
+    PUSHBUTTON      "采集",IDC_BUTTON_ENROLL,129,217,49,24
+    LTEXT           "组号（0000h～7FFFh）",IDC_STATIC,28,188,98,8
+    LTEXT           "模板号（0000h～FFFFh）",IDC_STATIC,27,215,102,8
+    GROUPBOX        "采集指静脉模板",IDC_STATIC_ENROLL,17,172,164,75
     LTEXT           "Speed :",IDC_STATIC_FNAME3,82,31,22,8
     COMBOBOX        IDC_COMBO_SPEED,107,29,43,104,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    CONTROL         "TOUCH_OUT1",IDC_TOUCH_OUT1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,293,26,54,14
-    CONTROL         "TOUCH_OUT2",IDC_TOUCH_OUT2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,293,38,54,14
-    LTEXT           "Polling Line :",IDC_STATIC_FNAME4,248,33,40,8
+    CONTROL         "TOUCH_OUT1",IDC_TOUCH_OUT1,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,293,26,54,14
+    CONTROL         "TOUCH_OUT2",IDC_TOUCH_OUT2,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,293,38,54,14
+    LTEXT           "Polling Line :",IDC_STATIC_FNAME4,248,33,40,8,NOT WS_VISIBLE
 END
 
 IDD_TUCH_DIALOG DIALOGEX 0, 0, 74, 94
@@ -188,21 +187,17 @@ VS_VERSION_INFO VERSIONINFO
 BEGIN
     BLOCK "StringFileInfo"
     BEGIN
-        BLOCK "041103a4"
+        BLOCK "000403a4"
         BEGIN
-            VALUE "CompanyName", "TODO: <夛幮柤>"
-            VALUE "FileDescription", "TODO: <僼傽僀儖偺愢柧>"
+            VALUE "CompanyName", "微澜手指静脉识别"
             VALUE "FileVersion", "1.0.0.1"
-            VALUE "InternalName", "H2E_SampleApp.exe"
-            VALUE "LegalCopyright", "TODO: (C) <夛幮柤>.  All rights reserved."
-            VALUE "OriginalFilename", "H2E_SampleApp.exe"
-            VALUE "ProductName", "TODO: <惢昳柤>"
+            VALUE "ProductName", "微澜手指静脉识别"
             VALUE "ProductVersion", "1.0.0.1"
         END
     END
     BLOCK "VarFileInfo"
     BEGIN
-        VALUE "Translation", 0x411, 932
+        VALUE "Translation", 0x4, 932
     END
 END
 
@@ -213,7 +208,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_ABOUTBOX, DIALOG
     BEGIN
@@ -227,7 +222,7 @@ BEGIN
     BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 384
-        TOPMARGIN, 7
+        TOPMARGIN, 8
         BOTTOMMARGIN, 452
     END
 
@@ -244,79 +239,88 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\favicon.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // String Table
 //
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
-    IDS_ABOUTBOX            "僶乕僕儑儞忣曬 H2E_SampleApp(&A)..."
-    IDS_ABOUTBOX2           "僶乕僕儑儞忣曬 H2E_SampleApp(&A)..."
-    IDS_COMOPEN             "COM Open Success(%1)"
-    IDS_ERR_COMOPEN         "COM Open Error(%1)"
-    IDS_SEND_TEMPLATES      "Send Templates Command."
-    IDS_SEND_COMPLETE       "Complete!! Send Template Command ."
-    IDS_SEND_INFO           "(Group:%1!04X!h,Template:%2!04X!h,[%3!4d!/%4!4d!])"
-    IDS_ERR_INFO            "[Error:%1!d!  Detail:%2!08X!h]"
-    IDS_GUIDE_BANK          "Please input a right Group nummber!"
-    IDS_GUIDE_TEMP          "Please input a right Template nummber!"
-    IDS_APP_NAME            "H2E sample aplication"
+    IDS_ABOUTBOX            "微澜手指静脉识别(&A)..."
+    IDS_ABOUTBOX2           "微澜手指静脉识别(&A)..."
+    IDS_COMOPEN             "串口打开成功(%1)"
+    IDS_ERR_COMOPEN         "串口打开失败(%1)"
+    IDS_SEND_TEMPLATES      "发送模板命令."
+    IDS_SEND_COMPLETE       "完成!! 发送模板命令 ."
+    IDS_SEND_INFO           "(组号:%1!04X!h,模板号:%2!04X!h,[%3!4d!/%4!4d!])"
+    IDS_ERR_INFO            "[错误:%1!d!  详细:%2!08X!h]"
+    IDS_GUIDE_BANK          "请输入一个正确的组号!"
+    IDS_GUIDE_TEMP          "请输入一个正确的模板号!"
+    IDS_APP_NAME            "微澜手指静脉识别"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
-    IDS_SETTING_END         "End application and device setting(%1!s!). "
-    IDS_GUIDE_PLACE_FINGER  "Please place Finger!"
-    IDS_ENROLL_COMPLETE     "Complete!! Enroll Template."
-    IDS_GROUPTEMP_INFO      "(Group:%1!04X!h,Template:%2!04X!h, Qlevel:%3!d!)"
-    IDS_DEL_COMPLETE_TEMP   "Complete!! Delete TempLate"
-    IDS_DEL_COMPLETE_BANK   "Complete!! Delete TempLate of Group(%1!04X!h)"
-    IDS_DEL_COMPLETE_ALL    "Complete!! Delete all TempLates."
-    IDS_GUIDE_DELALL        "Start delete all  Templates!!"
+    IDS_SETTING_END         "结束程序和设备设置(%1!s!). "
+    IDS_GUIDE_PLACE_FINGER  "请放上手指!"
+    IDS_ENROLL_COMPLETE     "完成!! 采集指静脉模板."
+    IDS_GROUPTEMP_INFO      "(组号:%1!04X!h,模板号:%2!04X!h, 质量:%3!d!)"
+    IDS_DEL_COMPLETE_TEMP   "完成!! 删除模板"
+    IDS_DEL_COMPLETE_BANK   "完成!! 删除组(%1!04X!h)"
+    IDS_DEL_COMPLETE_ALL    "完成!! 删除所有模板."
+    IDS_GUIDE_DELALL        "开始删除所有模板!!"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
-    IDS_SEND_VERIF          "Send Verification Command"
+    IDS_SEND_VERIF          "发送认证命令"
     IDS_VERIF_11            "(1:1)"
     IDS_VERIF_1N            "(1:N)"
-    IDS_VERIF_ACBANK        "(Across Bank)"
-    IDS_VERIF_WTEMP         "(with Template)"
-    IDS_SEND_GETDEVINFO     "Send Get Device Infomation Command"
+    IDS_VERIF_ACBANK        "(跨组)"
+    IDS_VERIF_WTEMP         "(和模板)"
+    IDS_SEND_GETDEVINFO     "发送获取设备信息命令"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
-    IDS_SEND_ENROLL         "Send Enroll Command!!"
-    IDS_SEND_DELTEMP        "Send Delete Template Command!!"
-    IDS_SEND_GDELTEMP       "Send Delete Group Template Command"
-    IDS_SEND_DELALLTMP      "Send Delete All Template Command"
-    IDS_GUIDE_RELEASE_FINGER "Please release finger!"
-    IDS_SUBID_FVERSION      "(Firmwar version)"
-    IDS_SUBID_SERIAL        "(Serial nummber)"
-    IDS_SEND_GETTEMP_INFO   "Send Get Template Infomation Command"
-    IDS_VERIF_COMPLETE      "Complete!!Verification"
-    IDS_VERIF_INFO          "(Group:%1!04X!h,Template:%2!04X!h, Vlevel:%3!d!)"
-    IDS_DEL_INFO            "(Group:%1!04X!h,Template:%2!04X!h)"
-    IDS_DEL_INFO2           "(Group:%1!04X!h)"
-    IDS_TEMP_NON            "Enrolled template non."
-    IDS_UPLOAD_COMPLETE     "Complete!! Upload Template"
-    IDS_DOWNLOAD_COMPLETE   "Complete!! Download Template"
-    IDS_SEND_WRITE_TEMP     "Send Write Template Command"
+    IDS_SEND_ENROLL         "发送采集命令!!"
+    IDS_SEND_DELTEMP        "发送删除模板命令!!"
+    IDS_SEND_GDELTEMP       "发送删除组命令"
+    IDS_SEND_DELALLTMP      "发送删除所有模板命令"
+    IDS_GUIDE_RELEASE_FINGER "请移开手指!"
+    IDS_SUBID_FVERSION      "(固件版本)"
+    IDS_SUBID_SERIAL        "(序列号)"
+    IDS_SEND_GETTEMP_INFO   "发送获取模板信息命令"
+    IDS_VERIF_COMPLETE      "完成!!认证"
+    IDS_VERIF_INFO          "(组号:%1!04X!h,模板号:%2!04X!h, 质量:%3!d!)"
+    IDS_DEL_INFO            "(组号:%1!04X!h,模板号:%2!04X!h)"
+    IDS_DEL_INFO2           "(组号:%1!04X!h)"
+    IDS_TEMP_NON            "采集过的模板."
+    IDS_UPLOAD_COMPLETE     "完成!! 上传模板"
+    IDS_DOWNLOAD_COMPLETE   "完成!! 下载模板"
+    IDS_SEND_WRITE_TEMP     "发送写模板命令"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
-    IDS_SEND_READ_TEMP      "Send Read Template Command"
-    IDS_READ_COMPLETE       "Complete!! Read Template"
-    IDS_WRITE_COMPLETE      "Complete!! Write Template"
-    IDS_ENROLL_NG           "Failure!! Enroll Template"
-    IDS_VERIF_SUCCESS       "Verification was successful!!"
-    IDS_VERIF_NG            "Verification was failure."
-    IDS_TEMPFULL            "Failure!! Enroll Template.Templates are full."
-    IDS_POLLING_TIMEOUT     "Timeout!!Polling touch sensor."
+    IDS_SEND_READ_TEMP      "发送读模板命令"
+    IDS_READ_COMPLETE       "完成!! 读模板"
+    IDS_WRITE_COMPLETE      "完成!! 写模板"
+    IDS_ENROLL_NG           "失败!! 采集指静脉模板"
+    IDS_VERIF_SUCCESS       "认证成功!!"
+    IDS_VERIF_NG            "认证失败."
+    IDS_TEMPFULL            "失败!! 采集模板.模板数量已满."
+    IDS_POLLING_TIMEOUT     "超时!!轮询触摸传感器."
 END
 
-#endif    // 擔杮岅 resources
+#endif    // 非特定语言(默认值) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
@@ -334,8 +338,8 @@ END
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
 LANGUAGE 17, 1
 #pragma code_page(932)
-#include "res\H2E_SampleApp.rc2"  // Microsoft Visual C++ 埲奜偱曇廤偝傟偨儕僜乕僗
-#include "l.JPN\afxres.rc"      // 昗弨僐儞億乕僱儞僩
+#include "res\H2E_SampleApp.rc2"  // Microsoft Visual C++ ???撥??????録?
+#include "l.JPN\afxres.rc"      // ?????録???
 #endif
 
 /////////////////////////////////////////////////////////////////////////////

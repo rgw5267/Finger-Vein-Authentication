@@ -68,7 +68,7 @@ public:
 	WORD	m_wVerifTemp;
 
 private:
-	CH2EInterface* m_pH2EInterface[20];
+	CH2EInterface* m_pH2EInterface[20]; 
 	int sendCommand(UINT uiSendID, DWORD dwSendLen, DWORD* pdwError);
 	int recvResponse(UINT uiSendID, BYTE byOpt,  LPVOID* pSerData, WORD* pwSerLength, DWORD* pdwError);
 	int makeNop(LPVOID pObj, UINT uiSendID, BYTE byParam, LPVOID pOptionData, WORD wOptionLen, DWORD* pdwSendLength);

@@ -1,4 +1,4 @@
-// DlgTuch.cpp : ŽÀ‘•ƒtƒ@ƒCƒ‹
+ï»¿// DlgTuch.cpp : å®Ÿè£…ãƒ•ã‚¡ã‚¤ãƒ« 
 //
 
 #include "stdafx.h"
@@ -6,7 +6,7 @@
 #include "H2E_DlgTuch.h"
 
 
-// CDlgTuch ƒ_ƒCƒAƒƒO
+// CDlgTuch ãƒ€ã‚¤ã‚¢ãƒ­ã‚°
 
 IMPLEMENT_DYNAMIC(CDlgTuch, CDialog)
 
@@ -36,7 +36,7 @@ END_MESSAGE_MAP()
 
 
 
-// CDlgTuch ƒƒbƒZ[ƒW ƒnƒ“ƒhƒ‰
+// CDlgTuch ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ ãƒãƒ³ãƒ‰ãƒ©
 
 
 void CDlgTuch::SetTuchState(DWORD dwState)
