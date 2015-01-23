@@ -98,6 +98,5 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-    <Text Include="读我.txt" />
   </ItemGroup>
 </Project>
