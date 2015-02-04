@@ -95,7 +95,7 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 
 [Document6]
-DocumentPath=..\..\..\..\..\..\..\..\Projects\AltiumDesigner\PhoevLib\PV\PV.PcbLib
+DocumentPath=..\..\..\..\Green Program\Altium Designer Winter 09\Library\Con USB.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -109,118 +109,6 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 
 [Document7]
-DocumentPath=..\..\..\..\..\..\..\..\Projects\AltiumDesigner\PhoevLib\PV\PV.SchLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-
-[Document8]
-DocumentPath=..\..\..\..\..\..\..\..\Projects\AltiumDesigner\PhoevLib\接插件\PcbLib1.PcbLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-
-[Document9]
-DocumentPath=..\..\..\..\..\..\..\..\Projects\AltiumDesigner\PhoevLib\接插件\Schlib1.SchLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-
-[Document10]
-DocumentPath=..\..\..\..\..\..\..\..\Projects\AltiumDesigner\PhoevLib\集成电路.PcbLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-
-[Document11]
-DocumentPath=..\..\..\..\..\..\..\..\Projects\AltiumDesigner\PhoevLib\集成电路.SchLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-
-[Document12]
-DocumentPath=..\..\..\..\..\..\..\..\Projects\AltiumDesigner\Librarys\sch\连接器_电缆组件_插座.SchLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-
-[Document13]
-DocumentPath=..\..\..\..\..\..\..\..\..\Green Program\Altium Designer Winter 09\Library\Con USB.PcbLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-
-[Document14]
-DocumentPath=..\..\..\..\..\..\..\..\Projects\AltiumDesigner\Librarys\sch\半导体_IC.SchLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-
-[Document15]
 DocumentPath=Finger Vein.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -233,18 +121,6 @@ DoDatabaseUpdate=1
 ClassGenCCAutoEnabled=1
 ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
-
-[GeneratedDocument1]
-DocumentPath=Project Outputs for USB_H2E\Design Rule Check - FingerVeinUSB_V1.html
-
-[GeneratedDocument2]
-DocumentPath=..\..\..\..\..\..\..\Pv_work\小电脑\work\电路\2440底板\MAIN_BOARD V1.2.PcbDoc.htm
-
-[GeneratedDocument3]
-DocumentPath=USB_H2E.PcbDoc.htm
-
-[GeneratedDocument4]
-DocumentPath=USB_H2E.PcbLib.htm
 
 [OutputGroup1]
 Name=Netlist Outputs
@@ -260,7 +136,7 @@ OutputDefault1=0
 [OutputGroup2]
 Name=Simulator Outputs
 Description=
-TargetPrinter=\\Qiantai\HP LaserJet 1020
+TargetPrinter=Adobe PDF
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintWhat=1
 
 [OutputGroup3]
