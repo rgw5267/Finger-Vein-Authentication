@@ -194,3 +194,9 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+*.Dat
+*.OutJob
+FVA-NET/pcb/History/
+FVA-NET/src/MDK-ARM/List/
+*.uvgui.*
+*.uvopt
