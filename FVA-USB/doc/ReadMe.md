@@ -73,7 +73,7 @@ Table 2描述了函数TouchSensorState。
 **Table 2. 函数TouchSensorState**
 
 |项目|描述|
-|-|-|
+|---|---|
 |函数名	|TouchSensorState|
 |函数原型	|STDMETHODIMP CH2ECtrlAtl::TouchSensorState(BYTE bTouchMode, LONG* retval)|
 |功能描述|	H2E具有两个检测手指位置放置是否正确的传感器，TouchOut1与TouchOut2|
