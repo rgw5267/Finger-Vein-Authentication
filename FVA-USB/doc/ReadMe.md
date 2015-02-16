@@ -72,14 +72,14 @@ Table 2描述了函数TouchSensorState。
 
 **Table 2. 函数TouchSensorState**
 
-项目|描述
--|-
-函数名	|TouchSensorState
-函数原型	|STDMETHODIMP CH2ECtrlAtl::TouchSensorState(BYTE bTouchMode, LONG* retval)
-功能描述|	H2E具有两个检测手指位置放置是否正确的传感器，TouchOut1与TouchOut2
-输入参数1|	bTouchMode：<br>0x00：禁止TouchOut1&2检测；<br>0x01：使能TouchOut1检测；<br>0x02：使能TouchOut2检测；<br>0x03：使能TouchOut1&2检测(推荐)。
-输出参数1	|*retval：返回错误码。
-先决条件	|串口已打开。
+|项目|描述|
+|-|-|
+|函数名	|TouchSensorState|
+|函数原型	|STDMETHODIMP CH2ECtrlAtl::TouchSensorState(BYTE bTouchMode, LONG* retval)|
+|功能描述|	H2E具有两个检测手指位置放置是否正确的传感器，TouchOut1与TouchOut2|
+|输入参数1|	bTouchMode：<br>0x00：禁止TouchOut1&2检测；<br>0x01：使能TouchOut1检测；<br>0x02：使能TouchOut2检测；<br>0x03：使能TouchOut1&2检测(推荐)。|
+|输出参数1	|*retval：返回错误码。|
+|先决条件	|串口已打开。|
 
 Javascript示例：
 <input type="button" value="Touch Sensor test" onclick="TouchSensorStateClick();" />
