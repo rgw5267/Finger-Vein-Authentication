@@ -48,6 +48,7 @@ Table 1描述了函数OpenCom
 
 
 Javascript示例：
+
 ```javascript
 <input type="button" value="OpenCom" onclick="OpenComClick();" />
 
@@ -72,24 +73,26 @@ Table 2描述了函数TouchSensorState。
 
 **Table 2. 函数TouchSensorState**
 
-|项目|描述|
-|---|---|
-|函数名	|TouchSensorState|
+|项目       |描述|
+|-----------|---|
+|函数名	    |TouchSensorState|
 |函数原型	|STDMETHODIMP CH2ECtrlAtl::TouchSensorState(BYTE bTouchMode, LONG* retval)|
-|功能描述|	H2E具有两个检测手指位置放置是否正确的传感器，TouchOut1与TouchOut2|
-|输入参数1|	bTouchMode：<br>0x00：禁止TouchOut1&2检测；<br>0x01：使能TouchOut1检测；<br>0x02：使能TouchOut2检测；<br>0x03：使能TouchOut1&2检测(推荐)。|
+|功能描述   |H2E具有两个检测手指位置放置是否正确的传感器，TouchOut1与TouchOut2|
+|输入参数1  |bTouchMode：<br>0x00：禁止TouchOut1&2检测；<br>0x01：使能TouchOut1检测；<br>0x02：使能TouchOut2检测；<br>0x03：使能TouchOut1&2检测(推荐)。|
 |输出参数1	|*retval：返回错误码。|
 |先决条件	|串口已打开。|
 
 Javascript示例：
+
+```javascript
     <input type="button" value="Touch Sensor test" onclick="TouchSensorStateClick();" />
     
         <script type="text/javascript">
             function TouchSensorStateClick() {
                 var bTouchMode = 1;     //b00000011 使能Touch Out 1&2检测
-                //b00000001 使能Touch Out 1检测
-                //b00000010 使能Touch Out 2检测
-                //b00000000 禁止Touch Out检测
+                                        //b00000001 使能Touch Out 1检测
+                                        //b00000010 使能Touch Out 2检测
+                                        //b00000000 禁止Touch Out检测
                 var TouchOutFun = document.getElementById("H2ECtrlAtl");
     
                 alert("Put your finger ");
@@ -106,26 +109,34 @@ Javascript示例：
     
             }
     </script>
+```
 
 ### 1.2.3 函数Enroll
 Table 3描述了函数Enroll。H2E具有两种认证机制，二次认证与三次认证，即对同一个手指进行多次对比认证，增强可靠性，但会占用更多的存储空间。推荐采用二次认证机制，既保证了较高的可靠性，又能存储较多的指静脉信息。PCT-KCC5031在此种模式下可以存储360个手指静脉信息。三次认证模式下可以存储230个手指静脉信息。
+
 *注意：*
+
 *1. 每个Bank最多存储15个指静脉模板。*
+
 *2. 只能在空白位置存储模板，如果准备存入的位置已有模板则需要先删除。*
+
 **Table 3. 函数Enroll**
-项目|描述
--|-
-函数名|	Enroll
-函数原型	|STDMETHODIMP CH2ECtrlAtl::Enroll(WORD wBank, WORD wIdx, UINT uiTimes, LONG lTouchInfo, LONG* retval)
-功能描述|	拍摄指静脉，保存到wBank中的nIdx号模板。
-输入参数1	|wBank：Bank号<br>0x0000 ~ 0x7FFF： Flash ROM<br>0x8000 ~ 0xFFFF： SDRAM
-输入参数2	|nIdx：模板号（0x0000~ 0xFFFF）；
-输入参数3	|uiTimes：第几次采集，例如第一次采集为0
-输入参数4	|lTouchInfo：触摸传感器状态
-输出参数1	|*retval：返回错误码。
-先决条件	|串口已打开。
+
+|项目       |描述|
+|-----------|---|
+|函数名     |Enroll|
+|函数原型	|STDMETHODIMP CH2ECtrlAtl::Enroll(WORD wBank, WORD wIdx, UINT uiTimes, LONG lTouchInfo, LONG* retval)|
+|功能描述   |拍摄指静脉，保存到wBank中的nIdx号模板。|
+|输入参数1	|wBank：Bank号<br>0x0000 ~ 0x7FFF： Flash ROM<br>0x8000 ~ 0xFFFF： SDRAM|
+|输入参数2	|nIdx：模板号（0x0000~ 0xFFFF）；|
+|输入参数3	|uiTimes：第几次采集，例如第一次采集为0|
+|输入参数4	|lTouchInfo：触摸传感器状态|
+|输出参数1	|*retval：返回错误码。|
+|先决条件	|串口已打开。|
 
 Javascript示例：
+
+```javascript
 <input type="button" value="Enroll" onclick="enrollclick();" />
 
     <script type="text/javascript">
@@ -136,9 +147,9 @@ Javascript示例：
             var lTouchInfo = 0;
 
             var bTouchMode = 1;     //b00000011 使能Touch Out 1&2检测
-            //b00000001 使能Touch Out 1检测
-            //b00000010 使能Touch Out 2检测
-            //b00000000 禁止Touch Out检测
+                                    //b00000001 使能Touch Out 1检测
+                                    //b00000010 使能Touch Out 2检测
+                                    //b00000000 禁止Touch Out检测
 
 
             var EnrollFun = document.getElementById("H2ECtrlAtl");
@@ -179,20 +190,26 @@ Javascript示例：
 
         }
     </script>
+```
 ### 1.2.4  函数Verify1_1
+
 Table 4描述了函数Verify1_1
+
 **Table 4. 函数Verify1_1**
-项目|描述
--|-
-函数名	|Verify1_1
-函数原型	|STDMETHODIMP CH2ECtrlAtl::Verify1_1(WORD wBank, WORD wIdx, INT* iMatchMemNo)
-功能描述	|1：1认证。
-输入参数1	|wBank：Bank号<br>0x0000 ~ 0x7FFF： Flash ROM<br>0x8000 ~ 0xFFFF： SDRAM  
-输入参数2	|wIdx：模板号（0x0000 ~ 0xFFFF）
-输出参数1	|*iMatchMemNo：大于等于0为被认证模板号，小于0是错误码
-先决条件	|串口已打开
+
+|项目       |描述|
+|-----------|---|
+|函数名	    |Verify1_1|
+|函数原型	|STDMETHODIMP CH2ECtrlAtl::Verify1_1(WORD wBank, WORD wIdx, INT* iMatchMemNo)|
+|功能描述	|1：1认证。|
+|输入参数1	|wBank：Bank号<br>0x0000 ~ 0x7FFF： Flash ROM<br>0x8000 ~ 0xFFFF： SDRAM  |
+|输入参数2	|wIdx：模板号（0x0000 ~ 0xFFFF）|
+|输出参数1	|*iMatchMemNo：大于等于0为被认证模板号，小于0是错误码|
+|先决条件	|串口已打开|
 
 Javascript示例：
+
+```javascript
 <input type="button" value="Verify 1:1" onclick="verify1_1click();" />
     <script type="text/javascript">
         function verify1_1click() {
@@ -201,9 +218,9 @@ Javascript示例：
 
             var lTouchInfo = 0;
             var bTouchMode = 1;     //b00000011 使能Touch Out 1&2检测
-            //b00000001 使能Touch Out 1检测
-            //b00000010 使能Touch Out 2检测
-            //b00000000 禁止Touch Out检测
+                                    //b00000001 使能Touch Out 1检测
+                                    //b00000010 使能Touch Out 2检测
+                                    //b00000000 禁止Touch Out检测
 
 
             var verify1_1Fun = document.getElementById("H2ECtrlAtl");
@@ -232,20 +249,24 @@ Javascript示例：
 
         }
 </script>
-
+```
 ### 1.2.5 函数Verify1_N
 Table 5描述了函数Verify1_N，此函数在某一bank中查询认证指静脉信息，每个bank最大模板数为15。
+
 **Table 5. 函数Verify1_N**
-项目|描述
--|-
-函数名|	Verify1_N
-函数原型	| STDMETHODIMP CH2ECtrlAtl::Verify1_N(WORD wBank, INT* iMatchMemNo)
-功能描述|	1：N 认证。
-输入参数1	|wBank：Bank号<br>0x0000 ~ 0x7FFF： Flash ROM<br>0x8000 ~ 0xFFFF： SDRAM
-输出参数1	|*iMatchMemNo：大于等于0为被认证模板号，小于0是错误码
-先决条件|	串口已打开
+
+|项目       |描述|
+|-----------|---|
+|函数名     |Verify1_N|
+|函数原型	|STDMETHODIMP CH2ECtrlAtl::Verify1_N(WORD wBank, INT* iMatchMemNo)|
+|功能描述   |1：N 认证。|
+|输入参数1	|wBank：Bank号<br>0x0000 ~ 0x7FFF： Flash ROM<br>0x8000 ~ 0xFFFF： SDRAM|
+|输出参数1	|*iMatchMemNo：大于等于0为被认证模板号，小于0是错误码|
+|先决条件   |串口已打开|
 
 Javascript示例：
+
+```javascript
 <input type="button" value="Verify 1:N" onclick="verify1_Nclick();" />
 
     <script type="text/javascript">
@@ -285,20 +306,23 @@ Javascript示例：
 
         }
 </script> 
+```
 
 ### 1.2.6 函数VerifyAcrossBanks
 Table 6描述了函数VerifyAcrossBanks。
+
 **Table 6. 函数VerifyAcrossBanks**
-项目|描述
--|-
-函数名	|VerifyAcrossBanks
-函数原型	|STDMETHODIMP CH2ECtrlAtl::VerifyAcrossBanks(VARIANT vAcrossBanks, WORD wTotalBankNumbers, VARIANT vMatchedBankAndTemplate, LONG* retval)
-功能描述	|此函数在指定的多个bank中查询认证指静脉信息。
-输入参数1	 |vAcrossBanks：Bank号数组<br>0x0000 ~ 0x7FFF： Flash ROM<br>0x8000 ~ 0xFFFF： SDRAM
-输入参数2|	wTotalBankNumbers：Bank数量
-输入参数3|	vMatchedBankAndTemplate：数组元素0为Bank，1为Template
-输出参数1|	*retval：错误码
-先决条件|	串口已打开
+
+|项目       |描述|
+|-----------|---|
+|函数名 	|VerifyAcrossBanks|
+|函数原型	|STDMETHODIMP CH2ECtrlAtl::VerifyAcrossBanks(VARIANT vAcrossBanks, WORD wTotalBankNumbers, VARIANT vMatchedBankAndTemplate, LONG* retval)
+|功能描述	|此函数在指定的多个bank中查询认证指静脉信息。|
+|输入参数1	|vAcrossBanks：Bank号数组<br>0x0000 ~ 0x7FFF： Flash ROM<br>0x8000 ~ 0xFFFF： SDRAM|
+|输入参数2  |wTotalBankNumbers：Bank数量
+|输入参数3  |vMatchedBankAndTemplate：数组元素0为Bank，1为Template
+|输出参数1  |*retval：错误码
+|先决条件   |串口已打开
 
 Javascript示例：
 <input type="button" value="VerifyAcrossBanks" onclick="VerifyAcrossBanksClick();" />
