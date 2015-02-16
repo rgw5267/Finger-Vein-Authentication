@@ -33,7 +33,9 @@ STDMETHODIMP CH2ECtrlAtl::VerifyAcrossBanks(VARIANT vAcrossBanks, WORD wTotalBan
 ## 1.2	接口函数详细说明
 
 ### 1.2.1 函数OpenCom
+
 Table 1描述了函数OpenCom
+
 **Table 1. 函数OpenCom**
 
 |项目       |描述                                           |
@@ -46,6 +48,7 @@ Table 1描述了函数OpenCom
 
 
 Javascript示例：
+```javascript
 <input type="button" value="OpenCom" onclick="OpenComClick();" />
 
     <script type="text/javascript">
@@ -61,10 +64,14 @@ Javascript示例：
 
         }
 </script>
+```
 
 ### 1.2.2 函数TouchSensorState
+
 Table 2描述了函数TouchSensorState。
+
 **Table 2. 函数TouchSensorState**
+
 项目|描述
 -|-
 函数名	|TouchSensorState
