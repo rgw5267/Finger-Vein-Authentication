@@ -35,13 +35,13 @@ STDMETHODIMP CH2ECtrlAtl::VerifyAcrossBanks(VARIANT vAcrossBanks, WORD wTotalBan
 ### 1.2.1 函数OpenCom
 Table 1描述了函数OpenCom
 **Table 1. 函数OpenCom**
-|项目|描述|
-|---|---|
-|函数名|	OpenCom|
+|项目       |描述                                           |
+|-----------|-----------------------------------------------|
+|函数名     |OpenCom                                        |
 |函数原型	|STDMETHODIMP CH2ECtrlAtl::OpenCom(LONG* retval)|
-|功能描述|	打开设备串口。|
-|输出参数1	|*retval：返回错误码。|
-|先决条件|	无。|
+|功能描述   |打开设备串口。                                 |
+|输出参数1	|*retval：返回错误码。                          |
+|先决条件   |无。                                           |
 
 
 Javascript示例：
