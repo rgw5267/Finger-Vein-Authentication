@@ -1,5 +1,5 @@
-# TouchOut读取
-* 主机发送到H2E
+# TouchOut璇诲彇
+* 涓绘満鍙戦�佸埌H2E
 
 | Offset    | Size          | Discription  |
 | --------- |:-------------:| -----:|
@@ -7,13 +7,10 @@
 | 1         | WORD|   0001h |
 | 3         | BYTE  |    00h |
 
-* H2E回复
+* H2E鍥炲
 
 | Offset    | Size          | Discription  |
 | --------- |:-------------:| -----:|
 | 0         | BYTE | 00h |
 | 1         | WORD|   0001h |
-| 3         | BYTE  |    00h：None |
-|          |   |    01h：TouchOut1 |
-|          |  |    10h：TouchOut2 |
-|          |  |    11h：Both |
+| 3         | BYTE  |    00h锛歂one<br>01h锛歍ouchOut1<br>10h锛歍ouchOut2<br>11h锛欱oth |
