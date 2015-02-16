@@ -35,6 +35,7 @@ STDMETHODIMP CH2ECtrlAtl::VerifyAcrossBanks(VARIANT vAcrossBanks, WORD wTotalBan
 ### 1.2.1 函数OpenCom
 Table 1描述了函数OpenCom
 **Table 1. 函数OpenCom**
+
 |项目       |描述                                           |
 |-----------|-----------------------------------------------|
 |函数名     |OpenCom                                        |
