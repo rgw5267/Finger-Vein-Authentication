@@ -82,30 +82,30 @@ Table 2描述了函数TouchSensorState。
 |先决条件	|串口已打开。|
 
 Javascript示例：
-<input type="button" value="Touch Sensor test" onclick="TouchSensorStateClick();" />
-
-    <script type="text/javascript">
-        function TouchSensorStateClick() {
-            var bTouchMode = 1;     //b00000011 使能Touch Out 1&2检测
-            //b00000001 使能Touch Out 1检测
-            //b00000010 使能Touch Out 2检测
-            //b00000000 禁止Touch Out检测
-            var TouchOutFun = document.getElementById("H2ECtrlAtl");
-
-            alert("Put your finger ");
-            var returnVal = TouchOutFun.TouchSensorState(bTouchMode);
-            if (returnVal == 0) {
-                alert("Touch Sensor OK! ");
+    <input type="button" value="Touch Sensor test" onclick="TouchSensorStateClick();" />
+    
+        <script type="text/javascript">
+            function TouchSensorStateClick() {
+                var bTouchMode = 1;     //b00000011 使能Touch Out 1&2检测
+                //b00000001 使能Touch Out 1检测
+                //b00000010 使能Touch Out 2检测
+                //b00000000 禁止Touch Out检测
+                var TouchOutFun = document.getElementById("H2ECtrlAtl");
+    
+                alert("Put your finger ");
+                var returnVal = TouchOutFun.TouchSensorState(bTouchMode);
+                if (returnVal == 0) {
+                    alert("Touch Sensor OK! ");
+                }
+                else if (returnVal == -11) {
+                    alert("Timeout! ErrCode: " + returnVal + " !");
+                }
+                else if (returnVal == -250) {
+                    alert("没有打开串口哦亲！");
+                }
+    
             }
-            else if (returnVal == -11) {
-                alert("Timeout! ErrCode: " + returnVal + " !");
-            }
-            else if (returnVal == -250) {
-                alert("没有打开串口哦亲！");
-            }
-
-        }
-</script>
+    </script>
 
 ### 1.2.3 函数Enroll
 Table 3描述了函数Enroll。H2E具有两种认证机制，二次认证与三次认证，即对同一个手指进行多次对比认证，增强可靠性，但会占用更多的存储空间。推荐采用二次认证机制，既保证了较高的可靠性，又能存储较多的指静脉信息。PCT-KCC5031在此种模式下可以存储360个手指静脉信息。三次认证模式下可以存储230个手指静脉信息。
