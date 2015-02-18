@@ -73,14 +73,14 @@ Table 2描述了函数TouchSensorState。
 
 **Table 2. 函数TouchSensorState**
 
-|项目       |描述|
-|-----------|---|
-|函数名	    |TouchSensorState|
-|函数原型	|STDMETHODIMP CH2ECtrlAtl::TouchSensorState(BYTE bTouchMode, LONG* retval)|
-|功能描述   |H2E具有两个检测手指位置放置是否正确的传感器，TouchOut1与TouchOut2|
-|输入参数1  |bTouchMode：<br>0x00：禁止TouchOut1&2检测；<br>0x01：使能TouchOut1检测；<br>0x02：使能TouchOut2检测；<br>0x03：使能TouchOut1&2检测(推荐)。|
-|输出参数1	|*retval：返回错误码。|
-|先决条件	|串口已打开。|
+|项目       |描述
+|-----------|---
+|函数名	    |TouchSensorState
+|函数原型	|STDMETHODIMP CH2ECtrlAtl::TouchSensorState(BYTE bTouchMode, LONG* retval)
+|功能描述   |H2E具有两个检测手指位置放置是否正确的传感器，TouchOut1与TouchOut2
+|输入参数1  |bTouchMode：<br>0x00：禁止TouchOut1&2检测；<br>0x01：使能TouchOut1检测；<br>0x02：使能TouchOut2检测；<br>0x03：使能TouchOut1&2检测(推荐)。
+|输出参数1	|*retval：返回错误码。
+|先决条件	|串口已打开。
 
 Javascript示例：
 
@@ -115,24 +115,22 @@ Javascript示例：
 Table 3描述了函数Enroll。H2E具有两种认证机制，二次认证与三次认证，即对同一个手指进行多次对比认证，增强可靠性，但会占用更多的存储空间。推荐采用二次认证机制，既保证了较高的可靠性，又能存储较多的指静脉信息。PCT-KCC5031在此种模式下可以存储360个手指静脉信息。三次认证模式下可以存储230个手指静脉信息。
 
 *注意：*
-
 *1. 每个Bank最多存储15个指静脉模板。*
-
 *2. 只能在空白位置存储模板，如果准备存入的位置已有模板则需要先删除。*
 
 **Table 3. 函数Enroll**
 
-|项目       |描述|
-|-----------|---|
-|函数名     |Enroll|
-|函数原型	|STDMETHODIMP CH2ECtrlAtl::Enroll(WORD wBank, WORD wIdx, UINT uiTimes, LONG lTouchInfo, LONG* retval)|
-|功能描述   |拍摄指静脉，保存到wBank中的nIdx号模板。|
-|输入参数1	|wBank：Bank号<br>0x0000 ~ 0x7FFF： Flash ROM<br>0x8000 ~ 0xFFFF： SDRAM|
-|输入参数2	|nIdx：模板号（0x0000~ 0xFFFF）；|
-|输入参数3	|uiTimes：第几次采集，例如第一次采集为0|
-|输入参数4	|lTouchInfo：触摸传感器状态|
-|输出参数1	|*retval：返回错误码。|
-|先决条件	|串口已打开。|
+|项目       |描述
+|-----------|---
+|函数名     |Enroll
+|函数原型	|STDMETHODIMP CH2ECtrlAtl::Enroll(WORD wBank, WORD wIdx, UINT uiTimes, LONG lTouchInfo, LONG* retval)
+|功能描述   |拍摄指静脉，保存到wBank中的nIdx号模板。
+|输入参数1	|wBank：Bank号<br>0x0000 ~ 0x7FFF： Flash ROM<br>0x8000 ~ 0xFFFF： SDRAM
+|输入参数2	|nIdx：模板号（0x0000~ 0xFFFF）；
+|输入参数3	|uiTimes：第几次采集，例如第一次采集为0
+|输入参数4	|lTouchInfo：触摸传感器状态
+|输出参数1	|*retval：返回错误码。
+|先决条件	|串口已打开。
 
 Javascript示例：
 
@@ -197,14 +195,14 @@ Table 4描述了函数Verify1_1
 
 **Table 4. 函数Verify1_1**
 
-|项目       |描述|
-|-----------|---|
-|函数名	    |Verify1_1|
-|函数原型	|STDMETHODIMP CH2ECtrlAtl::Verify1_1(WORD wBank, WORD wIdx, INT* iMatchMemNo)|
-|功能描述	|1：1认证。|
-|输入参数1	|wBank：Bank号<br>0x0000 ~ 0x7FFF： Flash ROM<br>0x8000 ~ 0xFFFF： SDRAM  |
-|输入参数2	|wIdx：模板号（0x0000 ~ 0xFFFF）|
-|输出参数1	|*iMatchMemNo：大于等于0为被认证模板号，小于0是错误码|
+|项目       |描述
+|-----------|---
+|函数名	    |Verify1_1
+|函数原型	|STDMETHODIMP CH2ECtrlAtl::Verify1_1(WORD wBank, WORD wIdx, INT* iMatchMemNo)
+|功能描述	|1：1认证。
+|输入参数1	|wBank：Bank号<br>0x0000 ~ 0x7FFF： Flash ROM<br>0x8000 ~ 0xFFFF： SDRAM  
+|输入参数2	|wIdx：模板号（0x0000 ~ 0xFFFF）
+|输出参数1	|*iMatchMemNo：大于等于0为被认证模板号，小于0是错误码
 |先决条件	|串口已打开|
 
 Javascript示例：
@@ -255,14 +253,14 @@ Table 5描述了函数Verify1_N，此函数在某一bank中查询认证指静脉
 
 **Table 5. 函数Verify1_N**
 
-|项目       |描述|
-|-----------|---|
-|函数名     |Verify1_N|
-|函数原型	|STDMETHODIMP CH2ECtrlAtl::Verify1_N(WORD wBank, INT* iMatchMemNo)|
-|功能描述   |1：N 认证。|
-|输入参数1	|wBank：Bank号<br>0x0000 ~ 0x7FFF： Flash ROM<br>0x8000 ~ 0xFFFF： SDRAM|
-|输出参数1	|*iMatchMemNo：大于等于0为被认证模板号，小于0是错误码|
-|先决条件   |串口已打开|
+|项目       |描述
+|-----------|---
+|函数名     |Verify1_N
+|函数原型	|STDMETHODIMP CH2ECtrlAtl::Verify1_N(WORD wBank, INT* iMatchMemNo)
+|功能描述   |1：N 认证。
+|输入参数1	|wBank：Bank号<br>0x0000 ~ 0x7FFF： Flash ROM<br>0x8000 ~ 0xFFFF： SDRAM
+|输出参数1	|*iMatchMemNo：大于等于0为被认证模板号，小于0是错误码
+|先决条件   |串口已打开
 
 Javascript示例：
 
@@ -276,9 +274,9 @@ Javascript示例：
 
             var lTouchInfo = 0;
             var bTouchMode = 1;     //b00000011 使能Touch Out 1&2检测
-            //b00000001 使能Touch Out 1检测
-            //b00000010 使能Touch Out 2检测
-            //b00000000 禁止Touch Out检测
+                                    //b00000001 使能Touch Out 1检测
+                                    //b00000010 使能Touch Out 2检测
+                                    //b00000000 禁止Touch Out检测
 
 
             var verify1_NFun = document.getElementById("H2ECtrlAtl");
@@ -313,18 +311,20 @@ Table 6描述了函数VerifyAcrossBanks。
 
 **Table 6. 函数VerifyAcrossBanks**
 
-|项目       |描述|
-|-----------|---|
-|函数名 	|VerifyAcrossBanks|
+|项目       |描述
+|-----------|---
+|函数名 	|VerifyAcrossBanks
 |函数原型	|STDMETHODIMP CH2ECtrlAtl::VerifyAcrossBanks(VARIANT vAcrossBanks, WORD wTotalBankNumbers, VARIANT vMatchedBankAndTemplate, LONG* retval)
-|功能描述	|此函数在指定的多个bank中查询认证指静脉信息。|
-|输入参数1	|vAcrossBanks：Bank号数组<br>0x0000 ~ 0x7FFF： Flash ROM<br>0x8000 ~ 0xFFFF： SDRAM|
+|功能描述	|此函数在指定的多个bank中查询认证指静脉信息。
+|输入参数1	|vAcrossBanks：Bank号数组<br>0x0000 ~ 0x7FFF： Flash ROM<br>0x8000 ~ 0xFFFF： SDRAM
 |输入参数2  |wTotalBankNumbers：Bank数量
 |输入参数3  |vMatchedBankAndTemplate：数组元素0为Bank，1为Template
 |输出参数1  |*retval：错误码
 |先决条件   |串口已打开
 
 Javascript示例：
+
+```javascript
 <input type="button" value="VerifyAcrossBanks" onclick="VerifyAcrossBanksClick();" />
 
     <script type="text/javascript">
@@ -362,21 +362,26 @@ Javascript示例：
            
         }
     </script>
+```
+
 ### 1.2.7 函数GetTemplate
 Table 7描述了函数GetTemplate。获取的位置必须有模板，否则函数行为不确定。
+
 **Table 7. 函数GetTemplate**
-项目|描述
--|-
-函数名|	DeleteTemplete
-函数原型	|STDMETHODIMP CH2ECtrlAtl::GetTemplate(WORD wBank, WORD wIdx, VARIANT vTemplate, LONG* retval)
-功能描述|	获取存储在H2E指定位置的模板
-输入参数1	|wBank：Bank号<br>0x0000 ~ 0x7FFF： Flash ROM<br> 0x8000 ~ 0xFFFF： SDRAM 
-输入参数2	|wIdx：模板号（0x0000 ~ 0xFFFF）
-输入参数3	|vTemplate：函数会将获取到的1080字节模板填充到vTemplate。
-输出参数1	|*retval：返回错误码。
-先决条件|	串口已打开
+
+|项目       |描述
+|-----------|----
+|函数名     |DeleteTemplete
+|函数原型	|STDMETHODIMP CH2ECtrlAtl::GetTemplate(WORD wBank, WORD wIdx, VARIANT vTemplate, LONG* retval)
+|功能描述   |获取存储在H2E指定位置的模板
+|输入参数1	|wBank：Bank号<br>0x0000 ~ 0x7FFF： Flash ROM<br> 0x8000 ~ 0xFFFF： SDRAM 
+|输入参数2	|wIdx：模板号（0x0000 ~ 0xFFFF）
+|输入参数3	|vTemplate：函数会将获取到的1080字节模板填充到vTemplate。
+|输出参数1	|*retval：返回错误码。
+|先决条件   |串口已打开
 
 Javascript示例：
+```javascript
 <input type="button" value="GetTemplate" onclick="GetTemplateClick()" />
 
     <script type="text/javascript">
@@ -402,22 +407,27 @@ Javascript示例：
             //}
         }
 </script>
+```
 
 ### 1.2.8 函数SetupTemplete
 Table 8描述了函数SetTemplate
+
 **Table 8. 函数SetTemplate**
-项目|描述
--|-
-函数名	|SetTemplate
-函数原型	|STDMETHODIMP CH2ECtrlAtl::SetTemplate(WORD wBank, WORD wIdx, VARIANT vTemplate, LONG* retval)
-功能描述	|下载指静脉模板到H2E指定位置。
-输入参数1	|wBank：Bank号<br>0x0000 ~ 0x7FFF： Flash ROM<br>0x8000 ~ 0xFFFF： SDRAM      
-输入参数2	|wIdx：模板号（0x0000 ~ 0xFFFF）；
-输入参数3	|vTemplete：要下载的指静脉模板。
-输出参数1	|*retval：返回错误码。
-先决条件|	串口已打开
+
+|项目       |描述
+|-----------|----
+|函数名	    |SetTemplate
+|函数原型	|STDMETHODIMP CH2ECtrlAtl::SetTemplate(WORD wBank, WORD wIdx, VARIANT vTemplate, LONG* retval)
+|功能描述	|下载指静脉模板到H2E指定位置。
+|输入参数1	|wBank：Bank号<br>0x0000 ~ 0x7FFF： Flash ROM<br>0x8000 ~ 0xFFFF： SDRAM      
+|输入参数2	|wIdx：模板号（0x0000 ~ 0xFFFF）；
+|输入参数3	|vTemplete：要下载的指静脉模板。
+|输出参数1	|*retval：返回错误码。
+|先决条件   |串口已打开
 
 Javascript示例：
+
+```javascript
 <input type="button" value="SetupTemplete" onclick="SetTemplateClick();" />
 
     <script type="text/javascript">
@@ -435,24 +445,27 @@ Javascript示例：
             }
         }
 </script>
-
-
+```
 
 ### 1.2.9 函数DeleteTemplete
 Table 9描述了函数DeleteTemplete
+
 **Table 9. 函数DeleteTemplete**
-项目|描述
--|-
-函数名|	DeleteTemplete
-函数原型	|STDMETHODIMP CH2ECtrlAtl::DeleteTemplete(WORD wBank, WORD wIdx, INT iMode, LONG* retval)
-功能描述|	删除指定模板。
-输入参数1|	wBank：Bank号<br>0x0000 ~ 0x7FFF： Flash ROM<br>0x8000 ~ 0xFFFF： SDRAM   
-输入参数2	|wIdx：模板号（0x0000 ~ 0xFFFF）
-输入参数3	|iMode：删除选项<br>0：删除指定的模板号；<br>1：删除当前Bank 的全部模板；<br>2：删除全部Bank 的全部模板 。
-输出参数1	|*retval：返回错误码。
-先决条件	|串口已打开
+
+|项目       |描述
+|-----------|---
+|函数名     |DeleteTemplete
+|函数原型	|STDMETHODIMP CH2ECtrlAtl::DeleteTemplete(WORD wBank, WORD wIdx, INT iMode, LONG* retval)
+|功能描述   |删除指定模板。
+|输入参数1  |wBank：Bank号<br>0x0000 ~ 0x7FFF： Flash ROM<br>0x8000 ~ 0xFFFF： SDRAM   
+|输入参数2	|wIdx：模板号（0x0000 ~ 0xFFFF）
+|输入参数3	|iMode：删除选项<br>0：删除指定的模板号；<br>1：删除当前Bank 的全部模板；<br>2：删除全部Bank 的全部模板 。
+|输出参数1	|*retval：返回错误码。
+|先决条件	|串口已打开
 
 Javascript示例：
+
+```javascript
 <input type="button" value="DeleteTemplete" onclick="deleteclick();" />
 
     <script type="text/javascript">
@@ -473,28 +486,29 @@ Javascript示例：
             }
         }
 </script>
+```
 
 ## 1.3	错误码
 * 串口操作错误码
-错误码	|描述
--|-
-0|	操作成功
--200|	串口打开错误
--201|	串口关闭错误
--202|	串口读错误
--203	|串口写错误
--204	|没有收到数据
--205|	收到无效数据，一般是手指没放好
--206|	串口错误
--207|	Add校验码错误
--208|	Xor校验码错误
--250|	串口没有打开
+|错误码	|描述
+|-------|---
+|0      |操作成功
+|-200   |串口打开错误
+|-201   |串口关闭错误
+|-202   |串口读错误
+|-203	|串口写错误
+|-204	|没有收到数据
+|-205   |收到无效数据，一般是手指没放好
+|-206   |串口错误
+|-207   |Add校验码错误
+|-208   |Xor校验码错误
+|-250   |串口没有打开
 
 * 认证操作错误码
-错误码	|描述
--|-
-0	|操作成功
--10	|发送超时
--11	|触摸传感器超时
--101	|无效参数
--104	|认证失败
+|错误码	|描述
+|-------|---
+|0	    |操作成功
+|-10	|发送超时
+|-11	|触摸传感器超时
+|-101	|无效参数
+|-104	|认证失败
