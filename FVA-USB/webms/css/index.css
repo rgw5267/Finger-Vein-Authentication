@@ -1,0 +1,34 @@
+body{font-size:12px;font-family:"ËÎÌå","arial";background:url(../images/body_bg.jpg);padding:0px;margin:0px;color:#494848;position:relative}
+ul,dl,input,marquee,dl,dt,dd,h1{padding:0px;margin:0px;}
+li{list-style:none}
+a{text-decoration:none}
+img,input{border:0px;}
+.clear{clear:both}
+/*******Ê×Ò³*******/
+.box_top{width:935px;height:16px;overflow:hidden;background:url(../images/box_top.png) no-repeat left top;margin:20px auto 0px;}
+.box{width:935px;margin:0px auto;background:url(../images/box_con.png) repeat-y left top;}
+.box_bottom{width:935px;height:16px;overflow:hidden;background:url(../images/box_bottom.png) no-repeat left top;margin:0px auto 20px;}
+.main{width:900px;border:1px solid #000;margin:0px auto;background:url(../images/bottom_bg.jpg) repeat-x left bottom #f1f1f1;padding-bottom:24px;}
+.main_top{height:57px;background:url(../images/tit_bg.jpg) repeat-x left top;}
+.main_top img{width:290px;height:57px;float:left;}
+.btn_orange{width:62px;height:27px;color:#fff;background:url(../images/btn_org.png) no-repeat left top;float:left;margin:14px 0px 7px 27px;outline:none;cursor:pointer;}
+.line{width:865px;height:2px;overflow:hidden;clear:both;background:url(../images/line.jpg) repeat-x left top;margin:0px auto;}
+.con1{width:408px;height:209px;float:Left;margin:15px 10px 0px 26px;}
+.left{float:left;margin-left:10px;margin-bottom:5px;}
+.right{float:right;margin-right:20px;}
+.wl_muban{height:178px;overflow:auto;border:1px solid #cfcfcf;border-top:2px solid #71a7db;background:#fff;margin-top:10px;clear:both;}
+.wl_muban_short{height:128px;}
+.wl_tab{width:100%}
+.wl_tab th{height:28px;background:#f8f8f8;border:1px solid #e7e7e7;border-top:0px;border-left:0px;}
+.con1 dl{line-height:22px;padding-top:5px;}
+ul.chose_input{width:870px;margin:0px 0px 40px 20px;clear:both;}
+.chose_input li{width:282px;height:156px;background:url(../images/mukuai_bg_big.jpg) no-repeat left bottom;float:left;margin:20px 0px 0px 6px;position:relative;}
+.chose_input li.small{height:98px;background:url(../images/mukuai_bg_small.jpg) no-repeat left bottom;}
+.chose_input li span{padding:2px 3px;background:#f1f1f1;line-height:28px;font-weight:bold;margin-left:20px}
+.chose_input li dl{width:202px;margin-left:10px;line-height:28px;}
+.chose_input select,.input_text{width:194px;height:28px;background:url(../images/input_bg.png) no-repeat left top;border:0px;outline:none;margin-bottom:3px;}
+.btn_sub{width:52px;height:47px;background:url(../images/btn_blue.png) no-repeat left top;color:#fff;position:absolute;right:10px;bottom:12px;outline:none;cursor:pointer;line-height:18px;}
+.btn_sub_sc,.btn_sub_down{width:52px;height:47px;background:url(../images/btn_blue.png) no-repeat left top;color:#fff;float:left;margin:30px 0px 0px 58px;line-height:18px;cursor:pointer;outline:none;}
+.thisc{background:url(../images/thisc_bg.png) no-repeat left top;}
+.orange_thisc{background:url(../images/btn_org_this.png) no-repeat left top;}
+.loading{ position:relative;top:-750px;float:center; z-index:9999;  text-align:center; display:none;  }

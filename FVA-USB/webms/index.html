@@ -1,0 +1,550 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="css/index.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<title>微澜手指静脉识别</title>
+<!--[if IE 6]><script src="js/DD_belatedPNG.js"></script><script>DD_belatedPNG.fix('*');</script><![endif]-->
+  
+    <script type="text/javascript">
+       
+	    
+	   var TOUCH_OBJECT;
+	   // 不需要参数，会自动调用usb驱动初始化设备
+	   function openDevice() {
+		    var returnVal  ; 
+		    if(!TOUCH_OBJECT){
+			 setProgress(true);
+		     TOUCH_OBJECT = document.getElementById("H2ECtrlAtl");
+		     returnVal= TOUCH_OBJECT.OpenCom();   		 
+            if (returnVal == 0) {
+				$("body").css("background","url('./images/body_bg2.jpg')")
+				setResultInfo("设备已打开！");
+               // alert("COM:  " + (com + 1) + "成功打开了");
+            }
+            else {      
+			    setResultInfo("设备打开失败！错误信息："+getComCodeMessgage(returnVal) );
+			    $("body").css("background","url('./images/body_bg.jpg')")
+            }
+		   
+		   } 
+           
+        }
+		
+		//采集指纹
+		 function enroll() {
+		
+		   if(!TOUCH_OBJECT){
+		      alert("请打开设备！");
+			  setResultInfo("设备没有打开！" ,false);				 	 	
+		     return;
+		    }
+		   
+            var wBank = parseInt($("#wBank").val());
+            var nIdx = parseInt($("#templet").val());
+		 
+            var uiTimes = 0;
+            var lTouchInfo = 0;
+            var bTouchMode = 3;     //b00000011 使能Touch Out 1&2检测
+            //b00000001 使能Touch Out 1检测
+            //b00000010 使能Touch Out 2检测
+            //b00000000 禁止Touch Out检测
+            for (i = 0; i < 2; i++) {
+			 
+                if (i == 1) {
+				    setResultInfo("请移开手指，重新放上! " );
+                    alert("移开手指，重新放上")
+                }
+				setProgress(true);
+                alert("放上你的手指，采集指静脉(" + (i + 1) + "/2). ");
+              
+				
+                lTouchInfo = TOUCH_OBJECT.TouchSensorState(bTouchMode);
+                if (lTouchInfo != 0)    //未检测到手指放到触摸传感器上
+                {
+                    if (i > 0) {
+                        //Do dummy enroll opelation.
+                        var RetValEnroll = TOUCH_OBJECT.Enroll(wBank, nIdx, i, lTouchInfo);
+                    }
+					 setResultInfo("指静脉采集超时！："+getComCodeMessgage(lTouchInfo) );
+                  //  alert("指静脉采集超时！ErrCode： " + lTouchInfo);
+					
+                    break;
+                }
+                //Enroll sequence
+
+                RetValEnroll = TOUCH_OBJECT.Enroll(wBank, nIdx, i, lTouchInfo);
+                if (RetValEnroll < 0) {
+					 setResultInfo("指静脉采集发生错误！："+getComCodeMessgage(RetValEnroll) );
+                   // alert("指静脉采集发生错误，ErrCode： " + RetValEnroll);
+                    break;
+                }
+           //     alert("采集 " + (i + 1) + "/2 OK");
+				   	 setResultInfo("采集 " + (i + 1) + "/2 OK");
+            }
+            if (RetValEnroll < 0 || lTouchInfo != 0) {
+			     setResultInfo("指静脉采集错误，请重新采集！" );
+              //  alert("指静脉采集错误，请重新采集！");
+            }
+            else {
+		    $("#templetInfo").append(' <tr class="trClass" id="tr_'+wBank+'_'+nIdx+'" ><td width="25%"> &nbsp;&nbsp;'+wBank+'</td><td width="25%">&nbsp;&nbsp;'+nIdx+'</td><td width="15%">&nbsp;&nbsp;无信息</td><td width="35%">&nbsp;&nbsp;'+new Date().toLocaleString()+'</td></tr>');
+   	          setResultInfo("指静脉采集完成！" );
+              //  alert("指静脉采集完成！");
+            }
+
+        }
+		//1:1认证
+		function verify1_1() {
+		
+			if(!TOUCH_OBJECT){
+		      alert("请打开设备！");
+		      return;
+		    }
+	
+            var wBank = parseInt($("#verify1_1_bank").val());
+            var nIdx = parseInt($("#verify1_1_templet").val());
+            var lTouchInfo = 0;
+            var bTouchMode = 3;     //b00000011 使能Touch Out 1&2检测
+            //b00000001 使能Touch Out 1检测
+            //b00000010 使能Touch Out 2检测
+            //b00000000 禁止Touch Out检测
+			 setProgress(true);
+              alert("放上你的手指，开始指静脉(1:1). ");
+						
+            lTouchInfo = TOUCH_OBJECT.TouchSensorState(bTouchMode);
+            if (lTouchInfo != 0)    //未检测到手指放到触摸传感器上
+            {
+				    setResultInfo("认证失败！错误信息："+getVerifyCodeMessgage(lTouchInfo) );
+                //  alert("指静脉传感器超时！ErrCode： " + lTouchInfo);
+
+            }
+            else {
+                var byMatchMemNo = TOUCH_OBJECT.Verify1_1(wBank, nIdx);
+
+                if (byMatchMemNo == nIdx) {
+				    setResultInfo("身份验证成功 (匹配模板内存编号: " + byMatchMemNo + " )" );
+                    alert("身份验证成功 (匹配模板内存编号: " + byMatchMemNo + " )");
+                }
+                else {
+				    setResultInfo(getVerifyCodeMessgage(byMatchMemNo) );
+      
+                }
+
+            }
+
+
+        }
+		
+			//2:1认证 1:n
+		 function verify1_N() {
+            if(!TOUCH_OBJECT){
+		      alert("请打开设备！");
+		      return;
+		    }
+			
+			
+            var wBank =parseInt($("#verify1_N_bank").val());
+            var lTouchInfo = 0;
+            var bTouchMode = 3;     //b00000011 使能Touch Out 1&2检测
+            //b00000001 使能Touch Out 1检测
+            //b00000010 使能Touch Out 2检测
+            //b00000000 禁止Touch Out检测     
+ 		    setProgress(true);
+            alert("放上你的手指，开始认证(1:N). ");
+            lTouchInfo = TOUCH_OBJECT.TouchSensorState(bTouchMode);
+            if (lTouchInfo != 0)    //未检测到手指放到触摸传感器上
+            {
+			setResultInfo("认证失败！错误信息："+getVerifyCodeMessgage(lTouchInfo) );
+               // alert("指静脉传感器超时！ErrCode： " + lTouchInfo);
+
+            }
+            else {
+                var byMatchMemNo = TOUCH_OBJECT.Verify1_N(wBank);
+
+                if (byMatchMemNo >= 0) {
+				   setResultInfo("身份验证成功 (匹配模板内存编号: " + byMatchMemNo + " )");
+                    alert("身份验证成功 (匹配模板内存编号: " + byMatchMemNo + " )");
+                }
+                else {                
+						setResultInfo(getVerifyCodeMessgage(byMatchMemNo) );
+						 //alert("身份验证失败 ! ErrCode: " + byMatchMemNo);
+                }
+
+            }
+
+        }
+		
+		   //跨组认证
+		   function verifyAcrossBanks() {
+		   
+		   if(!TOUCH_OBJECT){
+		      alert("请打开设备！");
+		      return;
+		    }
+			setProgress(true);
+            var vBanks = new Array();//需和当前H2E中的Bank号一致--并且该bank必须有数据，即不能为空
+			var start=parseInt($("#start_bank").val());
+			var end=parseInt($("#end_bank").val());
+			var Counts = 0;//H2E中Bank数量
+			for(var i=start;i<=end;i++){
+			 Counts=vBanks.push(i);
+			}
+            var MatchedBankAndTemplate = new Array(0xff,  0xff);//元素0为Bank，1为Template---啥意思，不明白
+            var lTouchInfo = 0;
+            var bTouchMode = 3;     //b00000011 使能Touch Out 1&2检测
+            //b00000001 使能Touch Out 1检测
+            //b00000010 使能Touch Out 2检测
+            //b00000000 禁止Touch Out检测
+ 
+            alert("放上你的手指，开始认证(1:ALL). ");
+            lTouchInfo = TOUCH_OBJECT.TouchSensorState(bTouchMode);
+            if (lTouchInfo != 0)    //未检测到手指放到触摸传感器上
+            {
+				setResultInfo("指静脉传感器超时！ErrCode： "+getVerifyCodeMessgage(lTouchInfo) );
+               // alert("指静脉传感器超时！  "  );
+            }
+            else
+            {
+                 var retval = TOUCH_OBJECT.VerifyAcrossBanks(vBanks, Counts, MatchedBankAndTemplate);
+                 if (retval == 0) {
+	              setResultInfo("身份验证成功! Bank: " + MatchedBankAndTemplate[0] + ", Template: " + MatchedBankAndTemplate[1] );
+                     alert("身份验证成功! Bank: " + MatchedBankAndTemplate[0] + ", Template: " + MatchedBankAndTemplate[1]);
+                 }
+                 else {
+				 setResultInfo(getVerifyCodeMessgage(retval) );
+                      
+                 }
+            }
+           
+        }
+		
+		    //删除
+		 	//mode
+			//0:删除指定的模板号；
+            //1:删除当前Bank 的全部模板；
+            //2:删除全部Bank 的全部模板 。
+		 function deleteTemplet(mode) {
+		    if(!TOUCH_OBJECT){
+		     alert("请打开设备！");
+		     return;
+		    }
+			if(!confirm("你确定要删除？")){
+			 return ;
+			}
+			setProgress(true);
+            var wBank  ;
+            var nIdx ;
+			if(mode==0){
+			  if($("#bank_delTemplet").val().trim()==""||$("#templet_delTemplet").val().trim()==""){
+			   setResultInfo("请填写相关信息！");
+			   alert("请填写相关信息！");
+				return;
+			  }else{
+			    wBank= parseInt($("#bank_delTemplet").val());
+			    nIdx=parseInt($("#templet_delTemplet").val());
+			  }
+			
+			}else if(mode==1){
+			  if($("#bank_delBank").val().trim()==""){
+			  	  setResultInfo("请填写相关信息！");
+			   alert("请填写相关信息！");
+				return;
+			  }else{
+			   wBank= parseInt($("#bank_delBank").val());
+			  }
+			  
+			} 
+
+            var RetVal = TOUCH_OBJECT.DeleteTemplete(wBank, nIdx, mode);
+            if (RetVal == 0) {
+			  
+			   if(mode==0){
+			 
+			  	$("#tr_"+wBank+"_"+nIdx).remove();
+			   }else if (mode==1){
+			   $("#templetInfo").find(".trClass").each(function(){
+			     var id=$(this).attr("id");
+				 if(id.indexOf("tr_"+wBank)!=-1){
+				   $(this).remove();
+				 }
+			   });
+			   }else{
+			     $("#templetInfo").find(".trClass").remove();
+			   }
+			  
+               alert("成功删除! ");
+			     setResultInfo("成功删除! " );
+            }
+            else {
+			  if(RetVal==-205){
+			  	setResultInfo("你要删除的数据不存在！" );
+                alert("你要删除的数据不存在！");
+			  }else{
+			  	setResultInfo("删除失败!可能原因： " +getComCodeMessgage(RetVal));
+                alert("删除失败,可能原因：" +getComCodeMessgage(RetVal));
+			  }
+			
+            }
+        }
+		 
+		
+		
+		//信息显示
+		function setResultInfo(text,isAppend){
+		setProgress(false);
+		   if(isAppend){
+		     $("#result").append('<br>'+text);
+		   }else{
+		     $("#result").html(text);
+		   }
+		
+		}
+		//串口操作信息
+		function getComCodeMessgage(code){
+		   var text ="未知错误！";
+		  if(code=='0'){
+		  text="操作成功!";
+		  }else if (code=='-200'){
+		  	  text="串口打开错误! 请重新插拔一下USB,并刷新页面！";
+		  }else if (code=='-201'){
+		  	  text="串口关闭错误!";
+		  }else if (code=='-202'){
+		  	  text="串口读错误!";
+		  }else if (code=='-203'){
+		  	  text="串口写错误!";
+		  }else if (code=='-204'){
+		  	  text="没有收到数据!";
+		  }else if (code=='-205'){
+		  	  text="收到无效数据!";
+		  }else if (code=='-206'){
+		  	  text="串口错误!";
+		  }else if (code=='-207'){
+		  	  text="Add校验码错误!";
+		  }else if (code=='-208'){
+		  	  text="Xor校验码错误!";
+		  }else if (code=='-250'){
+		  	  text="串口没有打开!";
+		  }
+		  return text;
+		}
+		//认证相关信息
+		function getVerifyCodeMessgage(code){
+		   var text ="未知错误！";
+		  if(code=='0'){
+		  text="认证成功!";
+		  }else if (code=='-10'){
+		  	  text="发送超时!";
+		  }else if (code=='-11'){
+		  	  text="触摸传感器超时!";
+		  }else if (code=='-101'){
+		  	  text="无效参数!";
+		  }else if (code=='-104'){
+		  	  text="认证失败!";
+		  }
+		   return text;
+		}
+		function setProgress(isDisplay){
+		if(isDisplay){
+		  $("#loading").css("display","block");
+		  }else{
+		  $("#loading").css("display","none");
+		  }
+		}
+    </script>
+</head>
+<body>
+   <object id="H2ECtrlAtl" classid="CLSID:663B9AAA-4C12-46CD-A77B-89EC9F42625F"></object>
+
+ 
+	<div class="box_top"></div>
+	<div class="box">
+		<div class="main">
+			<div class="main_top"  id="aa">
+				<img src="images/tit_img.jpg" alt="微澜手指静脉识别"/>
+			</div>
+			<input class="btn_orange" type="button" id="openDeviceBt"  onclick="openDevice();" value="打开设备"/>
+			<div class="line"></div>
+			<div class="con1">
+				<span class="left">指静脉模板</span>									
+				<span class="right">[0]</span>
+				<div class="wl_muban">
+					<table class="wl_tab" border="0" cellspacing="0" cellpadding="0" id="templetInfo" >
+						<tr>
+							<th width="25%">
+								组号
+							</th>
+							<th width="25%">
+								模板号
+							</th>
+							<th width="15%">
+								质量
+							</th>
+							<th width="35%">
+								日期
+							</th>
+						
+						</tr>	
+		                  							
+					</table>
+				</div>				
+			</div>
+			<div class="con1">
+				<span class="left">结果</span>
+				<div class="wl_muban wl_muban_short" id="result">
+					 
+				</div>
+				<dl>
+					<dd>固件版本</dd>
+					<dd>序列号</dd>
+				</dl>
+			</div>
+			<ul class="chose_input">
+				<li>
+					<span>采集指静脉模板</span>
+					<dl>
+						<dd>组号(0000h~7FFFh)</dd>
+						<dd>
+							<select id="wBank" name="wBank">
+								<option value="0">0</option>
+								<option value="1">1</option> 
+								<option value="2">2</option> 
+								<option value="3">3</option> 
+								<option value="4">4</option> 
+								<option value="5">5</option> 
+							</select>
+						</dd>
+						<dd>模板号(0000h~7FFFh)</dd>
+						<dd>
+							<select id="templet" name="templet">
+								<option value="0">0</option>
+								<option value="1">1</option> 
+								<option value="2">2</option> 
+								<option value="3">3</option> 
+								<option value="4">4</option> 
+								<option value="5">5</option> 
+							</select>
+						</dd>
+					</dl>
+					<input class="btn_sub" type="button" onclick="enroll();" value="采集"/>
+				</li>
+				<li>
+					<span>1:1认证</span>
+					<dl>
+						<dd>组号(0000h~7FFFh)</dd>
+						<dd>
+							<select id="verify1_1_bank" name="verify1_1_bank">
+								<option value="0">0</option>
+								<option value="1">1</option> 
+								<option value="2">2</option> 
+								<option value="3">3</option> 
+								<option value="4">4</option> 
+								<option value="5">5</option> 
+							</select>
+						</dd>
+						<dd>模板号(0000h~7FFFh)</dd>
+						<dd>
+							<select id="verify1_1_templet" name="verify1_1_templet">
+								<option value="0">0</option>
+								<option value="1">1</option> 
+								<option value="2">2</option> 
+								<option value="3">3</option> 
+								<option value="4">4</option> 
+								<option value="5">5</option> 
+							</select>
+						</dd>
+					</dl>
+					<input class="btn_sub" type="button" onclick="verify1_1();" value="1:1&#10;认证"/>
+				</li>
+				<li>
+					<span>跨组认证</span>
+					<dl>
+						<dd>起始组号</dd>
+						<dd>
+							<input class="input_text"  id="start_bank" type="text"/>
+						</dd>
+						<dd>结束组号</dd>
+						<dd>
+							<input class="input_text" id="end_bank" type="text"/>
+						</dd>
+					</dl>
+					<input class="btn_sub" type="button"  onclick="verifyAcrossBanks();" value="跨组&#10;认证"/>
+				</li>
+				<li class="small">
+					<span>1:N认证</span>
+					<dl>
+						<dd>组号(0000h~7FFFh)</dd>
+						<dd>
+								<select id="verify1_N_bank" name="verify1_N_bank">
+								<option value="0">0</option>
+								<option value="1">1</option> 
+								<option value="2">2</option> 
+								<option value="3">3</option> 
+								<option value="4">4</option> 
+								<option value="5">5</option> 
+							</select>
+						</dd>						
+					</dl>
+					<input class="btn_sub"  onclick="verify1_N();" type="button" value="1:N&#10;认证"/>
+				</li>
+				<li class="small">
+					<span>删除组</span>
+					<dl>
+						<dd>组号(0000h~7FFFh)</dd>
+						<dd>
+							<input class="input_text" id="bank_delBank" type="text"/>
+						</dd>						
+					</dl>
+					<input class="btn_sub" type="button" onclick="deleteTemplet(1);" value="删除组"/>
+				</li>
+				<li class="small">
+					<span>删除所有模板</span>					
+					<input class="btn_sub" type="button"  onclick="deleteTemplet(2);"  value="删除所&#10;有模板"/>
+				</li>
+				<li>
+					<span>删除模板</span>
+					<dl>
+						<dd>组号(0000h~7FFFh)</dd>
+						<dd>
+							<input class="input_text"  id="bank_delTemplet"  type="text"/>
+						</dd>
+						<dd>模板号(0000h~7FFFh)</dd>
+						<dd>
+							<input class="input_text"  id="templet_delTemplet"  type="text"/>
+						</dd>
+					</dl>
+					<input class="btn_sub" type="button" onclick="deleteTemplet(0);" value="删除&#10;模板"/>
+				</li>
+				<li>
+					<span>上传/下载模板</span>	
+					<div class="clear"></div>
+					<input class="btn_sub_sc" type="button"  onclick="alert('暂不能用！');"  value="上传"/>
+					<input class="btn_sub_down" type="button" onclick="alert('暂不能用！');"  value="下载"/>
+				</li>
+				<div class="clear"></div>
+			</ul>
+			<div class="line"></div>
+			<input class="btn_orange right" type="button" onclick="window.close();" value="关闭"/>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="box_bottom"></div>
+	<div class="loading"   id="loading" > <img src="images/loading.gif"></img></div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		$(".btn_sub,.btn_sub_sc,.btn_sub_down").hover(function(){
+			$(this).addClass("thisc");
+		},function(){
+			$(this).removeClass("thisc");
+		})
+		$(".btn_orange").hover(function(){
+			$(this).addClass("orange_thisc");
+		},function(){
+			$(this).removeClass("orange_thisc");
+		})
+
+	})
+</script>
+  
+</html>
