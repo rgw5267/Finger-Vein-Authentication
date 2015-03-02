@@ -1,45 +1,55 @@
-# H2ECTRL.ocx²å¼ş½Ó¿Úº¯ÊıÏêÏ¸ËµÃ÷
+H2ECTRL.ocxæ’ä»¶æ¥å£å‡½æ•°è¯¦ç»†è¯´æ˜
+===
 2014.05.22
 
 [TOC]
 
-## 1.1	½Ó¿Úº¯Êı¸ÅÀÀ
-* ´¥Ãş´«¸ĞÆ÷
-``` c
+## 1.1	æ¥å£å‡½æ•°æ¦‚è§ˆ
+* è§¦æ‘¸ä¼ æ„Ÿå™¨
+
+```c
 STDMETHODIMP CH2ECtrlAtl::TouchSensorState(BYTE bTouchMode, LONG* retval)
 ```
-* ´®¿Ú²Ù×÷
-``` c
+* ä¸²å£æ“ä½œ
+
+```
 STDMETHODIMP CH2ECtrlAtl::OpenCom(LONG* retval)
 ```
-* Ä£°å²Ù×÷
-``` c
+* æ¨¡æ¿æ“ä½œ
+
+```c
 STDMETHODIMP CH2ECtrlAtl::Enroll(WORD wBank, WORD wIdx, UINT uiTimes, LONG lTouchInfo, LONG* retval)
 STDMETHODIMP CH2ECtrlAtl::DeleteTemplete(WORD wBank, WORD wIdx, INT iMode, LONG* retval)
 STDMETHODIMP CH2ECtrlAtl::GetTemplate(WORD wBank, WORD wIdx, VARIANT vTemplate, LONG* retval)
 STDMETHODIMP CH2ECtrlAtl::SetTemplate(WORD wBank, WORD wIdx, VARIANT vTemplate, LONG* retval)
 ```
-* ÈÏÖ¤
-```
+* è®¤è¯
+
+```c
 STDMETHODIMP CH2ECtrlAtl::Verify1_1(WORD wBank, WORD wIdx, INT* iMatchMemNo)
 STDMETHODIMP CH2ECtrlAtl::Verify1_N(WORD wBank, INT* iMatchMemNo)
 STDMETHODIMP CH2ECtrlAtl::VerifyAcrossBanks(VARIANT vAcrossBanks, WORD wTotalBankNumbers, VARIANT vMatchedBankAndTemplate, LONG* retval)
 ```
-## 1.2	½Ó¿Úº¯ÊıÏêÏ¸ËµÃ÷
+## 1.2	æ¥å£å‡½æ•°è¯¦ç»†è¯´æ˜
 
-### 1.2.1 º¯ÊıOpenCom
-Table 1ÃèÊöÁËº¯ÊıOpenCom
-**Table 1. º¯ÊıOpenCom**
-ÏîÄ¿|ÃèÊö
--|-
-º¯ÊıÃû|	OpenCom
-º¯ÊıÔ­ĞÍ	|STDMETHODIMP CH2ECtrlAtl::OpenCom(LONG* retval)
-¹¦ÄÜÃèÊö|	´ò¿ªÉè±¸´®¿Ú¡£
-Êä³ö²ÎÊı1	|*retval£º·µ»Ø´íÎóÂë¡£
-ÏÈ¾öÌõ¼ş|	ÎŞ¡£
+### 1.2.1 å‡½æ•°OpenCom
+
+Table 1æè¿°äº†å‡½æ•°OpenCom
+
+**Table 1. å‡½æ•°OpenCom**
+
+|é¡¹ç›®       |æè¿°                                           |
+|-----------|-----------------------------------------------|
+|å‡½æ•°å     |OpenCom                                        |
+|å‡½æ•°åŸå‹	|STDMETHODIMP CH2ECtrlAtl::OpenCom(LONG* retval)|
+|åŠŸèƒ½æè¿°   |æ‰“å¼€è®¾å¤‡ä¸²å£ã€‚                                 |
+|è¾“å‡ºå‚æ•°1	|*retvalï¼šè¿”å›é”™è¯¯ç ã€‚                          |
+|å…ˆå†³æ¡ä»¶   |æ— ã€‚                                           |
 
 
-JavascriptÊ¾Àı£º
+Javascriptç¤ºä¾‹ï¼š
+
+```javascript
 <input type="button" value="OpenCom" onclick="OpenComClick();" />
 
     <script type="text/javascript">
@@ -55,64 +65,76 @@ JavascriptÊ¾Àı£º
 
         }
 </script>
+```
 
-### 1.2.2 º¯ÊıTouchSensorState
-Table 2ÃèÊöÁËº¯ÊıTouchSensorState¡£
-**Table 2. º¯ÊıTouchSensorState**
-ÏîÄ¿|ÃèÊö
--|-
-º¯ÊıÃû	|TouchSensorState
-º¯ÊıÔ­ĞÍ	|STDMETHODIMP CH2ECtrlAtl::TouchSensorState(BYTE bTouchMode, LONG* retval)
-¹¦ÄÜÃèÊö|	H2E¾ßÓĞÁ½¸ö¼ì²âÊÖÖ¸Î»ÖÃ·ÅÖÃÊÇ·ñÕıÈ·µÄ´«¸ĞÆ÷£¬TouchOut1ÓëTouchOut2
-ÊäÈë²ÎÊı1|	bTouchMode£º<br>0x00£º½ûÖ¹TouchOut1&2¼ì²â£»<br>0x01£ºÊ¹ÄÜTouchOut1¼ì²â£»<br>0x02£ºÊ¹ÄÜTouchOut2¼ì²â£»<br>0x03£ºÊ¹ÄÜTouchOut1&2¼ì²â(ÍÆ¼ö)¡£
-Êä³ö²ÎÊı1	|*retval£º·µ»Ø´íÎóÂë¡£
-ÏÈ¾öÌõ¼ş	|´®¿ÚÒÑ´ò¿ª¡£
+### 1.2.2 å‡½æ•°TouchSensorState
 
-JavascriptÊ¾Àı£º
-<input type="button" value="Touch Sensor test" onclick="TouchSensorStateClick();" />
+Table 2æè¿°äº†å‡½æ•°TouchSensorStateã€‚
 
-    <script type="text/javascript">
-        function TouchSensorStateClick() {
-            var bTouchMode = 1;     //b00000011 Ê¹ÄÜTouch Out 1&2¼ì²â
-            //b00000001 Ê¹ÄÜTouch Out 1¼ì²â
-            //b00000010 Ê¹ÄÜTouch Out 2¼ì²â
-            //b00000000 ½ûÖ¹Touch Out¼ì²â
-            var TouchOutFun = document.getElementById("H2ECtrlAtl");
+**Table 2. å‡½æ•°TouchSensorState**
 
-            alert("Put your finger ");
-            var returnVal = TouchOutFun.TouchSensorState(bTouchMode);
-            if (returnVal == 0) {
-                alert("Touch Sensor OK! ");
+|é¡¹ç›®       |æè¿°
+|-----------|---
+|å‡½æ•°å	    |TouchSensorState
+|å‡½æ•°åŸå‹	|STDMETHODIMP CH2ECtrlAtl::TouchSensorState(BYTE bTouchMode, LONG* retval)
+|åŠŸèƒ½æè¿°   |H2Eå…·æœ‰ä¸¤ä¸ªæ£€æµ‹æ‰‹æŒ‡ä½ç½®æ”¾ç½®æ˜¯å¦æ­£ç¡®çš„ä¼ æ„Ÿå™¨ï¼ŒTouchOut1ä¸TouchOut2
+|è¾“å…¥å‚æ•°1  |bTouchModeï¼š<br>0x00ï¼šç¦æ­¢TouchOut1&2æ£€æµ‹ï¼›<br>0x01ï¼šä½¿èƒ½TouchOut1æ£€æµ‹ï¼›<br>0x02ï¼šä½¿èƒ½TouchOut2æ£€æµ‹ï¼›<br>0x03ï¼šä½¿èƒ½TouchOut1&2æ£€æµ‹(æ¨è)ã€‚
+|è¾“å‡ºå‚æ•°1	|*retvalï¼šè¿”å›é”™è¯¯ç ã€‚
+|å…ˆå†³æ¡ä»¶	|ä¸²å£å·²æ‰“å¼€ã€‚
+
+Javascriptç¤ºä¾‹ï¼š
+
+```javascript
+    <input type="button" value="Touch Sensor test" onclick="TouchSensorStateClick();" />
+    
+        <script type="text/javascript">
+            function TouchSensorStateClick() {
+                var bTouchMode = 1;     //b00000011 ä½¿èƒ½Touch Out 1&2æ£€æµ‹
+                                        //b00000001 ä½¿èƒ½Touch Out 1æ£€æµ‹
+                                        //b00000010 ä½¿èƒ½Touch Out 2æ£€æµ‹
+                                        //b00000000 ç¦æ­¢Touch Outæ£€æµ‹
+                var TouchOutFun = document.getElementById("H2ECtrlAtl");
+    
+                alert("Put your finger ");
+                var returnVal = TouchOutFun.TouchSensorState(bTouchMode);
+                if (returnVal == 0) {
+                    alert("Touch Sensor OK! ");
+                }
+                else if (returnVal == -11) {
+                    alert("Timeout! ErrCode: " + returnVal + " !");
+                }
+                else if (returnVal == -250) {
+                    alert("æ²¡æœ‰æ‰“å¼€ä¸²å£å“¦äº²ï¼");
+                }
+    
             }
-            else if (returnVal == -11) {
-                alert("Timeout! ErrCode: " + returnVal + " !");
-            }
-            else if (returnVal == -250) {
-                alert("Ã»ÓĞ´ò¿ª´®¿ÚÅ¶Ç×£¡");
-            }
+    </script>
+```
 
-        }
-</script>
+### 1.2.3 å‡½æ•°Enroll
+Table 3æè¿°äº†å‡½æ•°Enrollã€‚H2Eå…·æœ‰ä¸¤ç§è®¤è¯æœºåˆ¶ï¼ŒäºŒæ¬¡è®¤è¯ä¸ä¸‰æ¬¡è®¤è¯ï¼Œå³å¯¹åŒä¸€ä¸ªæ‰‹æŒ‡è¿›è¡Œå¤šæ¬¡å¯¹æ¯”è®¤è¯ï¼Œå¢å¼ºå¯é æ€§ï¼Œä½†ä¼šå ç”¨æ›´å¤šçš„å­˜å‚¨ç©ºé—´ã€‚æ¨èé‡‡ç”¨äºŒæ¬¡è®¤è¯æœºåˆ¶ï¼Œæ—¢ä¿è¯äº†è¾ƒé«˜çš„å¯é æ€§ï¼Œåˆèƒ½å­˜å‚¨è¾ƒå¤šçš„æŒ‡é™è„‰ä¿¡æ¯ã€‚PCT-KCC5031åœ¨æ­¤ç§æ¨¡å¼ä¸‹å¯ä»¥å­˜å‚¨360ä¸ªæ‰‹æŒ‡é™è„‰ä¿¡æ¯ã€‚ä¸‰æ¬¡è®¤è¯æ¨¡å¼ä¸‹å¯ä»¥å­˜å‚¨230ä¸ªæ‰‹æŒ‡é™è„‰ä¿¡æ¯ã€‚
 
-### 1.2.3 º¯ÊıEnroll
-Table 3ÃèÊöÁËº¯ÊıEnroll¡£H2E¾ßÓĞÁ½ÖÖÈÏÖ¤»úÖÆ£¬¶ş´ÎÈÏÖ¤ÓëÈı´ÎÈÏÖ¤£¬¼´¶ÔÍ¬Ò»¸öÊÖÖ¸½øĞĞ¶à´Î¶Ô±ÈÈÏÖ¤£¬ÔöÇ¿¿É¿¿ĞÔ£¬µ«»áÕ¼ÓÃ¸ü¶àµÄ´æ´¢¿Õ¼ä¡£ÍÆ¼ö²ÉÓÃ¶ş´ÎÈÏÖ¤»úÖÆ£¬¼È±£Ö¤ÁË½Ï¸ßµÄ¿É¿¿ĞÔ£¬ÓÖÄÜ´æ´¢½Ï¶àµÄÖ¸¾²ÂöĞÅÏ¢¡£PCT-KCC5031ÔÚ´ËÖÖÄ£Ê½ÏÂ¿ÉÒÔ´æ´¢360¸öÊÖÖ¸¾²ÂöĞÅÏ¢¡£Èı´ÎÈÏÖ¤Ä£Ê½ÏÂ¿ÉÒÔ´æ´¢230¸öÊÖÖ¸¾²ÂöĞÅÏ¢¡£
-*×¢Òâ£º*
-*1. Ã¿¸öBank×î¶à´æ´¢15¸öÖ¸¾²ÂöÄ£°å¡£*
-*2. Ö»ÄÜÔÚ¿Õ°×Î»ÖÃ´æ´¢Ä£°å£¬Èç¹û×¼±¸´æÈëµÄÎ»ÖÃÒÑÓĞÄ£°åÔòĞèÒªÏÈÉ¾³ı¡£*
-**Table 3. º¯ÊıEnroll**
-ÏîÄ¿|ÃèÊö
--|-
-º¯ÊıÃû|	Enroll
-º¯ÊıÔ­ĞÍ	|STDMETHODIMP CH2ECtrlAtl::Enroll(WORD wBank, WORD wIdx, UINT uiTimes, LONG lTouchInfo, LONG* retval)
-¹¦ÄÜÃèÊö|	ÅÄÉãÖ¸¾²Âö£¬±£´æµ½wBankÖĞµÄnIdxºÅÄ£°å¡£
-ÊäÈë²ÎÊı1	|wBank£ºBankºÅ<br>0x0000 ~ 0x7FFF£º Flash ROM<br>0x8000 ~ 0xFFFF£º SDRAM
-ÊäÈë²ÎÊı2	|nIdx£ºÄ£°åºÅ£¨0x0000~ 0xFFFF£©£»
-ÊäÈë²ÎÊı3	|uiTimes£ºµÚ¼¸´Î²É¼¯£¬ÀıÈçµÚÒ»´Î²É¼¯Îª0
-ÊäÈë²ÎÊı4	|lTouchInfo£º´¥Ãş´«¸ĞÆ÷×´Ì¬
-Êä³ö²ÎÊı1	|*retval£º·µ»Ø´íÎóÂë¡£
-ÏÈ¾öÌõ¼ş	|´®¿ÚÒÑ´ò¿ª¡£
+*æ³¨æ„ï¼š*<br>
+*1. æ¯ä¸ªBankæœ€å¤šå­˜å‚¨15ä¸ªæŒ‡é™è„‰æ¨¡æ¿ã€‚*<br>
+*2. åªèƒ½åœ¨ç©ºç™½ä½ç½®å­˜å‚¨æ¨¡æ¿ï¼Œå¦‚æœå‡†å¤‡å­˜å…¥çš„ä½ç½®å·²æœ‰æ¨¡æ¿åˆ™éœ€è¦å…ˆåˆ é™¤ã€‚*
 
-JavascriptÊ¾Àı£º
+**Table 3. å‡½æ•°Enroll**
+
+|é¡¹ç›®       |æè¿°
+|-----------|---
+|å‡½æ•°å     |Enroll
+|å‡½æ•°åŸå‹	|STDMETHODIMP CH2ECtrlAtl::Enroll(WORD wBank, WORD wIdx, UINT uiTimes, LONG lTouchInfo, LONG* retval)
+|åŠŸèƒ½æè¿°   |æ‹æ‘„æŒ‡é™è„‰ï¼Œä¿å­˜åˆ°wBankä¸­çš„nIdxå·æ¨¡æ¿ã€‚
+|è¾“å…¥å‚æ•°1	|wBankï¼šBankå·<br>0x0000 ~ 0x7FFFï¼š Flash ROM<br>0x8000 ~ 0xFFFFï¼š SDRAM
+|è¾“å…¥å‚æ•°2	|nIdxï¼šæ¨¡æ¿å·ï¼ˆ0x0000~ 0xFFFFï¼‰ï¼›
+|è¾“å…¥å‚æ•°3	|uiTimesï¼šç¬¬å‡ æ¬¡é‡‡é›†ï¼Œä¾‹å¦‚ç¬¬ä¸€æ¬¡é‡‡é›†ä¸º0
+|è¾“å…¥å‚æ•°4	|lTouchInfoï¼šè§¦æ‘¸ä¼ æ„Ÿå™¨çŠ¶æ€
+|è¾“å‡ºå‚æ•°1	|*retvalï¼šè¿”å›é”™è¯¯ç ã€‚
+|å…ˆå†³æ¡ä»¶	|ä¸²å£å·²æ‰“å¼€ã€‚
+
+Javascriptç¤ºä¾‹ï¼š
+
+```javascript
 <input type="button" value="Enroll" onclick="enrollclick();" />
 
     <script type="text/javascript">
@@ -122,10 +144,10 @@ JavascriptÊ¾Àı£º
             var uiTimes = 0;
             var lTouchInfo = 0;
 
-            var bTouchMode = 1;     //b00000011 Ê¹ÄÜTouch Out 1&2¼ì²â
-            //b00000001 Ê¹ÄÜTouch Out 1¼ì²â
-            //b00000010 Ê¹ÄÜTouch Out 2¼ì²â
-            //b00000000 ½ûÖ¹Touch Out¼ì²â
+            var bTouchMode = 1;     //b00000011 ä½¿èƒ½Touch Out 1&2æ£€æµ‹
+                                    //b00000001 ä½¿èƒ½Touch Out 1æ£€æµ‹
+                                    //b00000010 ä½¿èƒ½Touch Out 2æ£€æµ‹
+                                    //b00000000 ç¦æ­¢Touch Outæ£€æµ‹
 
 
             var EnrollFun = document.getElementById("H2ECtrlAtl");
@@ -134,52 +156,58 @@ JavascriptÊ¾Àı£º
 
             for (i = 0; i < 2; i++) {
                 if (i == 1) {
-                    alert("ÒÆ¿ªÊÖÖ¸£¬ÖØĞÂ·ÅÉÏ")
+                    alert("ç§»å¼€æ‰‹æŒ‡ï¼Œé‡æ–°æ”¾ä¸Š")
                 }
-                alert("·ÅÉÏÄãµÄÊÖÖ¸£¬²É¼¯Ö¸¾²Âö(" + (i + 1) + "/2). ");
+                alert("æ”¾ä¸Šä½ çš„æ‰‹æŒ‡ï¼Œé‡‡é›†æŒ‡é™è„‰(" + (i + 1) + "/2). ");
 
                 lTouchInfo = TouchOutFun.TouchSensorState(bTouchMode);
-                if (lTouchInfo != 0)    //Î´¼ì²âµ½ÊÖÖ¸·Åµ½´¥Ãş´«¸ĞÆ÷ÉÏ
+                if (lTouchInfo != 0)    //æœªæ£€æµ‹åˆ°æ‰‹æŒ‡æ”¾åˆ°è§¦æ‘¸ä¼ æ„Ÿå™¨ä¸Š
                 {
                     if (i > 0) {
                         //Do dummy enroll opelation.
                         var RetValEnroll = EnrollFun.Enroll(wBank, nIdx, i, lTouchInfo);
                     }
-                    alert("Ö¸¾²Âö²É¼¯³¬Ê±£¡ErrCode£º " + lTouchInfo);
+                    alert("æŒ‡é™è„‰é‡‡é›†è¶…æ—¶ï¼ErrCodeï¼š " + lTouchInfo);
                     break;
                 }
                 //Enroll sequence
 
                 RetValEnroll = EnrollFun.Enroll(wBank, nIdx, i, lTouchInfo);
                 if (RetValEnroll < 0) {
-                    alert("Ö¸¾²Âö²É¼¯·¢Éú´íÎó£¬ErrCode£º " + RetValEnroll);
+                    alert("æŒ‡é™è„‰é‡‡é›†å‘ç”Ÿé”™è¯¯ï¼ŒErrCodeï¼š " + RetValEnroll);
                     break;
                 }
-                alert("²É¼¯ " + (i + 1) + "/2 OK");
+                alert("é‡‡é›† " + (i + 1) + "/2 OK");
             }
             if (RetValEnroll < 0 || lTouchInfo != 0) {
-                alert("Ö¸¾²Âö²É¼¯´íÎó£¬ÇëÖØĞÂ²É¼¯£¡");
+                alert("æŒ‡é™è„‰é‡‡é›†é”™è¯¯ï¼Œè¯·é‡æ–°é‡‡é›†ï¼");
             }
             else {
-                alert("Ö¸¾²Âö²É¼¯Íê³É£¡");
+                alert("æŒ‡é™è„‰é‡‡é›†å®Œæˆï¼");
             }
 
         }
     </script>
-### 1.2.4  º¯ÊıVerify1_1
-Table 4ÃèÊöÁËº¯ÊıVerify1_1
-**Table 4. º¯ÊıVerify1_1**
-ÏîÄ¿|ÃèÊö
--|-
-º¯ÊıÃû	|Verify1_1
-º¯ÊıÔ­ĞÍ	|STDMETHODIMP CH2ECtrlAtl::Verify1_1(WORD wBank, WORD wIdx, INT* iMatchMemNo)
-¹¦ÄÜÃèÊö	|1£º1ÈÏÖ¤¡£
-ÊäÈë²ÎÊı1	|wBank£ºBankºÅ<br>0x0000 ~ 0x7FFF£º Flash ROM<br>0x8000 ~ 0xFFFF£º SDRAM  
-ÊäÈë²ÎÊı2	|wIdx£ºÄ£°åºÅ£¨0x0000 ~ 0xFFFF£©
-Êä³ö²ÎÊı1	|*iMatchMemNo£º´óÓÚµÈÓÚ0Îª±»ÈÏÖ¤Ä£°åºÅ£¬Ğ¡ÓÚ0ÊÇ´íÎóÂë
-ÏÈ¾öÌõ¼ş	|´®¿ÚÒÑ´ò¿ª
+```
+### 1.2.4  å‡½æ•°Verify1_1
 
-JavascriptÊ¾Àı£º
+Table 4æè¿°äº†å‡½æ•°Verify1_1
+
+**Table 4. å‡½æ•°Verify1_1**
+
+|é¡¹ç›®       |æè¿°
+|-----------|---
+|å‡½æ•°å	    |Verify1_1
+|å‡½æ•°åŸå‹	|STDMETHODIMP CH2ECtrlAtl::Verify1_1(WORD wBank, WORD wIdx, INT* iMatchMemNo)
+|åŠŸèƒ½æè¿°	|1ï¼š1è®¤è¯ã€‚
+|è¾“å…¥å‚æ•°1	|wBankï¼šBankå·<br>0x0000 ~ 0x7FFFï¼š Flash ROM<br>0x8000 ~ 0xFFFFï¼š SDRAM  
+|è¾“å…¥å‚æ•°2	|wIdxï¼šæ¨¡æ¿å·ï¼ˆ0x0000 ~ 0xFFFFï¼‰
+|è¾“å‡ºå‚æ•°1	|*iMatchMemNoï¼šå¤§äºç­‰äº0ä¸ºè¢«è®¤è¯æ¨¡æ¿å·ï¼Œå°äº0æ˜¯é”™è¯¯ç 
+|å…ˆå†³æ¡ä»¶	|ä¸²å£å·²æ‰“å¼€|
+
+Javascriptç¤ºä¾‹ï¼š
+
+```javascript
 <input type="button" value="Verify 1:1" onclick="verify1_1click();" />
     <script type="text/javascript">
         function verify1_1click() {
@@ -187,31 +215,31 @@ JavascriptÊ¾Àı£º
             var nIdx = 00;
 
             var lTouchInfo = 0;
-            var bTouchMode = 1;     //b00000011 Ê¹ÄÜTouch Out 1&2¼ì²â
-            //b00000001 Ê¹ÄÜTouch Out 1¼ì²â
-            //b00000010 Ê¹ÄÜTouch Out 2¼ì²â
-            //b00000000 ½ûÖ¹Touch Out¼ì²â
+            var bTouchMode = 1;     //b00000011 ä½¿èƒ½Touch Out 1&2æ£€æµ‹
+                                    //b00000001 ä½¿èƒ½Touch Out 1æ£€æµ‹
+                                    //b00000010 ä½¿èƒ½Touch Out 2æ£€æµ‹
+                                    //b00000000 ç¦æ­¢Touch Outæ£€æµ‹
 
 
             var verify1_1Fun = document.getElementById("H2ECtrlAtl");
             var TouchOutFun = document.getElementById("H2ECtrlAtl");
 
-            alert("·ÅÉÏÄãµÄÊÖÖ¸£¬¿ªÊ¼Ö¸¾²Âö(1:1). ");
+            alert("æ”¾ä¸Šä½ çš„æ‰‹æŒ‡ï¼Œå¼€å§‹æŒ‡é™è„‰(1:1). ");
 
             lTouchInfo = TouchOutFun.TouchSensorState(bTouchMode);
-            if (lTouchInfo != 0)    //Î´¼ì²âµ½ÊÖÖ¸·Åµ½´¥Ãş´«¸ĞÆ÷ÉÏ
+            if (lTouchInfo != 0)    //æœªæ£€æµ‹åˆ°æ‰‹æŒ‡æ”¾åˆ°è§¦æ‘¸ä¼ æ„Ÿå™¨ä¸Š
             {
-                alert("TouchOut´«¸ĞÆ÷³¬Ê±£¡ErrCode£º " + lTouchInfo);
+                alert("TouchOutä¼ æ„Ÿå™¨è¶…æ—¶ï¼ErrCodeï¼š " + lTouchInfo);
 
             }
             else {
                 var byMatchMemNo = verify1_1Fun.Verify1_1(wBank, nIdx);
 
                 if (byMatchMemNo == nIdx) {
-                    alert("Éí·İÑéÖ¤³É¹¦ (Æ¥ÅäÄ£°åÄÚ´æ±àºÅ: " + byMatchMemNo + " )");
+                    alert("èº«ä»½éªŒè¯æˆåŠŸ (åŒ¹é…æ¨¡æ¿å†…å­˜ç¼–å·: " + byMatchMemNo + " )");
                 }
                 else {
-                    alert("Éí·İÑéÖ¤Ê§°Ü ! ErrCode: " + byMatchMemNo);
+                    alert("èº«ä»½éªŒè¯å¤±è´¥ ! ErrCode: " + byMatchMemNo);
                 }
 
             }
@@ -219,20 +247,24 @@ JavascriptÊ¾Àı£º
 
         }
 </script>
+```
+### 1.2.5 å‡½æ•°Verify1_N
+Table 5æè¿°äº†å‡½æ•°Verify1_Nï¼Œæ­¤å‡½æ•°åœ¨æŸä¸€bankä¸­æŸ¥è¯¢è®¤è¯æŒ‡é™è„‰ä¿¡æ¯ï¼Œæ¯ä¸ªbankæœ€å¤§æ¨¡æ¿æ•°ä¸º15ã€‚
 
-### 1.2.5 º¯ÊıVerify1_N
-Table 5ÃèÊöÁËº¯ÊıVerify1_N£¬´Ëº¯ÊıÔÚÄ³Ò»bankÖĞ²éÑ¯ÈÏÖ¤Ö¸¾²ÂöĞÅÏ¢£¬Ã¿¸öbank×î´óÄ£°åÊıÎª15¡£
-**Table 5. º¯ÊıVerify1_N**
-ÏîÄ¿|ÃèÊö
--|-
-º¯ÊıÃû|	Verify1_N
-º¯ÊıÔ­ĞÍ	| STDMETHODIMP CH2ECtrlAtl::Verify1_N(WORD wBank, INT* iMatchMemNo)
-¹¦ÄÜÃèÊö|	1£ºN ÈÏÖ¤¡£
-ÊäÈë²ÎÊı1	|wBank£ºBankºÅ<br>0x0000 ~ 0x7FFF£º Flash ROM<br>0x8000 ~ 0xFFFF£º SDRAM
-Êä³ö²ÎÊı1	|*iMatchMemNo£º´óÓÚµÈÓÚ0Îª±»ÈÏÖ¤Ä£°åºÅ£¬Ğ¡ÓÚ0ÊÇ´íÎóÂë
-ÏÈ¾öÌõ¼ş|	´®¿ÚÒÑ´ò¿ª
+**Table 5. å‡½æ•°Verify1_N**
 
-JavascriptÊ¾Àı£º
+|é¡¹ç›®       |æè¿°
+|-----------|---
+|å‡½æ•°å     |Verify1_N
+|å‡½æ•°åŸå‹	|STDMETHODIMP CH2ECtrlAtl::Verify1_N(WORD wBank, INT* iMatchMemNo)
+|åŠŸèƒ½æè¿°   |1ï¼šN è®¤è¯ã€‚
+|è¾“å…¥å‚æ•°1	|wBankï¼šBankå·<br>0x0000 ~ 0x7FFFï¼š Flash ROM<br>0x8000 ~ 0xFFFFï¼š SDRAM
+|è¾“å‡ºå‚æ•°1	|*iMatchMemNoï¼šå¤§äºç­‰äº0ä¸ºè¢«è®¤è¯æ¨¡æ¿å·ï¼Œå°äº0æ˜¯é”™è¯¯ç 
+|å…ˆå†³æ¡ä»¶   |ä¸²å£å·²æ‰“å¼€
+
+Javascriptç¤ºä¾‹ï¼š
+
+```javascript
 <input type="button" value="Verify 1:N" onclick="verify1_Nclick();" />
 
     <script type="text/javascript">
@@ -241,82 +273,87 @@ JavascriptÊ¾Àı£º
 
 
             var lTouchInfo = 0;
-            var bTouchMode = 1;     //b00000011 Ê¹ÄÜTouch Out 1&2¼ì²â
-            //b00000001 Ê¹ÄÜTouch Out 1¼ì²â
-            //b00000010 Ê¹ÄÜTouch Out 2¼ì²â
-            //b00000000 ½ûÖ¹Touch Out¼ì²â
+            var bTouchMode = 1;     //b00000011 ä½¿èƒ½Touch Out 1&2æ£€æµ‹
+                                    //b00000001 ä½¿èƒ½Touch Out 1æ£€æµ‹
+                                    //b00000010 ä½¿èƒ½Touch Out 2æ£€æµ‹
+                                    //b00000000 ç¦æ­¢Touch Outæ£€æµ‹
 
 
             var verify1_NFun = document.getElementById("H2ECtrlAtl");
             var TouchOutFun = document.getElementById("H2ECtrlAtl");
 
-            alert("·ÅÉÏÄãµÄÊÖÖ¸£¬¿ªÊ¼ÈÏÖ¤(1:N). ");
+            alert("æ”¾ä¸Šä½ çš„æ‰‹æŒ‡ï¼Œå¼€å§‹è®¤è¯(1:N). ");
 
             lTouchInfo = TouchOutFun.TouchSensorState(bTouchMode);
-            if (lTouchInfo != 0)    //Î´¼ì²âµ½ÊÖÖ¸·Åµ½´¥Ãş´«¸ĞÆ÷ÉÏ
+            if (lTouchInfo != 0)    //æœªæ£€æµ‹åˆ°æ‰‹æŒ‡æ”¾åˆ°è§¦æ‘¸ä¼ æ„Ÿå™¨ä¸Š
             {
-                alert("TouchOut´«¸ĞÆ÷³¬Ê±£¡ErrCode£º " + lTouchInfo);
+                alert("TouchOutä¼ æ„Ÿå™¨è¶…æ—¶ï¼ErrCodeï¼š " + lTouchInfo);
 
             }
             else {
                 var byMatchMemNo = verify1_NFun.Verify1_N(wBank);
 
                 if (byMatchMemNo >= 0) {
-                    alert("Éí·İÑéÖ¤³É¹¦ (Æ¥ÅäÄ£°åÄÚ´æ±àºÅ: " + byMatchMemNo + " )");
+                    alert("èº«ä»½éªŒè¯æˆåŠŸ (åŒ¹é…æ¨¡æ¿å†…å­˜ç¼–å·: " + byMatchMemNo + " )");
                 }
                 else {
-                    alert("Éí·İÑéÖ¤Ê§°Ü ! ErrCode: " + byMatchMemNo);
+                    alert("èº«ä»½éªŒè¯å¤±è´¥ ! ErrCode: " + byMatchMemNo);
                 }
 
             }
 
         }
 </script> 
+```
 
-### 1.2.6 º¯ÊıVerifyAcrossBanks
-Table 6ÃèÊöÁËº¯ÊıVerifyAcrossBanks¡£
-**Table 6. º¯ÊıVerifyAcrossBanks**
-ÏîÄ¿|ÃèÊö
--|-
-º¯ÊıÃû	|VerifyAcrossBanks
-º¯ÊıÔ­ĞÍ	|STDMETHODIMP CH2ECtrlAtl::VerifyAcrossBanks(VARIANT vAcrossBanks, WORD wTotalBankNumbers, VARIANT vMatchedBankAndTemplate, LONG* retval)
-¹¦ÄÜÃèÊö	|´Ëº¯ÊıÔÚÖ¸¶¨µÄ¶à¸öbankÖĞ²éÑ¯ÈÏÖ¤Ö¸¾²ÂöĞÅÏ¢¡£
-ÊäÈë²ÎÊı1	 |vAcrossBanks£ºBankºÅÊı×é<br>0x0000 ~ 0x7FFF£º Flash ROM<br>0x8000 ~ 0xFFFF£º SDRAM
-ÊäÈë²ÎÊı2|	wTotalBankNumbers£ºBankÊıÁ¿
-ÊäÈë²ÎÊı3|	vMatchedBankAndTemplate£ºÊı×éÔªËØ0ÎªBank£¬1ÎªTemplate
-Êä³ö²ÎÊı1|	*retval£º´íÎóÂë
-ÏÈ¾öÌõ¼ş|	´®¿ÚÒÑ´ò¿ª
+### 1.2.6 å‡½æ•°VerifyAcrossBanks
+Table 6æè¿°äº†å‡½æ•°VerifyAcrossBanksã€‚
 
-JavascriptÊ¾Àı£º
+**Table 6. å‡½æ•°VerifyAcrossBanks**
+
+|é¡¹ç›®       |æè¿°
+|-----------|---
+|å‡½æ•°å 	|VerifyAcrossBanks
+|å‡½æ•°åŸå‹	|STDMETHODIMP CH2ECtrlAtl::VerifyAcrossBanks(VARIANT vAcrossBanks, WORD wTotalBankNumbers, VARIANT vMatchedBankAndTemplate, LONG* retval)
+|åŠŸèƒ½æè¿°	|æ­¤å‡½æ•°åœ¨æŒ‡å®šçš„å¤šä¸ªbankä¸­æŸ¥è¯¢è®¤è¯æŒ‡é™è„‰ä¿¡æ¯ã€‚
+|è¾“å…¥å‚æ•°1	|vAcrossBanksï¼šBankå·æ•°ç»„<br>0x0000 ~ 0x7FFFï¼š Flash ROM<br>0x8000 ~ 0xFFFFï¼š SDRAM
+|è¾“å…¥å‚æ•°2  |wTotalBankNumbersï¼šBankæ•°é‡
+|è¾“å…¥å‚æ•°3  |vMatchedBankAndTemplateï¼šæ•°ç»„å…ƒç´ 0ä¸ºBankï¼Œ1ä¸ºTemplate
+|è¾“å‡ºå‚æ•°1  |*retvalï¼šé”™è¯¯ç 
+|å…ˆå†³æ¡ä»¶   |ä¸²å£å·²æ‰“å¼€
+
+Javascriptç¤ºä¾‹ï¼š
+
+```javascript
 <input type="button" value="VerifyAcrossBanks" onclick="VerifyAcrossBanksClick();" />
 
     <script type="text/javascript">
         function VerifyAcrossBanksClick() {
-            var vBanks = new Array(0x0000, 0x0001, 0x0002);//ĞèºÍµ±Ç°H2EÖĞµÄBankºÅÒ»ÖÂ
-            var Counts = 3;//H2EÖĞBankÊıÁ¿
-            var MatchedBankAndTemplate = new Array(0xff, 0xff);//ÔªËØ0ÎªBank£¬1ÎªTemplate
+            var vBanks = new Array(0x0000, 0x0001, 0x0002);//éœ€å’Œå½“å‰H2Eä¸­çš„Bankå·ä¸€è‡´
+            var Counts = 3;//H2Eä¸­Bankæ•°é‡
+            var MatchedBankAndTemplate = new Array(0xff, 0xff);//å…ƒç´ 0ä¸ºBankï¼Œ1ä¸ºTemplate
 
             var lTouchInfo = 0;
-            var bTouchMode = 0;     //b00000011 Ê¹ÄÜTouch Out 1&2¼ì²â
-            //b00000001 Ê¹ÄÜTouch Out 1¼ì²â
-            //b00000010 Ê¹ÄÜTouch Out 2¼ì²â
-            //b00000000 ½ûÖ¹Touch Out¼ì²â
+            var bTouchMode = 0;     //b00000011 ä½¿èƒ½Touch Out 1&2æ£€æµ‹
+            //b00000001 ä½¿èƒ½Touch Out 1æ£€æµ‹
+            //b00000010 ä½¿èƒ½Touch Out 2æ£€æµ‹
+            //b00000000 ç¦æ­¢Touch Outæ£€æµ‹
 
             var VerifyAcrossBanksFun = document.getElementById("H2ECtrlAtl");
             var TouchOutFun = document.getElementById("H2ECtrlAtl");
 
-            alert("·ÅÉÏÄãµÄÊÖÖ¸£¬¿ªÊ¼ÈÏÖ¤(1:ALL). ");
+            alert("æ”¾ä¸Šä½ çš„æ‰‹æŒ‡ï¼Œå¼€å§‹è®¤è¯(1:ALL). ");
 
             lTouchInfo = TouchOutFun.TouchSensorState(bTouchMode);
-            if (lTouchInfo != 0)    //Î´¼ì²âµ½ÊÖÖ¸·Åµ½´¥Ãş´«¸ĞÆ÷ÉÏ
+            if (lTouchInfo != 0)    //æœªæ£€æµ‹åˆ°æ‰‹æŒ‡æ”¾åˆ°è§¦æ‘¸ä¼ æ„Ÿå™¨ä¸Š
             {
-                alert("TouchOut´«¸ĞÆ÷³¬Ê±£¡ErrCode£º " + lTouchInfo);
+                alert("TouchOutä¼ æ„Ÿå™¨è¶…æ—¶ï¼ErrCodeï¼š " + lTouchInfo);
             }
             else
             {
                  var retval = VerifyAcrossBanksFun.VerifyAcrossBanks(vBanks, Counts, MatchedBankAndTemplate);
                  if (retval == 0) {
-                     alert("Éí·İÑéÖ¤³É¹¦! Bank: " + MatchedBankAndTemplate[0] + ", Template: " + MatchedBankAndTemplate[1]);
+                     alert("èº«ä»½éªŒè¯æˆåŠŸ! Bank: " + MatchedBankAndTemplate[0] + ", Template: " + MatchedBankAndTemplate[1]);
                  }
                  else {
                      alert("ErrCode: " + retval);
@@ -325,21 +362,26 @@ JavascriptÊ¾Àı£º
            
         }
     </script>
-### 1.2.7 º¯ÊıGetTemplate
-Table 7ÃèÊöÁËº¯ÊıGetTemplate¡£»ñÈ¡µÄÎ»ÖÃ±ØĞëÓĞÄ£°å£¬·ñÔòº¯ÊıĞĞÎª²»È·¶¨¡£
-**Table 7. º¯ÊıGetTemplate**
-ÏîÄ¿|ÃèÊö
--|-
-º¯ÊıÃû|	DeleteTemplete
-º¯ÊıÔ­ĞÍ	|STDMETHODIMP CH2ECtrlAtl::GetTemplate(WORD wBank, WORD wIdx, VARIANT vTemplate, LONG* retval)
-¹¦ÄÜÃèÊö|	»ñÈ¡´æ´¢ÔÚH2EÖ¸¶¨Î»ÖÃµÄÄ£°å
-ÊäÈë²ÎÊı1	|wBank£ºBankºÅ<br>0x0000 ~ 0x7FFF£º Flash ROM<br> 0x8000 ~ 0xFFFF£º SDRAM 
-ÊäÈë²ÎÊı2	|wIdx£ºÄ£°åºÅ£¨0x0000 ~ 0xFFFF£©
-ÊäÈë²ÎÊı3	|vTemplate£ºº¯Êı»á½«»ñÈ¡µ½µÄ1080×Ö½ÚÄ£°åÌî³äµ½vTemplate¡£
-Êä³ö²ÎÊı1	|*retval£º·µ»Ø´íÎóÂë¡£
-ÏÈ¾öÌõ¼ş|	´®¿ÚÒÑ´ò¿ª
+```
 
-JavascriptÊ¾Àı£º
+### 1.2.7 å‡½æ•°GetTemplate
+Table 7æè¿°äº†å‡½æ•°GetTemplateã€‚è·å–çš„ä½ç½®å¿…é¡»æœ‰æ¨¡æ¿ï¼Œå¦åˆ™å‡½æ•°è¡Œä¸ºä¸ç¡®å®šã€‚
+
+**Table 7. å‡½æ•°GetTemplate**
+
+|é¡¹ç›®       |æè¿°
+|-----------|----
+|å‡½æ•°å     |DeleteTemplete
+|å‡½æ•°åŸå‹	|STDMETHODIMP CH2ECtrlAtl::GetTemplate(WORD wBank, WORD wIdx, VARIANT vTemplate, LONG* retval)
+|åŠŸèƒ½æè¿°   |è·å–å­˜å‚¨åœ¨H2EæŒ‡å®šä½ç½®çš„æ¨¡æ¿
+|è¾“å…¥å‚æ•°1	|wBankï¼šBankå·<br>0x0000 ~ 0x7FFFï¼š Flash ROM<br> 0x8000 ~ 0xFFFFï¼š SDRAM 
+|è¾“å…¥å‚æ•°2	|wIdxï¼šæ¨¡æ¿å·ï¼ˆ0x0000 ~ 0xFFFFï¼‰
+|è¾“å…¥å‚æ•°3	|vTemplateï¼šå‡½æ•°ä¼šå°†è·å–åˆ°çš„1080å­—èŠ‚æ¨¡æ¿å¡«å……åˆ°vTemplateã€‚
+|è¾“å‡ºå‚æ•°1	|*retvalï¼šè¿”å›é”™è¯¯ç ã€‚
+|å…ˆå†³æ¡ä»¶   |ä¸²å£å·²æ‰“å¼€
+
+Javascriptç¤ºä¾‹ï¼š
+```javascript
 <input type="button" value="GetTemplate" onclick="GetTemplateClick()" />
 
     <script type="text/javascript">
@@ -365,22 +407,27 @@ JavascriptÊ¾Àı£º
             //}
         }
 </script>
+```
 
-### 1.2.8 º¯ÊıSetupTemplete
-Table 8ÃèÊöÁËº¯ÊıSetTemplate
-**Table 8. º¯ÊıSetTemplate**
-ÏîÄ¿|ÃèÊö
--|-
-º¯ÊıÃû	|SetTemplate
-º¯ÊıÔ­ĞÍ	|STDMETHODIMP CH2ECtrlAtl::SetTemplate(WORD wBank, WORD wIdx, VARIANT vTemplate, LONG* retval)
-¹¦ÄÜÃèÊö	|ÏÂÔØÖ¸¾²ÂöÄ£°åµ½H2EÖ¸¶¨Î»ÖÃ¡£
-ÊäÈë²ÎÊı1	|wBank£ºBankºÅ<br>0x0000 ~ 0x7FFF£º Flash ROM<br>0x8000 ~ 0xFFFF£º SDRAM      
-ÊäÈë²ÎÊı2	|wIdx£ºÄ£°åºÅ£¨0x0000 ~ 0xFFFF£©£»
-ÊäÈë²ÎÊı3	|vTemplete£ºÒªÏÂÔØµÄÖ¸¾²ÂöÄ£°å¡£
-Êä³ö²ÎÊı1	|*retval£º·µ»Ø´íÎóÂë¡£
-ÏÈ¾öÌõ¼ş|	´®¿ÚÒÑ´ò¿ª
+### 1.2.8 å‡½æ•°SetupTemplete
+Table 8æè¿°äº†å‡½æ•°SetTemplate
 
-JavascriptÊ¾Àı£º
+**Table 8. å‡½æ•°SetTemplate**
+
+|é¡¹ç›®       |æè¿°
+|-----------|----
+|å‡½æ•°å	    |SetTemplate
+|å‡½æ•°åŸå‹	|STDMETHODIMP CH2ECtrlAtl::SetTemplate(WORD wBank, WORD wIdx, VARIANT vTemplate, LONG* retval)
+|åŠŸèƒ½æè¿°	|ä¸‹è½½æŒ‡é™è„‰æ¨¡æ¿åˆ°H2EæŒ‡å®šä½ç½®ã€‚
+|è¾“å…¥å‚æ•°1	|wBankï¼šBankå·<br>0x0000 ~ 0x7FFFï¼š Flash ROM<br>0x8000 ~ 0xFFFFï¼š SDRAM      
+|è¾“å…¥å‚æ•°2	|wIdxï¼šæ¨¡æ¿å·ï¼ˆ0x0000 ~ 0xFFFFï¼‰ï¼›
+|è¾“å…¥å‚æ•°3	|vTempleteï¼šè¦ä¸‹è½½çš„æŒ‡é™è„‰æ¨¡æ¿ã€‚
+|è¾“å‡ºå‚æ•°1	|*retvalï¼šè¿”å›é”™è¯¯ç ã€‚
+|å…ˆå†³æ¡ä»¶   |ä¸²å£å·²æ‰“å¼€
+
+Javascriptç¤ºä¾‹ï¼š
+
+```javascript
 <input type="button" value="SetupTemplete" onclick="SetTemplateClick();" />
 
     <script type="text/javascript">
@@ -398,33 +445,36 @@ JavascriptÊ¾Àı£º
             }
         }
 </script>
+```
 
+### 1.2.9 å‡½æ•°DeleteTemplete
+Table 9æè¿°äº†å‡½æ•°DeleteTemplete
 
+**Table 9. å‡½æ•°DeleteTemplete**
 
-### 1.2.9 º¯ÊıDeleteTemplete
-Table 9ÃèÊöÁËº¯ÊıDeleteTemplete
-**Table 9. º¯ÊıDeleteTemplete**
-ÏîÄ¿|ÃèÊö
--|-
-º¯ÊıÃû|	DeleteTemplete
-º¯ÊıÔ­ĞÍ	|STDMETHODIMP CH2ECtrlAtl::DeleteTemplete(WORD wBank, WORD wIdx, INT iMode, LONG* retval)
-¹¦ÄÜÃèÊö|	É¾³ıÖ¸¶¨Ä£°å¡£
-ÊäÈë²ÎÊı1|	wBank£ºBankºÅ<br>0x0000 ~ 0x7FFF£º Flash ROM<br>0x8000 ~ 0xFFFF£º SDRAM   
-ÊäÈë²ÎÊı2	|wIdx£ºÄ£°åºÅ£¨0x0000 ~ 0xFFFF£©
-ÊäÈë²ÎÊı3	|iMode£ºÉ¾³ıÑ¡Ïî<br>0£ºÉ¾³ıÖ¸¶¨µÄÄ£°åºÅ£»<br>1£ºÉ¾³ıµ±Ç°Bank µÄÈ«²¿Ä£°å£»<br>2£ºÉ¾³ıÈ«²¿Bank µÄÈ«²¿Ä£°å ¡£
-Êä³ö²ÎÊı1	|*retval£º·µ»Ø´íÎóÂë¡£
-ÏÈ¾öÌõ¼ş	|´®¿ÚÒÑ´ò¿ª
+|é¡¹ç›®       |æè¿°
+|-----------|---
+|å‡½æ•°å     |DeleteTemplete
+|å‡½æ•°åŸå‹	|STDMETHODIMP CH2ECtrlAtl::DeleteTemplete(WORD wBank, WORD wIdx, INT iMode, LONG* retval)
+|åŠŸèƒ½æè¿°   |åˆ é™¤æŒ‡å®šæ¨¡æ¿ã€‚
+|è¾“å…¥å‚æ•°1  |wBankï¼šBankå·<br>0x0000 ~ 0x7FFFï¼š Flash ROM<br>0x8000 ~ 0xFFFFï¼š SDRAM   
+|è¾“å…¥å‚æ•°2	|wIdxï¼šæ¨¡æ¿å·ï¼ˆ0x0000 ~ 0xFFFFï¼‰
+|è¾“å…¥å‚æ•°3	|iModeï¼šåˆ é™¤é€‰é¡¹<br>0ï¼šåˆ é™¤æŒ‡å®šçš„æ¨¡æ¿å·ï¼›<br>1ï¼šåˆ é™¤å½“å‰Bank çš„å…¨éƒ¨æ¨¡æ¿ï¼›<br>2ï¼šåˆ é™¤å…¨éƒ¨Bank çš„å…¨éƒ¨æ¨¡æ¿ ã€‚
+|è¾“å‡ºå‚æ•°1	|*retvalï¼šè¿”å›é”™è¯¯ç ã€‚
+|å…ˆå†³æ¡ä»¶	|ä¸²å£å·²æ‰“å¼€
 
-JavascriptÊ¾Àı£º
+Javascriptç¤ºä¾‹ï¼š
+
+```javascript
 <input type="button" value="DeleteTemplete" onclick="deleteclick();" />
 
     <script type="text/javascript">
         function deleteclick() {
             var wBank = 0x0000;
             var nIdx = 00;
-            var iMode = 0;  //0:É¾³ıÖ¸¶¨µÄÄ£°åºÅ£»
-            //1:É¾³ıµ±Ç°Bank µÄÈ«²¿Ä£°å£»
-            //2:É¾³ıÈ«²¿Bank µÄÈ«²¿Ä£°å ¡£
+            var iMode = 0;  //0:åˆ é™¤æŒ‡å®šçš„æ¨¡æ¿å·ï¼›
+            //1:åˆ é™¤å½“å‰Bank çš„å…¨éƒ¨æ¨¡æ¿ï¼›
+            //2:åˆ é™¤å…¨éƒ¨Bank çš„å…¨éƒ¨æ¨¡æ¿ ã€‚
 
             var del = document.getElementById("H2ECtrlAtl");
             var RetVal = del.DeleteTemplete(wBank, nIdx, iMode);
@@ -436,30 +486,31 @@ JavascriptÊ¾Àı£º
             }
         }
 </script>
+```
 
-## 1.3	´íÎóÂë
-* ´®¿Ú²Ù×÷´íÎóÂë
-´íÎóÂë	|ÃèÊö
--|-
-0|	²Ù×÷³É¹¦
--200|	´®¿Ú´ò¿ª´íÎó
--201|	´®¿Ú¹Ø±Õ´íÎó
--202|	´®¿Ú¶Á´íÎó
--203	|´®¿ÚĞ´´íÎó
--204	|Ã»ÓĞÊÕµ½Êı¾İ
--205|	ÊÕµ½ÎŞĞ§Êı¾İ£¬Ò»°ãÊÇÊÖÖ¸Ã»·ÅºÃ
--206|	´®¿Ú´íÎó
--207|	AddĞ£ÑéÂë´íÎó
--208|	XorĞ£ÑéÂë´íÎó
--250|	´®¿ÚÃ»ÓĞ´ò¿ª
+## 1.3	é”™è¯¯ç 
+* ä¸²å£æ“ä½œé”™è¯¯ç 
 
-* ÈÏÖ¤²Ù×÷´íÎóÂë
-´íÎóÂë	|ÃèÊö
--|-
-0	|²Ù×÷³É¹¦
--10	|·¢ËÍ³¬Ê±
--11	|´¥Ãş´«¸ĞÆ÷³¬Ê±
--101	|ÎŞĞ§²ÎÊı
--104	|ÈÏÖ¤Ê§°Ü
+|é”™è¯¯ç 	|æè¿°
+|-------|---
+|0      |æ“ä½œæˆåŠŸ
+|-200   |ä¸²å£æ‰“å¼€é”™è¯¯
+|-201   |ä¸²å£å…³é—­é”™è¯¯
+|-202   |ä¸²å£è¯»é”™è¯¯
+|-203	|ä¸²å£å†™é”™è¯¯
+|-204	|æ²¡æœ‰æ”¶åˆ°æ•°æ®
+|-205   |æ”¶åˆ°æ— æ•ˆæ•°æ®ï¼Œä¸€èˆ¬æ˜¯æ‰‹æŒ‡æ²¡æ”¾å¥½
+|-206   |ä¸²å£é”™è¯¯
+|-207   |Addæ ¡éªŒç é”™è¯¯
+|-208   |Xoræ ¡éªŒç é”™è¯¯
+|-250   |ä¸²å£æ²¡æœ‰æ‰“å¼€
 
+* è®¤è¯æ“ä½œé”™è¯¯ç 
 
+|é”™è¯¯ç 	|æè¿°
+|-------|---
+|0	    |æ“ä½œæˆåŠŸ
+|-10	|å‘é€è¶…æ—¶
+|-11	|è§¦æ‘¸ä¼ æ„Ÿå™¨è¶…æ—¶
+|-101	|æ— æ•ˆå‚æ•°
+|-104	|è®¤è¯å¤±è´¥
