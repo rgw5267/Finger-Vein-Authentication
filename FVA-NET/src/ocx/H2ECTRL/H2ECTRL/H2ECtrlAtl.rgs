@@ -1,0 +1,23 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {663B9AAA-4C12-46CD-A77B-89EC9F42625F} = s 'H2ECtrlAtl Class'
+		{
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			val AppID = s '%APPID%'
+			ForceRemove Control
+			ForceRemove 'ToolboxBitmap32' = s '%MODULE%, 104'
+			MiscStatus = s '0'
+			{
+			    '1' = s '%OLEMISC%'
+			}
+			TypeLib = s '{87771D10-1729-4B91-A744-E77CFD228409}'
+			Version = s '1.0'
+		}
+	}
+}

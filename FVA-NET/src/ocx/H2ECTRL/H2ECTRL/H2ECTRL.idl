@@ -1,0 +1,87 @@
+// H2ECTRL.idl : ActiveX 控件项目的类型库源。
+
+// 此文件将由 MIDL 编译器工具处理以
+// 产生类型库(H2ECTRL.tlb)，该类型库将成为
+// H2ECTRL.ocx.
+
+#include <olectl.h>
+#include <idispids.h>
+
+import "ocidl.idl";
+import "oaidl.idl";
+[
+	object,
+	uuid(2D753D21-88AB-4CD0-98B8-AC55006A3D7B),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IH2ECtrlAtl : IDispatch{
+	[id(1)] HRESULT OpenCom(int nIdx, UINT uiSpeed, [out,retval] LONG* retval);
+	[id(2)] HRESULT Enroll(WORD wBank, WORD wIdx, UINT uiTimes, LONG lTouchInfo, [out,retval] LONG* retval);
+	[id(3)] HRESULT TouchSensorState(BYTE bTouchMode, [out,retval] LONG* retval);
+	[id(4)] HRESULT Verify1_1(WORD wBank, WORD wIdx, [out,retval] INT* iMatchMemNo);
+	[id(5)] HRESULT Verify1_N(WORD wBank, [out,retval] INT* iMatchMemNo);
+	[id(6)] HRESULT DeleteTemplete(WORD wBank, WORD wIdx, INT iMode, [out,retval] LONG* retval);
+	[id(7)] HRESULT GetTemplate(WORD wBank, WORD wIdx, VARIANT vTemplate, [out,retval] LONG* retval);
+	[id(8)] HRESULT SetTemplate(WORD wBank, WORD wIdx, VARIANT vTemplate, [out,retval] LONG* retval);
+	[id(9)] HRESULT VerifyAcrossBanks(VARIANT vAcrossBanks, WORD wTotalBankNumbers, VARIANT vMatchedBankAndTemplate, [out,retval] LONG* retval );
+};
+
+[ uuid(87771D10-1729-4B91-A744-E77CFD228409), version(1.0),
+  control ]
+library H2ECTRLLib
+{
+	importlib(STDOLE_TLB);
+
+	//  CH2ECTRLCtrl 的主调度接口
+	[ 
+		uuid(444B9E74-4E35-40A1-8616-E44507E7C8E0)	
+	]
+	dispinterface _DH2ECTRL
+	{
+		properties:
+		methods:
+	};
+
+	//  CH2ECTRLCtrl 的事件调度接口
+
+	[ 
+		uuid(FCF1FFDC-4DA8-47DE-8B83-65B29CE91A9F)	
+	]
+	dispinterface _DH2ECTRLEvents
+	{
+		properties:
+			//  事件接口没有任何属性
+
+		methods:
+	};
+
+	//  CH2ECTRLCtrl 的类信息
+	[
+		uuid(737B1887-28FC-4407-B736-702835D6C9B0)
+	]
+	coclass H2ECTRL
+	{
+		[default] dispinterface _DH2ECTRL;
+		[default, source] dispinterface _DH2ECTRLEvents;
+	};
+
+	[
+		uuid(819087EC-2403-4775-A0B2-92E4347A0906)		
+	]
+	dispinterface _IH2ECtrlAtlEvents
+	{
+		properties:
+		methods:
+	};
+	[
+		uuid(663B9AAA-4C12-46CD-A77B-89EC9F42625F),		
+		control
+	]
+	coclass H2ECtrlAtl
+	{
+		[default] interface IH2ECtrlAtl;
+		[default, source] dispinterface _IH2ECtrlAtlEvents;
+	};
+};

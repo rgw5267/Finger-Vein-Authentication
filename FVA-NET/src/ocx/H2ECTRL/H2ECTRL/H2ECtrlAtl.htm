@@ -1,0 +1,295 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <title>对象 H2ECtrlAtl 的 ATL 测试页</title>
+</head>
+<body>
+
+
+    <object id="H2ECtrlAtl" classid="CLSID:663B9AAA-4C12-46CD-A77B-89EC9F42625F"></object>
+
+    <input type="button" value="OpenCom" onclick="OpenComClick();" />
+
+    <script type="text/javascript">
+        function OpenComClick() {
+            var com = 4001;//0 = com1
+            var speed = 57600;     //57600
+            var OpenComFun = document.getElementById("H2ECtrlAtl");
+            var returnVal = OpenComFun.OpenCom(com, speed);
+            if (returnVal == 0) {
+                alert("OK! Connect to 4001!");
+            }
+            else {
+                alert("ErrCode: " + returnVal + " )");
+            }
+
+        }
+    </script>
+
+    <input type="button" value="Touch Sensor test" onclick="TouchSensorStateClick();" />
+
+    <script type="text/javascript">
+        function TouchSensorStateClick() {
+            var bTouchMode = 0;     //b00000011 使能Touch Out 1&2检测
+            //b00000001 使能Touch Out 1检测
+            //b00000010 使能Touch Out 2检测
+            //b00000000 禁止Touch Out检测
+            var TouchOutFun = document.getElementById("H2ECtrlAtl");
+
+            alert("Put your finger ");
+            var returnVal = TouchOutFun.TouchSensorState(bTouchMode);
+            if (returnVal == 0) {
+                alert("Touch Sensor OK! ");
+            }
+            else if (returnVal == -11) {
+                alert("Timeout! ErrCode: " + returnVal + " !");
+            }
+            else if (returnVal == -250) {
+                alert("没有打开串口哦亲！");
+            }
+
+        }
+    </script>
+
+    <input type="button" value="Enroll" onclick="enrollclick();" />
+
+    <script type="text/javascript">
+        function enrollclick() {
+            var wBank = 0x0000;
+            var nIdx = 0x0000;
+            var uiTimes = 0;
+            var lTouchInfo = 0;
+
+            var bTouchMode = 0;     //b00000011 使能Touch Out 1&2检测
+            //b00000001 使能Touch Out 1检测
+            //b00000010 使能Touch Out 2检测
+            //b00000000 禁止Touch Out检测
+
+
+            var EnrollFun = document.getElementById("H2ECtrlAtl");
+            var TouchOutFun = document.getElementById("H2ECtrlAtl");
+
+
+            for (i = 0; i < 2; i++) {
+                if (i == 1) {
+                    alert("移开手指，重新放上")
+                }
+                alert("放上你的手指，采集指静脉(" + (i + 1) + "/2). ");
+
+                lTouchInfo = TouchOutFun.TouchSensorState(bTouchMode);
+                if (lTouchInfo != 0)    //未检测到手指放到触摸传感器上
+                {
+                    if (i > 0) {
+                        //Do dummy enroll opelation.
+                        var RetValEnroll = EnrollFun.Enroll(wBank, nIdx, i, lTouchInfo);
+                    }
+                    alert("指静脉采集超时！ErrCode： " + lTouchInfo);
+                    break;
+                }
+                //Enroll sequence
+
+                RetValEnroll = EnrollFun.Enroll(wBank, nIdx, i, lTouchInfo);
+                if (RetValEnroll < 0) {
+                    alert("指静脉采集发生错误，ErrCode： " + RetValEnroll);
+                    break;
+                }
+                alert("采集 " + (i + 1) + "/2 OK");
+            }
+            if (RetValEnroll < 0 || lTouchInfo != 0) {
+                alert("指静脉采集错误，请重新采集！");
+            }
+            else {
+                alert("指静脉采集完成！");
+            }
+
+        }
+    </script>
+
+    <input type="button" value="Verify 1:1" onclick="verify1_1click();" />
+    <script type="text/javascript">
+        function verify1_1click() {
+            var wBank = 0x0000;
+            var nIdx = 00;
+
+            var lTouchInfo = 0;
+            var bTouchMode = 0;     //b00000011 使能Touch Out 1&2检测
+            //b00000001 使能Touch Out 1检测
+            //b00000010 使能Touch Out 2检测
+            //b00000000 禁止Touch Out检测
+
+
+            var verify1_1Fun = document.getElementById("H2ECtrlAtl");
+            var TouchOutFun = document.getElementById("H2ECtrlAtl");
+
+            alert("放上你的手指，开始指静脉(1:1). ");
+
+            lTouchInfo = TouchOutFun.TouchSensorState(bTouchMode);
+            if (lTouchInfo != 0)    //未检测到手指放到触摸传感器上
+            {
+                alert("TouchOut传感器超时！ErrCode： " + lTouchInfo);
+
+            }
+            else {
+                var byMatchMemNo = verify1_1Fun.Verify1_1(wBank, nIdx);
+
+                if (byMatchMemNo == nIdx) {
+                    alert("身份验证成功 (匹配模板内存编号: " + byMatchMemNo + " )");
+                }
+                else {
+                    alert("身份验证失败 ! ErrCode: " + byMatchMemNo);
+                }
+
+            }
+
+
+        }
+    </script>
+
+    <input type="button" value="Verify 1:N" onclick="verify1_Nclick();" />
+
+    <script type="text/javascript">
+        function verify1_Nclick() {
+            var wBank = 0x0000;
+
+
+            var lTouchInfo = 0;
+            var bTouchMode = 0;     //b00000011 使能Touch Out 1&2检测
+            //b00000001 使能Touch Out 1检测
+            //b00000010 使能Touch Out 2检测
+            //b00000000 禁止Touch Out检测
+
+
+            var verify1_NFun = document.getElementById("H2ECtrlAtl");
+            var TouchOutFun = document.getElementById("H2ECtrlAtl");
+
+            alert("放上你的手指，开始认证(1:N). ");
+
+            lTouchInfo = TouchOutFun.TouchSensorState(bTouchMode);
+            if (lTouchInfo != 0)    //未检测到手指放到触摸传感器上
+            {
+                alert("TouchOut传感器超时！ErrCode： " + lTouchInfo);
+
+            }
+            else {
+                var byMatchMemNo = verify1_NFun.Verify1_N(wBank);
+
+                if (byMatchMemNo >= 0) {
+                    alert("身份验证成功 (匹配模板内存编号: " + byMatchMemNo + " )");
+                }
+                else {
+                    alert("身份验证失败 ! ErrCode: " + byMatchMemNo);
+                }
+
+            }
+
+        }
+    </script>
+
+    <input type="button" value="VerifyAcrossBanks" onclick="VerifyAcrossBanksClick();" />
+
+    <script type="text/javascript">
+        function VerifyAcrossBanksClick() {
+            var vBanks = new Array(0x0000, 0x0001, 0x0002);//需和当前H2E中的Bank号一致
+            var Counts = 3;//H2E中Bank数量
+            var MatchedBankAndTemplate = new Array(0xff, 0xff);//元素0为Bank，1为Template
+
+            var lTouchInfo = 0;
+            var bTouchMode = 0;     //b00000011 使能Touch Out 1&2检测
+            //b00000001 使能Touch Out 1检测
+            //b00000010 使能Touch Out 2检测
+            //b00000000 禁止Touch Out检测
+
+
+            var VerifyAcrossBanksFun = document.getElementById("H2ECtrlAtl");
+            var TouchOutFun = document.getElementById("H2ECtrlAtl");
+
+            alert("放上你的手指，开始认证(1:ALL). ");
+
+            lTouchInfo = TouchOutFun.TouchSensorState(bTouchMode);
+            if (lTouchInfo != 0)    //未检测到手指放到触摸传感器上
+            {
+                alert("TouchOut传感器超时！ErrCode： " + lTouchInfo);
+            }
+            else
+            {
+                 var retval = VerifyAcrossBanksFun.VerifyAcrossBanks(vBanks, Counts, MatchedBankAndTemplate);
+                 if (retval == 0) {
+
+                     alert("身份验证成功! Bank: " + MatchedBankAndTemplate[0] + ", Template: " + MatchedBankAndTemplate[1]);
+                 }
+                 else {
+                     alert("ErrCode: " + retval);
+                 }
+            }
+           
+        }
+    </script>
+
+    <input type="button" value="DeleteTemplete" onclick="deleteclick();" />
+
+    <script type="text/javascript">
+        function deleteclick() {
+            var wBank = 0x0000;
+            var nIdx = 00;
+            var iMode = 0;  //0:删除指定的模板号；
+            //1:删除当前Bank 的全部模板；
+            //2:删除全部Bank 的全部模板 。
+
+            var del = document.getElementById("H2ECtrlAtl");
+            var RetVal = del.DeleteTemplete(wBank, nIdx, iMode);
+            if (RetVal == 0) {
+                alert("Delete OK! ");
+            }
+            else {
+                alert("ErrCode: " + RetVal);
+            }
+        }
+    </script>
+
+    <input type="button" value="GetTemplate" onclick="GetTemplateClick()" />
+
+    <script type="text/javascript">
+        function GetTemplateClick() {
+            var wBank = 0x0000;
+            var nIdx = 00;
+            var vTemplete = new Array(1080);
+            for (i = 0; i < vTemplete.length; i++) {
+                vTemplete[i] = 0;
+            }
+
+            var GetTmpFun = document.getElementById("H2ECtrlAtl");
+            var RetVal = GetTmpFun.GetTemplate(wBank, nIdx, vTemplete);
+
+            for (i = 0; i < 1080; i++) {
+                document.write(vTemplete[i] + ",")
+            }
+            //if (RetVal == 0) {
+            //    alert("Get OK! ");
+            //}
+            //else {
+            //    alert("ErrCode: " + RetVal);
+            //}
+        }
+    </script>
+
+    <input type="button" value="SetupTemplete" onclick="SetTemplateClick();" />
+
+    <script type="text/javascript">
+        function SetTemplateClick() {
+            var wBank = 0x0000;
+            var nIdx = 00;
+            var vTemplete = new Array(22, 218, 231, 202, 80, 91, 94, 50, 217, 110, 160, 139, 97, 173, 99, 21, 10, 109, 19, 86, 10, 225, 185, 178, 145, 33, 73, 113, 38, 144, 253, 202, 157, 249, 188, 152, 225, 218, 89, 49, 192, 200, 57, 228, 233, 10, 194, 195, 76, 59, 176, 144, 2, 74, 35, 3, 7, 37, 26, 24, 176, 244, 70, 45, 42, 106, 194, 33, 108, 243, 137, 72, 189, 14, 2, 82, 61, 3, 60, 61, 28, 249, 134, 46, 31, 213, 71, 241, 59, 236, 91, 102, 17, 195, 70, 17, 32, 41, 232, 207, 234, 57, 79, 76, 191, 21, 3, 98, 191, 150, 1, 106, 191, 163, 108, 123, 192, 56, 110, 24, 107, 90, 241, 118, 174, 142, 99, 80, 209, 177, 3, 47, 59, 76, 147, 196, 186, 239, 83, 85, 13, 129, 48, 140, 249, 251, 161, 51, 22, 194, 182, 154, 217, 83, 88, 124, 171, 138, 220, 206, 83, 174, 223, 58, 213, 80, 104, 124, 156, 55, 59, 117, 193, 102, 175, 158, 238, 201, 67, 149, 47, 207, 15, 42, 240, 187, 71, 15, 52, 130, 97, 188, 91, 19, 189, 138, 113, 23, 116, 231, 195, 73, 8, 222, 150, 95, 110, 161, 52, 90, 154, 227, 77, 187, 85, 77, 195, 205, 224, 121, 230, 52, 227, 133, 191, 194, 152, 116, 246, 223, 194, 247, 244, 140, 230, 108, 81, 67, 139, 13, 243, 63, 117, 247, 203, 43, 95, 84, 144, 17, 46, 114, 204, 110, 72, 230, 141, 196, 86, 196, 29, 194, 147, 242, 17, 157, 217, 171, 93, 243, 43, 88, 252, 188, 247, 30, 75, 188, 30, 215, 54, 148, 112, 154, 173, 4, 158, 36, 51, 193, 105, 87, 42, 227, 191, 164, 28, 187, 166, 67, 4, 214, 118, 86, 161, 134, 240, 202, 136, 213, 226, 47, 163, 8, 198, 152, 44, 235, 2, 179, 57, 167, 252, 16, 236, 89, 155, 198, 117, 188, 195, 240, 82, 216, 52, 197, 163, 87, 45, 26, 193, 126, 0, 136, 170, 44, 82, 159, 240, 137, 225, 102, 136, 28, 119, 37, 15, 243, 53, 131, 124, 164, 49, 135, 112, 202, 81, 168, 220, 181, 6, 190, 138, 47, 129, 224, 54, 50, 217, 47, 76, 83, 126, 101, 10, 71, 178, 111, 30, 51, 163, 213, 85, 186, 254, 73, 241, 41, 106, 181, 235, 16, 34, 240, 48, 183, 203, 28, 213, 149, 25, 166, 100, 186, 255, 182, 108, 139, 82, 228, 75, 99, 157, 224, 223, 153, 139, 32, 214, 96, 165, 130, 123, 73, 75, 205, 106, 40, 103, 151, 216, 113, 108, 53, 247, 193, 205, 180, 143, 42, 140, 175, 229, 104, 45, 209, 92, 27, 46, 170, 120, 99, 218, 50, 187, 246, 62, 154, 43, 31, 219, 92, 212, 172, 181, 255, 3, 52, 254, 135, 248, 244, 247, 38, 191, 232, 174, 198, 63, 175, 43, 100, 99, 241, 96, 74, 99, 92, 32, 180, 199, 39, 108, 114, 212, 111, 125, 123, 158, 176, 187, 211, 161, 26, 3, 230, 86, 165, 6, 65, 15, 46, 56, 166, 221, 18, 230, 93, 56, 78, 254, 68, 190, 120, 123, 236, 68, 149, 165, 166, 157, 216, 123, 74, 219, 222, 244, 164, 255, 205, 193, 69, 169, 99, 26, 121, 149, 151, 44, 158, 180, 6, 182, 10, 180, 92, 10, 227, 92, 214, 11, 139, 137, 17, 165, 53, 252, 51, 183, 96, 205, 187, 248, 22, 250, 240, 54, 135, 140, 58, 248, 178, 210, 93, 33, 198, 125, 202, 253, 75, 195, 10, 196, 93, 146, 138, 180, 69, 215, 113, 97, 70, 11, 144, 144, 133, 137, 235, 48, 99, 27, 178, 138, 189, 186, 253, 45, 138, 219, 30, 129, 216, 75, 63, 114, 89, 174, 140, 112, 54, 32, 72, 185, 158, 254, 183, 58, 13, 15, 143, 189, 96, 231, 107, 78, 45, 38, 107, 30, 80, 38, 127, 221, 166, 242, 39, 102, 102, 62, 215, 10, 236, 151, 182, 210, 191, 140, 183, 223, 108, 65, 11, 69, 23, 181, 184, 207, 99, 48, 200, 151, 30, 132, 34, 23, 247, 107, 152, 181, 224, 109, 204, 16, 71, 65, 209, 20, 247, 66, 25, 179, 238, 174, 78, 212, 175, 40, 161, 148, 121, 251, 190, 20, 250, 130, 95, 145, 225, 14, 44, 238, 111, 105, 61, 31, 92, 187, 202, 247, 196, 71, 161, 70, 142, 26, 238, 42, 64, 43, 245, 75, 184, 34, 100, 125, 102, 128, 188, 171, 3, 116, 181, 78, 105, 59, 48, 148, 79, 245, 249, 50, 119, 166, 89, 88, 92, 189, 130, 78, 89, 220, 122, 179, 203, 110, 35, 134, 159, 163, 94, 115, 80, 216, 66, 62, 55, 31, 7, 114, 202, 14, 128, 226, 135, 188, 116, 187, 221, 60, 63, 154, 250, 29, 68, 36, 137, 209, 4, 102, 95, 224, 135, 151, 156, 243, 186, 142, 133, 141, 14, 133, 193, 33, 124, 218, 94, 79, 196, 49, 103, 181, 113, 166, 43, 121, 185, 232, 25, 215, 18, 195, 199, 204, 118, 129, 191, 79, 24, 101, 70, 165, 126, 228, 147, 128, 62, 112, 3, 114, 130, 140, 47, 255, 54, 254, 199, 58, 182, 185, 31, 204, 149, 240, 239, 95, 224, 118, 55, 236, 89, 234, 125, 15, 135, 244, 118, 11, 196, 236, 253, 82, 248, 199, 231, 166, 190, 239, 127, 229, 223, 56, 192, 254, 200, 28, 160, 248, 30, 210, 148, 225, 182, 183, 215, 87, 9, 199, 33, 143, 60, 49, 201, 65, 73, 232, 80, 198, 201, 179, 72, 176, 179, 211, 202, 163, 222, 50, 244, 50, 233, 79, 98, 71, 9, 180, 52, 248, 200, 209, 19, 46, 142, 25, 216, 25, 83, 14, 161, 202, 181, 217, 183, 251, 68, 15, 115, 58, 226, 55, 188, 210, 53, 219, 242, 220, 88, 180, 214, 238, 80, 190, 176, 48, 184, 37, 141, 31, 216, 255, 247, 128, 224, 190, 203, 247, 78, 46, 141, 212, 245, 57, 47, 152, 115, 97, 147, 179, 1, 216, 247, 248, 12, 141, 219, 225, 57, 177, 247, 125, 168, 117, 101, 71, 198, 67, 246, 108, 242, 87, 82, 236, 211, 52, 34, 53, 162, 55, 190, 234, 250, 98, 248, 234, 104, 184, 180, 23, 233, 91, 10, 192, 26, 147, 248, 19, 148, 4, 95, 56, 49, 83, 141, 114, 228, 230, 122, 168, 121, 44, 198);
+            var SetupFun = document.getElementById("H2ECtrlAtl");
+            var retval = SetupFun.SetTemplate(wBank, nIdx, vTemplete);
+            if (retval == 0) {
+                alert("Set OK! ");
+            }
+            else {
+                alert("ErrCode: " + retval);
+            }
+        }
+    </script>
+
+
+</body>
+</html>
