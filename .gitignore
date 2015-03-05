@@ -200,3 +200,4 @@ FVA-NET/pcb/History/
 FVA-NET/src/MDK-ARM/List/
 *.uvgui.*
 *.uvopt
+*.PrjPcbStructure
