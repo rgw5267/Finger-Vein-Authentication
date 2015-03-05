@@ -154,7 +154,7 @@ int CH2ECom::Open()
 	int			iReturn = H2E_OK;
 	FT_STATUS	ftStatus;
 
-	ftStatus= FT_OpenEx("USB Finger Vein Biometric",FT_OPEN_BY_DESCRIPTION, &ftHandle);
+	ftStatus= FT_OpenEx("ML-FVA-USB",FT_OPEN_BY_DESCRIPTION, &ftHandle);
 
 	if(ftStatus != FT_OK){
 		iReturn = -200;
