@@ -104,30 +104,6 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=WFVRQNCN
 
-[GeneratedDocument1]
-DocumentPath=Project Outputs for FVA-NET\Design Rule Check - FVA-NET.html
-DItemRevisionGUID=
-
-[GeneratedDocument2]
-DocumentPath=Project Outputs for FVA-NET\FVA-NET.BOM
-DItemRevisionGUID=
-
-[GeneratedDocument3]
-DocumentPath=Project Outputs for FVA-NET\FVA-NET.CSV
-DItemRevisionGUID=
-
-[GeneratedDocument4]
-DocumentPath=H2E_Port.PcbLib.htm
-DItemRevisionGUID=
-
-[GeneratedDocument5]
-DocumentPath=..\..\H2E_Layout\Õ‚–Œ\POE\PCB\H2E_Port.PcbLib.htm
-DItemRevisionGUID=
-
-[GeneratedDocument6]
-DocumentPath=Default Configuration\SystemBOM.xml
-DItemRevisionGUID=
-
 [Configuration1]
 Name=Default Configuration
 ParameterCount=0
