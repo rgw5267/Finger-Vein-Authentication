@@ -3,59 +3,59 @@
 #include "H1EUSB_Com.h"
 #include "H1EUSB_Dbg.h"
 /********************************************************************************************/
-/* CH1USBComƒNƒ‰ƒXƒvƒƒOƒ‰ƒ€																*/
+/* CH1USBComã‚¯ãƒ©ã‚¹ãƒ—ãƒ­ã‚°ãƒ©ãƒ 																*/
 /*------------------------------------------------------------------------------------------*/
-/*[ì¬]		<ì¬ŽÒ><ì¬“ú><ƒo[ƒWƒ‡ƒ“]ƒŠƒrƒWƒ‡ƒ“>									*/
-/*				<”’ŒË><20120110>@Initial Version.                                          */
+/*[ä½œæˆ]		<ä½œæˆè€…><ä½œæˆæ—¥><ãƒãƒ¼ã‚¸ãƒ§ãƒ³â€ãƒªãƒ“ã‚¸ãƒ§ãƒ³>									*/
+/*				<ç™½æˆ¸><20120110>ã€€Initial Version.                                          */
 /*------------------------------------------------------------------------------------------*/
-/*[C³—ˆ—ð]	<C³ŽÒ><C³“ú><ƒo[ƒWƒ‡ƒ“]ƒŠƒrƒWƒ‡ƒ“><áŠQŠÇ—”Ô†><C³“à—e>	    	*/
+/*[ä¿®æ­£æ¥æ­´]	<ä¿®æ­£è€…><ä¿®æ­£æ—¥><ãƒãƒ¼ã‚¸ãƒ§ãƒ³â€ãƒªãƒ“ã‚¸ãƒ§ãƒ³><éšœå®³ç®¡ç†ç•ªå·><ä¿®æ­£å†…å®¹>	    	*/
 /*                                                                          				*/
 /********************************************************************************************/
 /********************************************************************************************/
-/*[ƒƒ\ƒbƒh–¼] CH1USBComƒNƒ‰ƒX‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^												*/
+/*[ãƒ¡ã‚½ãƒƒãƒ‰å] CH1USBComã‚¯ãƒ©ã‚¹ã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿												*/
 /*------------------------------------------------------------------------------------------*/
-/*[éŒ¾]		CH1USBCom(PH1ECOMOBJEP pH1EComObjEP)										*/
+/*[å®£è¨€]		CH1USBCom(PH1ECOMOBJEP pH1EComObjEP)										*/
 /*																							*/
 /*------------------------------------------------------------------------------------------*/
-/*[“à—e]		ƒRƒ“ƒXƒgƒ‰ƒNƒ^ˆ—															*/
+/*[å†…å®¹]		ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿å‡¦ç†															*/
 /*------------------------------------------------------------------------------------------*/
-/*[–ß‚è’l]		‚È‚µ																		*/
+/*[æˆ»ã‚Šå€¤]		ãªã—																		*/
 /********************************************************************************************/
 CH1USBCom::CH1USBCom(PH1ECOMOBJEP pH1EComObjEP)
 {
-	//ƒƒ“ƒo[•Ï”‚Ì‰Šú‰»
+	//ãƒ¡ãƒ³ãƒãƒ¼å¤‰æ•°ã®åˆæœŸåŒ–
 	m_hCom	= 0;
 	m_hTEnd	= 0;
-	memset( m_byCurrentWorkKey, 0, sizeof(m_byCurrentWorkKey) ) ;	// ˆÃ†Œ®
-	memset( m_uKttWork, 0, sizeof(m_uKttWork) ) ;					// Šg‘åŒ®
-	m_bCamelliaEnabled = FALSE ;									// ˆÃ†’ÊMó‘Ô‚©”Û‚©‚ð•\‚·ƒtƒ‰ƒO
+	memset( m_byCurrentWorkKey, 0, sizeof(m_byCurrentWorkKey) ) ;	// æš—å·éµ
+	memset( m_uKttWork, 0, sizeof(m_uKttWork) ) ;					// æ‹¡å¤§éµ
+	m_bCamelliaEnabled = FALSE ;									// æš—å·é€šä¿¡çŠ¶æ…‹ã‹å¦ã‹ã‚’è¡¨ã™ãƒ•ãƒ©ã‚°
 	m_pwEnableBank = 0;
 	m_wEnableBankCount = 0;
 	m_iLastError = H1USB_OK;
 
-	//ƒGƒ“ƒhƒ|ƒCƒ“ƒgî•ñ‚ð“o˜^
+	//ã‚¨ãƒ³ãƒ‰ãƒã‚¤ãƒ³ãƒˆæƒ…å ±ã‚’ç™»éŒ²
 	m_H1EComObjEP	 = *pH1EComObjEP;
 
-	//•Ï”‚Ì‰Šú‰»
+	//å¤‰æ•°ã®åˆæœŸåŒ–
 	ZeroMemory(m_cFwVersion, sizeof(m_cFwVersion));
 	ZeroMemory(m_cSerialNum, sizeof(m_cSerialNum));
 
-	//ƒeƒ“ƒvƒŒ[ƒgƒ†ƒjƒbƒgƒe[ƒuƒ‹‚Ì‰Šú‰»
+	//ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ¦ãƒ‹ãƒƒãƒˆãƒ†ãƒ¼ãƒ–ãƒ«ã®åˆæœŸåŒ–
 	SetTempU(NULL, 0, TRUE);
 
-	//ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“’†ƒtƒ‰ƒOOFF
+	//ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³ä¸­ãƒ•ãƒ©ã‚°OFF
 	m_bTransEnable = FALSE;
 
 }
 /********************************************************************************************/
-/*[ƒƒ\ƒbƒh–¼] CH1USBComƒNƒ‰ƒX‚ÌƒfƒXƒgƒ‰ƒNƒ^												*/
+/*[ãƒ¡ã‚½ãƒƒãƒ‰å] CH1USBComã‚¯ãƒ©ã‚¹ã®ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿												*/
 /*------------------------------------------------------------------------------------------*/
-/*[éŒ¾]		~CH1USBCom(void)															*/
+/*[å®£è¨€]		~CH1USBCom(void)															*/
 /*																							*/
 /*------------------------------------------------------------------------------------------*/
-/*[“à—e]		ƒRƒ“ƒXƒgƒ‰ƒNƒ^ˆ—															*/
+/*[å†…å®¹]		ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿å‡¦ç†															*/
 /*------------------------------------------------------------------------------------------*/
-/*[–ß‚è’l]		‚È‚µ																		*/
+/*[æˆ»ã‚Šå€¤]		ãªã—																		*/
 /********************************************************************************************/
 CH1USBCom::~CH1USBCom(void)
 {
@@ -74,14 +74,14 @@ CH1USBCom::~CH1USBCom(void)
 
 
 /********************************************************************************************/
-/*[ƒƒ\ƒbƒh–¼] ƒGƒ“ƒhƒ|ƒCƒ“ƒgˆ—ƒXƒ^[ƒg													*/
+/*[ãƒ¡ã‚½ãƒƒãƒ‰å] ã‚¨ãƒ³ãƒ‰ãƒã‚¤ãƒ³ãƒˆå‡¦ç†ã‚¹ã‚¿ãƒ¼ãƒˆ													*/
 /*------------------------------------------------------------------------------------------*/
-/*[éŒ¾]		StartEndPoint(void)															*/
+/*[å®£è¨€]		StartEndPoint(void)															*/
 /*																							*/
 /*------------------------------------------------------------------------------------------*/
-/*[“à—e]		ƒGƒ“ƒhƒ|ƒCƒ“ƒgî•ñ‚ð“o˜^‚µ‚ÄAƒGƒ“ƒhƒ|ƒCƒ“ƒg‚Ì‹@”\‚ðŠJŽn‚·‚é				*/
+/*[å†…å®¹]		ã‚¨ãƒ³ãƒ‰ãƒã‚¤ãƒ³ãƒˆæƒ…å ±ã‚’ç™»éŒ²ã—ã¦ã€ã‚¨ãƒ³ãƒ‰ãƒã‚¤ãƒ³ãƒˆã®æ©Ÿèƒ½ã‚’é–‹å§‹ã™ã‚‹				*/
 /*------------------------------------------------------------------------------------------*/
-/*[–ß‚è’l]		³íI—¹FH1USB_OK															*/
+/*[æˆ»ã‚Šå€¤]		æ­£å¸¸çµ‚äº†ï¼šH1USB_OK															*/
 /********************************************************************************************/
 int CH1USBCom::StartEndPoint(void)
 {
@@ -89,16 +89,16 @@ A2GDBG_OUTSTRING(_T("StartEndPoint() Entry\n"));
 	int		iResult;
 	iResult = H1USB_OK;
 
-	//ŽóMƒXƒŒƒbƒh‚©‚ç‚ÌƒR[ƒ‹ƒoƒbƒNƒ‹[ƒ`ƒ“‚ð“o˜^‚·‚éB
+	//å—ä¿¡ã‚¹ãƒ¬ãƒƒãƒ‰ã‹ã‚‰ã®ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ãƒ«ãƒ¼ãƒãƒ³ã‚’ç™»éŒ²ã™ã‚‹ã€‚
 	A2GOBJTHREADPROCS	A2objThreadProcs;
-	A2objThreadProcs.A2GObjThreadBefor	= OnThreadBefor;			//ƒXƒŒƒbƒhƒ‹[ƒv‘O
-	A2objThreadProcs.A2GObjOnThread		= OnThread;					//ƒXƒŒƒbƒhƒƒbƒZ[ƒWƒ‹[ƒv
-	A2objThreadProcs.A2GObjThreadAfter	= OnThreadAfter;			//ƒXƒŒƒbƒhƒ‹[ƒvŒã
+	A2objThreadProcs.A2GObjThreadBefor	= OnThreadBefor;			//ã‚¹ãƒ¬ãƒƒãƒ‰ãƒ«ãƒ¼ãƒ—å‰
+	A2objThreadProcs.A2GObjOnThread		= OnThread;					//ã‚¹ãƒ¬ãƒƒãƒ‰ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ«ãƒ¼ãƒ—
+	A2objThreadProcs.A2GObjThreadAfter	= OnThreadAfter;			//ã‚¹ãƒ¬ãƒƒãƒ‰ãƒ«ãƒ¼ãƒ—å¾Œ
 	CA2GObjThread::SetThreadProcs(this, &A2objThreadProcs);
 
-	m_hTEnd = CreateEvent(NULL, TRUE, FALSE, NULL);					//ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“I—¹ƒCƒxƒ“ƒg‚Ìì¬
+	m_hTEnd = CreateEvent(NULL, TRUE, FALSE, NULL);					//ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³çµ‚äº†ã‚¤ãƒ™ãƒ³ãƒˆã®ä½œæˆ
 
-	//’ÊMƒCƒxƒ“ƒg‚ÌÝ’è
+	//é€šä¿¡ã‚¤ãƒ™ãƒ³ãƒˆã®è¨­å®š
 	CA2GObjThread::SetMessageProc(OnComMessage, this);
 	iResult = CA2GObjThread::CreateThread(THREAD_PRIORITY_NORMAL);
 
@@ -107,20 +107,20 @@ A2GDBG_OUTSTRING(_T("StartEndPoint() Exit\n"));
 }
 
 /********************************************************************************************/
-/*[ƒƒ\ƒbƒh–¼] ƒGƒ“ƒhƒ|ƒCƒ“ƒgˆ—I—¹														*/
+/*[ãƒ¡ã‚½ãƒƒãƒ‰å] ã‚¨ãƒ³ãƒ‰ãƒã‚¤ãƒ³ãƒˆå‡¦ç†çµ‚äº†														*/
 /*------------------------------------------------------------------------------------------*/
-/*[éŒ¾]		StopEndPoint(void)															*/
+/*[å®£è¨€]		StopEndPoint(void)															*/
 /*																							*/
 /*------------------------------------------------------------------------------------------*/
-/*[“à—e]		ƒGƒ“ƒhƒ|ƒCƒ“ƒg‚Ì‹@”\‚ð’âŽ~‚·‚é												*/
+/*[å†…å®¹]		ã‚¨ãƒ³ãƒ‰ãƒã‚¤ãƒ³ãƒˆã®æ©Ÿèƒ½ã‚’åœæ­¢ã™ã‚‹												*/
 /*------------------------------------------------------------------------------------------*/
-/*[–ß‚è’l]		³íI—¹FH1USB_OK															*/
+/*[æˆ»ã‚Šå€¤]		æ­£å¸¸çµ‚äº†ï¼šH1USB_OK															*/
 /********************************************************************************************/
 int CH1USBCom::StopEndPoint(void)
 {
 A2GDBG_OUTSTRING(_T("StopEndPoint() Entry\n"));
 
-	//ƒGƒ“ƒhƒ|ƒCƒ“ƒgƒXƒŒƒbƒh‚ðI—¹‚·‚éB
+	//ã‚¨ãƒ³ãƒ‰ãƒã‚¤ãƒ³ãƒˆã‚¹ãƒ¬ãƒƒãƒ‰ã‚’çµ‚äº†ã™ã‚‹ã€‚
 	CA2GObjThread::EndThread();
 
 
@@ -129,14 +129,14 @@ A2GDBG_OUTSTRING(_T("StopEndPoint() Exit\n"));
 }
 
 /********************************************************************************************/
-/*[ƒƒ\ƒbƒh–¼] COMƒ|[ƒgƒI[ƒvƒ“															*/
+/*[ãƒ¡ã‚½ãƒƒãƒ‰å] COMãƒãƒ¼ãƒˆã‚ªãƒ¼ãƒ—ãƒ³															*/
 /*------------------------------------------------------------------------------------------*/
-/*[éŒ¾]		Open(LPCTSTR pComPort, LPDWORD pdwError)									*/
+/*[å®£è¨€]		Open(LPCTSTR pComPort, LPDWORD pdwError)									*/
 /*																							*/
 /*------------------------------------------------------------------------------------------*/
-/*[“à—e]		ƒRƒ“ƒXƒgƒ‰ƒNƒ^ˆ—															*/
+/*[å†…å®¹]		ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿å‡¦ç†															*/
 /*------------------------------------------------------------------------------------------*/
-/*[–ß‚è’l]		³íI—¹FH1USB_OK															*/
+/*[æˆ»ã‚Šå€¤]		æ­£å¸¸çµ‚äº†ï¼šH1USB_OK															*/
 /********************************************************************************************/
 int CH1USBCom::Open(LPCTSTR pComPort, LPDWORD pdwError)
 {
@@ -151,21 +151,21 @@ int CH1USBCom::Open(LPCTSTR pComPort, LPDWORD pdwError)
 	strComPort	= _T("\\\\.\\");
 	strComPort	+= pComPort;
 	if(m_hCom){
-		//Šù‚Éƒ|[ƒg‚ªƒI[ƒvƒ“‚³‚ê‚Ä‚¢‚ê‚Îˆê“xƒNƒ[ƒY‚·‚éB
+		//æ—¢ã«ãƒãƒ¼ãƒˆãŒã‚ªãƒ¼ãƒ—ãƒ³ã•ã‚Œã¦ã„ã‚Œã°ä¸€åº¦ã‚¯ãƒ­ãƒ¼ã‚ºã™ã‚‹ã€‚
 		Close(&dwError);
 	}
 
-	// COMƒ|[ƒg‚ðƒI[ƒvƒ“
+	// COMãƒãƒ¼ãƒˆã‚’ã‚ªãƒ¼ãƒ—ãƒ³
 	hCom = CreateFile(strComPort,	GENERIC_READ|GENERIC_WRITE, 0, NULL, 
 						OPEN_EXISTING, 0, NULL ) ;
 	if ( hCom == INVALID_HANDLE_VALUE ) {
-		// ƒI[ƒvƒ“‚ÉŽ¸”s‚µ‚½ê‡
+		// ã‚ªãƒ¼ãƒ—ãƒ³ã«å¤±æ•—ã—ãŸå ´åˆ
 		*pdwError = GetLastError();
 		return H1USB_ERR_COMOPEN;
 	}
 	m_hCom = hCom;
 
-	//DCB\‘¢‘ÌƒZƒbƒg
+	//DCBæ§‹é€ ä½“ã‚»ãƒƒãƒˆ
 	DCB dcb;
 	memset(&dcb, 0, sizeof(DCB));
 	dcb.DCBlength	= sizeof(DCB);
@@ -188,14 +188,14 @@ int CH1USBCom::Open(LPCTSTR pComPort, LPDWORD pdwError)
 }
 
 /********************************************************************************************/
-/*[ƒƒ\ƒbƒh–¼] COMƒNƒ[ƒY																	*/
+/*[ãƒ¡ã‚½ãƒƒãƒ‰å] COMã‚¯ãƒ­ãƒ¼ã‚º																	*/
 /*------------------------------------------------------------------------------------------*/
-/*[éŒ¾]		Close(LPDWORD pdwError)														*/
+/*[å®£è¨€]		Close(LPDWORD pdwError)														*/
 /*																							*/
 /*------------------------------------------------------------------------------------------*/
-/*[“à—e]		COMƒ|[ƒg‚ðƒNƒ[ƒY‚·‚é														*/
+/*[å†…å®¹]		COMãƒãƒ¼ãƒˆã‚’ã‚¯ãƒ­ãƒ¼ã‚ºã™ã‚‹														*/
 /*------------------------------------------------------------------------------------------*/
-/*[–ß‚è’l]		³íI—¹FH1USB_OK															*/
+/*[æˆ»ã‚Šå€¤]		æ­£å¸¸çµ‚äº†ï¼šH1USB_OK															*/
 /********************************************************************************************/
 int CH1USBCom::Close(LPDWORD pdwError)
 {
@@ -212,14 +212,14 @@ int CH1USBCom::Close(LPDWORD pdwError)
 }
 
 /********************************************************************************************/
-/*[ƒƒ\ƒbƒh–¼] —LŒøƒoƒ“ƒNƒZƒbƒg																*/
+/*[ãƒ¡ã‚½ãƒƒãƒ‰å] æœ‰åŠ¹ãƒãƒ³ã‚¯ã‚»ãƒƒãƒˆ																*/
 /*------------------------------------------------------------------------------------------*/
-/*[éŒ¾]		SetEnableBank(WORD* pwEnableBank, WORD wEnableBankCount)					*/
+/*[å®£è¨€]		SetEnableBank(WORD* pwEnableBank, WORD wEnableBankCount)					*/
 /*																							*/
 /*------------------------------------------------------------------------------------------*/
-/*[“à—e]		ƒoƒ“ƒN”FØŽž‚Ìƒoƒ“ƒNƒiƒ“ƒo[‚ð“o˜^‚·‚é										*/
+/*[å†…å®¹]		ãƒãƒ³ã‚¯èªè¨¼æ™‚ã®ãƒãƒ³ã‚¯ãƒŠãƒ³ãƒãƒ¼ã‚’ç™»éŒ²ã™ã‚‹										*/
 /*------------------------------------------------------------------------------------------*/
-/*[–ß‚è’l]		³íI—¹FH1USB_OK															*/
+/*[æˆ»ã‚Šå€¤]		æ­£å¸¸çµ‚äº†ï¼šH1USB_OK															*/
 /********************************************************************************************/
 int CH1USBCom::SetEnableBank(WORD* pwEnableBank, WORD wEnableBankCount)
 {
@@ -229,13 +229,13 @@ int CH1USBCom::SetEnableBank(WORD* pwEnableBank, WORD wEnableBankCount)
 	iReturn		= H1USB_OK;
 
 	if(m_pwEnableBank){
-		//ˆÈ‘OŠù‚É”z—ñ‚ª“o˜^‚³‚ê‚Ä‚¢‚é‚Ì‚ÅAˆê“xíœ
+		//ä»¥å‰æ—¢ã«é…åˆ—ãŒç™»éŒ²ã•ã‚Œã¦ã„ã‚‹ã®ã§ã€ä¸€åº¦å‰Šé™¤
 		delete[] m_pwEnableBank;
 	}
-	//Žw’è‚³‚ê‚½”z—ñ•ª—LŒøƒoƒ“ƒN‚Ì”z—ñ‚ðŠm•Û
+	//æŒ‡å®šã•ã‚ŒãŸé…åˆ—åˆ†æœ‰åŠ¹ãƒãƒ³ã‚¯ã®é…åˆ—ã‚’ç¢ºä¿
 	m_pwEnableBank = new WORD[wEnableBankCount];
 
-	//—LŒøƒoƒ“ƒN‚Ì”z—ñ‚ÆŒÂ”‚ðƒRƒs[
+	//æœ‰åŠ¹ãƒãƒ³ã‚¯ã®é…åˆ—ã¨å€‹æ•°ã‚’ã‚³ãƒ”ãƒ¼
 	for(w=0; w<wEnableBankCount; w++){
 		m_pwEnableBank[w] = pwEnableBank[w];
 	}
@@ -245,15 +245,15 @@ int CH1USBCom::SetEnableBank(WORD* pwEnableBank, WORD wEnableBankCount)
 
 
 /********************************************************************************************/
-/*[ƒƒ\ƒbƒh–¼] ƒeƒ“ƒvƒŒ[ƒgî•ñƒZƒbƒg														*/
+/*[ãƒ¡ã‚½ãƒƒãƒ‰å] ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆæƒ…å ±ã‚»ãƒƒãƒˆ														*/
 /*------------------------------------------------------------------------------------------*/
-/*[éŒ¾]		SetTempU(PTEMPU pTempU, UINT uiCounts, BOOL bInit)							*/
+/*[å®£è¨€]		SetTempU(PTEMPU pTempU, UINT uiCounts, BOOL bInit)							*/
 /*																							*/
 /*------------------------------------------------------------------------------------------*/
-/*[“à—e]		ƒeƒ“ƒvƒŒ[ƒgŠÇ—î•ñ‚ÉŽw’è‚³‚ê‚½ƒeƒ“ƒvƒŒ[ƒgî•ñ‚ðƒZƒbƒg‚·‚éB				*/
-/*				bInit:TRUE‚Å‚ ‚ê‚ÎAƒeƒ“ƒvƒŒ[ƒgŠÇ—î•ñ‚Ì‰Šú‰»‚ðs‚Á‚Ä‚©‚çƒZƒbƒg‚·‚é		*/
+/*[å†…å®¹]		ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆç®¡ç†æƒ…å ±ã«æŒ‡å®šã•ã‚ŒãŸãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆæƒ…å ±ã‚’ã‚»ãƒƒãƒˆã™ã‚‹ã€‚				*/
+/*				bInit:TRUEã§ã‚ã‚Œã°ã€ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆç®¡ç†æƒ…å ±ã®åˆæœŸåŒ–ã‚’è¡Œã£ã¦ã‹ã‚‰ã‚»ãƒƒãƒˆã™ã‚‹		*/
 /*------------------------------------------------------------------------------------------*/
-/*[–ß‚è’l]		³íI—¹FH1USB_OK															*/
+/*[æˆ»ã‚Šå€¤]		æ­£å¸¸çµ‚äº†ï¼šH1USB_OK															*/
 /********************************************************************************************/
 int CH1USBCom::SetTempU(PTEMPU pTempU, UINT uiCounts, BOOL bInit)
 {
@@ -263,12 +263,12 @@ int CH1USBCom::SetTempU(PTEMPU pTempU, UINT uiCounts, BOOL bInit)
 
 	iReturn		= H1USB_OK;
 	if(bInit){
-		//‰Šú‰»ƒtƒ‰ƒO‚ªƒZƒbƒg‚³‚ê‚Ä‚¢‚é
-		m_uiTempUs = 0;								//ƒZƒbƒg‚³‚ê‚Ä‚¢‚éƒeƒ“ƒvƒŒ[ƒgî•ñ‚ÌŒÂ”‚ðƒNƒŠƒA
-		ZeroMemory(m_TempU, sizeof(m_TempU));		//ƒeƒ“ƒvƒŒ[ƒgŠÇ—î•ñ‚ð‰Šú‰»
+		//åˆæœŸåŒ–ãƒ•ãƒ©ã‚°ãŒã‚»ãƒƒãƒˆã•ã‚Œã¦ã„ã‚‹
+		m_uiTempUs = 0;								//ã‚»ãƒƒãƒˆã•ã‚Œã¦ã„ã‚‹ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆæƒ…å ±ã®å€‹æ•°ã‚’ã‚¯ãƒªã‚¢
+		ZeroMemory(m_TempU, sizeof(m_TempU));		//ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆç®¡ç†æƒ…å ±ã‚’åˆæœŸåŒ–
 	}
 
-	//Žw’è‚³‚ê‚½ƒeƒ“ƒvƒŒ[ƒgî•ñ‚ðƒZƒbƒg‚·‚é
+	//æŒ‡å®šã•ã‚ŒãŸãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆæƒ…å ±ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 	uiMaxCount = MAX_NINSHO_TEMPS - m_uiTempUs;
 	if((pTempU)&&(uiCounts)){
 		if(uiCounts <= uiMaxCount){
@@ -278,7 +278,7 @@ int CH1USBCom::SetTempU(PTEMPU pTempU, UINT uiCounts, BOOL bInit)
 			}
 		}
 		else{
-			//Å‘å”‚É’B‚µ‚Ä‚¢‚é
+			//æœ€å¤§æ•°ã«é”ã—ã¦ã„ã‚‹
 			iReturn = H1USB_ERR_BIGGER;
 		}
 	}
@@ -286,14 +286,14 @@ int CH1USBCom::SetTempU(PTEMPU pTempU, UINT uiCounts, BOOL bInit)
 }
 
 /********************************************************************************************/
-/*[ƒƒ\ƒbƒh–¼] ƒeƒ“ƒvƒŒ[ƒgî•ñŽæ“¾															*/
+/*[ãƒ¡ã‚½ãƒƒãƒ‰å] ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆæƒ…å ±å–å¾—															*/
 /*------------------------------------------------------------------------------------------*/
-/*[éŒ¾]		GetTempU(PTEMPU pTempU)														*/
+/*[å®£è¨€]		GetTempU(PTEMPU pTempU)														*/
 /*																							*/
 /*------------------------------------------------------------------------------------------*/
-/*[“à—e]		ÅV‚Ìƒeƒ“ƒvƒŒ[ƒg‚ðŽæ“¾‚·‚é												*/
+/*[å†…å®¹]		æœ€æ–°ã®ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã‚’å–å¾—ã™ã‚‹												*/
 /*------------------------------------------------------------------------------------------*/
-/*[–ß‚è’l]		³íI—¹FH1USB_OK															*/
+/*[æˆ»ã‚Šå€¤]		æ­£å¸¸çµ‚äº†ï¼šH1USB_OK															*/
 /********************************************************************************************/
 int CH1USBCom::GetTempU(PTEMPU pTempU)
 {
@@ -307,38 +307,38 @@ int CH1USBCom::GetTempU(PTEMPU pTempU)
 }
 
 /********************************************************************************************/
-/*[ƒƒ\ƒbƒh–¼] ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“																*/
+/*[ãƒ¡ã‚½ãƒƒãƒ‰å] ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³																*/
 /*------------------------------------------------------------------------------------------*/
-/*[éŒ¾]		TransToDevice(UINT uiMsg, WPARAM wParam, LPARAM lParam)						*/
+/*[å®£è¨€]		TransToDevice(UINT uiMsg, WPARAM wParam, LPARAM lParam)						*/
 /*																							*/
 /*------------------------------------------------------------------------------------------*/
-/*[“à—e]		ƒfƒoƒCƒX‚Éƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“ˆ—‚ðŠJŽn‚µAI—¹‚ð‘Ò‚Â							*/
+/*[å†…å®¹]		ãƒ‡ãƒã‚¤ã‚¹ã«ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³å‡¦ç†ã‚’é–‹å§‹ã—ã€çµ‚äº†ã‚’å¾…ã¤							*/
 /*------------------------------------------------------------------------------------------*/
-/*[–ß‚è’l]		³íI—¹FH1USB_OK															*/
+/*[æˆ»ã‚Šå€¤]		æ­£å¸¸çµ‚äº†ï¼šH1USB_OK															*/
 /********************************************************************************************/
 int CH1USBCom::TransToDevice(UINT uiMsg, WPARAM wParam, LPARAM lParam)
 {
 	int iReturn;
 	DWORD dwWaitObject;
 
-	//I—¹ƒCƒxƒ“ƒg‚ðƒŠƒZƒbƒg
+	//çµ‚äº†ã‚¤ãƒ™ãƒ³ãƒˆã‚’ãƒªã‚»ãƒƒãƒˆ
 	ResetEvent(m_hTEnd);
 
 	iReturn = H1USB_OK;
 
 	m_bTransEnable = TRUE;
 
-	//ƒXƒŒƒbƒh‚ÌƒƒbƒZ[ƒWƒ‹[ƒv‚Öƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“ƒƒbƒZ[ƒW‚ðƒ|ƒXƒg
+	//ã‚¹ãƒ¬ãƒƒãƒ‰ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ«ãƒ¼ãƒ—ã¸ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ãƒã‚¹ãƒˆ
 	::PostThreadMessage(m_uEPThreadID, uiMsg, wParam, lParam);
 
-	//ƒXƒŒƒbƒh‚Ìƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“ˆ—‚ÌI—¹‚ð‘Ò‚Â
+	//ã‚¹ãƒ¬ãƒƒãƒ‰ã®ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³å‡¦ç†ã®çµ‚äº†ã‚’å¾…ã¤
 	dwWaitObject = WaitForSingleObject(m_hTEnd, 15000);
 	if(dwWaitObject == WAIT_OBJECT_0){
-		//ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“³íI—¹
+		//ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³æ­£å¸¸çµ‚äº†
 		iReturn = m_iLastError;
 	}
 	else{
-		//ƒ^ƒCƒ€ƒAƒEƒg
+		//ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆ
 		iReturn = H1USB_ERR_TRANSTOUT;
 	}
 
@@ -347,17 +347,17 @@ int CH1USBCom::TransToDevice(UINT uiMsg, WPARAM wParam, LPARAM lParam)
 }
 
 /********************************************************************************************/
-/* Šî–{ƒNƒ‰ƒX‚©‚ç‚ÌƒR[ƒ‹ƒoƒbƒNƒXƒGƒ“ƒgƒŠ[													*/
+/* åŸºæœ¬ã‚¯ãƒ©ã‚¹ã‹ã‚‰ã®ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ã‚¹ã‚¨ãƒ³ãƒˆãƒªãƒ¼													*/
 /********************************************************************************************/
 /********************************************************************************************/
-/*[ƒƒ\ƒbƒh–¼] ƒXƒŒƒbƒhƒƒbƒZ[ƒWˆ—ƒ‹[ƒv‘Oˆ—											*/
+/*[ãƒ¡ã‚½ãƒƒãƒ‰å] ã‚¹ãƒ¬ãƒƒãƒ‰ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å‡¦ç†ãƒ«ãƒ¼ãƒ—å‰å‡¦ç†											*/
 /*------------------------------------------------------------------------------------------*/
-/*[éŒ¾]		LRESULT OnThreadBefor(LPVOID pObj)											*/
+/*[å®£è¨€]		LRESULT OnThreadBefor(LPVOID pObj)											*/
 /*																							*/
 /*------------------------------------------------------------------------------------------*/
-/*[“à—e]		ŽÀ‘•‚¹‚¸																	*/
+/*[å†…å®¹]		å®Ÿè£…ã›ãš																	*/
 /*------------------------------------------------------------------------------------------*/
-/*[–ß‚è’l]		³íI—¹F0																	*/
+/*[æˆ»ã‚Šå€¤]		æ­£å¸¸çµ‚äº†ï¼š0																	*/
 /********************************************************************************************/
 LRESULT CALLBACK CH1USBCom::OnThreadBefor(LPVOID pObj)
 {
@@ -370,14 +370,14 @@ A2GDBG_OUTSTRING(_T("OnThreadBefor() Exit\n"));
 
 
 /********************************************************************************************/
-/*[ƒƒ\ƒbƒh–¼] ƒXƒŒƒbƒhƒ‹[ƒv’èŽüŠúˆ—														*/
+/*[ãƒ¡ã‚½ãƒƒãƒ‰å] ã‚¹ãƒ¬ãƒƒãƒ‰ãƒ«ãƒ¼ãƒ—å®šå‘¨æœŸå‡¦ç†														*/
 /*------------------------------------------------------------------------------------------*/
-/*[éŒ¾]		LRESULT OnThread(LPVOID pObj)												*/
+/*[å®£è¨€]		LRESULT OnThread(LPVOID pObj)												*/
 /*																							*/
 /*------------------------------------------------------------------------------------------*/
-/*[“à—e]		”­Œ©ƒT[ƒrƒXŽwŽ¦‚ÌƒR[ƒ‹ƒoƒbƒNƒXƒ^ƒu										*/
+/*[å†…å®¹]		ç™ºè¦‹ã‚µãƒ¼ãƒ“ã‚¹æŒ‡ç¤ºã®ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ã‚¹ã‚¿ãƒ–										*/
 /*------------------------------------------------------------------------------------------*/
-/*[–ß‚è’l]		³íI—¹F0																	*/
+/*[æˆ»ã‚Šå€¤]		æ­£å¸¸çµ‚äº†ï¼š0																	*/
 /********************************************************************************************/
 LRESULT CALLBACK CH1USBCom::OnThread(LPVOID pObj)
 {
@@ -387,10 +387,10 @@ A2GDBG_OUTSTRING(_T("OnThread() Entry\n"));
 	int		iReturn;
 	DWORD	dwStat;
 
-	//ƒfƒoƒCƒX‚æ‚èƒ^ƒbƒ`ƒZƒ“ƒT[‚Ìó‘Ô’Ê’mi”ñ“¯Šúj‚ª‚ ‚Á‚½‚©ƒ`ƒFƒbƒN‚·‚é
+	//ãƒ‡ãƒã‚¤ã‚¹ã‚ˆã‚Šã‚¿ãƒƒãƒã‚»ãƒ³ã‚µãƒ¼ã®çŠ¶æ…‹é€šçŸ¥ï¼ˆéžåŒæœŸï¼‰ãŒã‚ã£ãŸã‹ãƒã‚§ãƒƒã‚¯ã™ã‚‹
 	iReturn = pH1USBCom->CheckASyncData(&dwStat);
 	if(iReturn == H1USB_NOTIFY){
-		//’Ê’m‚ª‚ ‚Á‚½‚Ì‚Å”ñ“¯ŠúŽóM‚Ì’Ê’m‚ðƒ_ƒCƒAƒƒO‚ÉƒR[ƒ‹ƒoƒbƒN‚·‚é
+		//é€šçŸ¥ãŒã‚ã£ãŸã®ã§éžåŒæœŸå—ä¿¡ã®é€šçŸ¥ã‚’ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã«ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ã™ã‚‹
 		pH1USBCom->m_H1EComObjEP.H1ECallBacks.OnTuchNotification(dwStat, pH1USBCom->m_H1EComObjEP.pObj);
 	}
 
@@ -401,14 +401,14 @@ A2GDBG_OUTSTRING(_T("OnThread() Exit\n"));
 
 
 /********************************************************************************************/
-/*[ƒƒ\ƒbƒh–¼] ƒXƒŒƒbƒhƒƒbƒZ[ƒWˆ—ƒ‹[ƒvŒãˆ—											*/
+/*[ãƒ¡ã‚½ãƒƒãƒ‰å] ã‚¹ãƒ¬ãƒƒãƒ‰ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å‡¦ç†ãƒ«ãƒ¼ãƒ—å¾Œå‡¦ç†											*/
 /*------------------------------------------------------------------------------------------*/
-/*[éŒ¾]		LRESULT OnThreadAfter(LPVOID pObj)											*/
+/*[å®£è¨€]		LRESULT OnThreadAfter(LPVOID pObj)											*/
 /*																							*/
 /*------------------------------------------------------------------------------------------*/
-/*[“à—e]		ŽÀ‘•‚¹‚¸																	*/
+/*[å†…å®¹]		å®Ÿè£…ã›ãš																	*/
 /*------------------------------------------------------------------------------------------*/
-/*[–ß‚è’l]		³íI—¹F0																	*/
+/*[æˆ»ã‚Šå€¤]		æ­£å¸¸çµ‚äº†ï¼š0																	*/
 /********************************************************************************************/
 LRESULT CALLBACK CH1USBCom::OnThreadAfter(LPVOID pObj)
 {
@@ -422,34 +422,34 @@ A2GDBG_OUTSTRING(_T("OnThreadAfter() Exit\n"));
 }
 
 /********************************************************************************************/
-/*[ƒƒ\ƒbƒh–¼] ”ñ“¯Šúƒf[ƒ^ƒ`ƒFƒbƒNˆ—														*/
+/*[ãƒ¡ã‚½ãƒƒãƒ‰å] éžåŒæœŸãƒ‡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯å‡¦ç†														*/
 /*------------------------------------------------------------------------------------------*/
-/*[éŒ¾]		int CheckASyncData(LPDWORD pdwState)										*/
+/*[å®£è¨€]		int CheckASyncData(LPDWORD pdwState)										*/
 /*																							*/
 /*------------------------------------------------------------------------------------------*/
-/*[“à—e]		”ñ“¯Šú‚ÌŽóMƒf[ƒ^‚É‚æ‚èAƒ^ƒbƒ`ƒZƒ“ƒT[‚Ìó‘Ô‚ðƒ`ƒFƒbƒN‚·‚é				*/
+/*[å†…å®¹]		éžåŒæœŸã®å—ä¿¡ãƒ‡ãƒ¼ã‚¿ã«ã‚ˆã‚Šã€ã‚¿ãƒƒãƒã‚»ãƒ³ã‚µãƒ¼ã®çŠ¶æ…‹ã‚’ãƒã‚§ãƒƒã‚¯ã™ã‚‹				*/
 /*------------------------------------------------------------------------------------------*/
-/*[–ß‚è’l]		³íI—¹F0																	*/
+/*[æˆ»ã‚Šå€¤]		æ­£å¸¸çµ‚äº†ï¼š0																	*/
 /********************************************************************************************/
 int CH1USBCom::CheckASyncData(LPDWORD pdwState)
 {
 	int			iReturn;
 	DWORD		dwRecvSize;
-	BYTE		recv[2048] ;								// ŽóM—p
+	BYTE		recv[2048] ;								// å—ä¿¡ç”¨
 	BYTEWORD	bw;	
 
 	iReturn = H1USB_OK;
 
-	//”ñ“¯Šú‚Å‚Ìƒf[ƒ^ŽóMƒ`ƒFƒbƒN
-	dwRecvSize = getBuffSize() ;								// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”Žæ“¾
+	//éžåŒæœŸã§ã®ãƒ‡ãƒ¼ã‚¿å—ä¿¡ãƒã‚§ãƒƒã‚¯
+	dwRecvSize = getBuffSize() ;								// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°å–å¾—
 
 	if(dwRecvSize > 0){
 		memset( recv, 0, sizeof(recv) ) ;
 		Sleep(10);
-		dwRecvSize = getBuffSize() ;							// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”Žæ“¾
-		// ŽóMˆ—
+		dwRecvSize = getBuffSize() ;							// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°å–å¾—
+		// å—ä¿¡å‡¦ç†
 		if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	
-			// ReadFileŽ¸”s
+			// ReadFileå¤±æ•—
 			iReturn = H1USB_ERR_READFILE;
 		}
 		else {
@@ -457,18 +457,18 @@ int CH1USBCom::CheckASyncData(LPDWORD pdwState)
 			bw.byte[0] = recv[2];
 			bw.byte[1] = recv[1];
 			if ((recv[0] == 0x00) && (bw.word == 2) && (recv[3] == 0x74) ){
-				//ƒ^ƒbƒ`ƒZƒ“ƒT[‚Ìó‘Ô‚É•Ï‰»‚ª‚ ‚Á‚½
+				//ã‚¿ãƒƒãƒã‚»ãƒ³ã‚µãƒ¼ã®çŠ¶æ…‹ã«å¤‰åŒ–ãŒã‚ã£ãŸ
 				if( recv[4] == 0x01){
-					//ƒ^ƒbƒ`ƒZƒ“ƒT[ON
+					//ã‚¿ãƒƒãƒã‚»ãƒ³ã‚µãƒ¼ON
 					*pdwState = H1USB_STATUS_TUCH_ON;
 				}
 				else{
-					//ƒ^ƒbƒ`ƒZƒ“ƒT[OFF
+					//ã‚¿ãƒƒãƒã‚»ãƒ³ã‚µãƒ¼OFF
 					*pdwState = H1USB_STATUS_TUCH_OFF;
 				}
 			}
 			else{
-				//ƒT[ƒrƒXŠO‚Ìƒf[ƒ^‚ðŽóM‚µ‚½
+				//ã‚µãƒ¼ãƒ“ã‚¹å¤–ã®ãƒ‡ãƒ¼ã‚¿ã‚’å—ä¿¡ã—ãŸ
 				*pdwState = H1USB_STATUS_INVDATA;
 			}
 		}
@@ -478,14 +478,14 @@ int CH1USBCom::CheckASyncData(LPDWORD pdwState)
 
 
 /********************************************************************************************/
-/*[ƒƒ\ƒbƒh–¼] ƒƒbƒZ[ƒWˆ—																*/
+/*[ãƒ¡ã‚½ãƒƒãƒ‰å] ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å‡¦ç†																*/
 /*------------------------------------------------------------------------------------------*/
-/*[éŒ¾]		int OnComMessage(UINT uiMsg, WPARAM wParam, LPARAM lParam, LPVOID pObj)		*/
+/*[å®£è¨€]		int OnComMessage(UINT uiMsg, WPARAM wParam, LPARAM lParam, LPVOID pObj)		*/
 /*																							*/
 /*------------------------------------------------------------------------------------------*/
-/*[“à—e]		ƒXƒŒƒbƒhˆ—‚ÌƒƒbƒZ[ƒWƒR[ƒ‹ƒoƒbƒNˆ—									*/
+/*[å†…å®¹]		ã‚¹ãƒ¬ãƒƒãƒ‰å‡¦ç†ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯å‡¦ç†									*/
 /*------------------------------------------------------------------------------------------*/
-/*[–ß‚è’l]		³íI—¹FTHREAD_CBCODE_NORMAL												*/
+/*[æˆ»ã‚Šå€¤]		æ­£å¸¸çµ‚äº†ï¼šTHREAD_CBCODE_NORMAL												*/
 /********************************************************************************************/
 LRESULT CALLBACK CH1USBCom::OnComMessage(UINT uiMsg, WPARAM wParam, LPARAM lParam, LPVOID pObj)
 {
@@ -499,7 +499,7 @@ A2GDBG_OUTSTRING(_T("OnComMessage() Entry\n"));
 
 	iReturn = H1USB_OK;
 
-	//ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“ID‚É‚æ‚èAˆ—‚ðƒR[ƒ‹‚·‚é
+	//ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³IDã«ã‚ˆã‚Šã€å‡¦ç†ã‚’ã‚³ãƒ¼ãƒ«ã™ã‚‹
 	switch(uiMsg){
 		case H1USB_COM_SCRAMBLE:	iReturn = pH1USBCom->TransScranmble();								break;
 		case H1USB_COM_GREENLED_ON:	iReturn = pH1USBCom->TransLedGreen();								break;
@@ -539,9 +539,9 @@ A2GDBG_OUTSTRING(_T("OnComMessage() Entry\n"));
 
 	}
 
-	//ƒGƒ‰[ƒZƒbƒg
+	//ã‚¨ãƒ©ãƒ¼ã‚»ãƒƒãƒˆ
 	pH1USBCom->m_iLastError = iReturn;
-	//I—¹ƒCƒxƒ“ƒg‚ðƒZƒbƒg‚·‚é
+	//çµ‚äº†ã‚¤ãƒ™ãƒ³ãƒˆã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 	SetEvent(pH1USBCom->m_hTEnd);
 
 A2GDBG_OUTSTRING(_T("OnComMessage() Exit\n"));
@@ -551,9 +551,9 @@ A2GDBG_OUTSTRING(_T("OnComMessage() Exit\n"));
 }
 
 /*====================================================================*/
-/* ˆ—ŠT—v  FˆÃ†‰»ó‘Ô‚É‚·‚é
-/* ˆø”      F‚È‚µ
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šæš—å·åŒ–çŠ¶æ…‹ã«ã™ã‚‹
+/* å¼•æ•°      ï¼šãªã—
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::TransScranmble()
 {
@@ -561,56 +561,60 @@ int CH1USBCom::TransScranmble()
 	int iReturn;
 	iReturn = H1USB_OK;
 
-	BYTE send[1024] ;	// ‘—M—p
-	BYTE recv[1024] ;	// ŽóM—p
+	BYTE send[1024] ;	// é€ä¿¡ç”¨
+	BYTE recv[1024] ;	// å—ä¿¡ç”¨
 	memset( send, 0, sizeof(send) ) ;
 	memset( recv, 0, sizeof(recv) ) ;
-	DWORD dwSendSize = 0 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-	DWORD dwRecvSize = 0 ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	DWORD dwSendSize = 0 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+	DWORD dwRecvSize = 0 ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 	BYTE *bp = NULL ;
 
 
-	send[0] = 0x1F ;	// ˆÃ†ƒL[‘—MƒRƒ}ƒ“ƒh
-	send[1] = 0x02 ;	// Œã‘±ƒf[ƒ^‚ÌƒoƒCƒg”(512ƒoƒCƒg)
-	send[2] = 0x00 ;	// V
+	send[0] = 0x1F ;	// æš—å·ã‚­ãƒ¼é€ä¿¡ã‚³ãƒžãƒ³ãƒ‰ //åŠ å¯†å¯†é’¥å‘é€å‘½ä»¤
+	send[1] = 0x02 ;	// å¾Œç¶šãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒˆæ•°(512ãƒã‚¤ãƒˆ)//éšåŽçš„æ•°æ®å­—èŠ‚ ï¼ˆ512 å­—èŠ‚ï¼‰
+	send[2] = 0x00 ;	// ã€ƒ
 	
 
-	// ˆÃ†ƒL[‚ÌŒ³‚Æ‚È‚é512ƒoƒCƒg‚Ì—”‚ð¶¬‚µAsend[3]`send[514]‚ÉƒZƒbƒg
+	// æš—å·ã‚­ãƒ¼ã®å…ƒã¨ãªã‚‹512ãƒã‚¤ãƒˆã®ä¹±æ•°ã‚’ç”Ÿæˆã—ã€send[3]ã€œsend[514]ã«ã‚»ãƒƒãƒˆ
+	// ä»Ž 512 å­—èŠ‚ï¼Œç”ŸæˆåŠ å¯†å¯†é’¥çš„éšæœºæ•°å’Œå‘é€ [3]-è®¾ç½®ä¸ºå‘é€ [514]
 	int i = 0 ;
 	for ( bp = send + 3, i = 0; i < 512; bp++, i++ ) {
 
 		*bp = rand() ;
 	}
 
-	dwSendSize = 3 + 512 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	dwSendSize = 3 + 512 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mˆ—
+	// é€ä¿¡å‡¦ç†
 	if ( sendCommEnc( send, dwSendSize ) == FALSE ) {
 		return H1USB_ERR_WRITEFILE;
 	}
 
-	// ƒtƒ‰ƒO‚ÌXV
-	m_bCamelliaEnabled = TRUE ;	// TRUE: ˆÃ†’ÊMó‘Ô
+	// ãƒ•ãƒ©ã‚°ã®æ›´æ–°
+	m_bCamelliaEnabled = TRUE ;	// TRUE: æš—å·é€šä¿¡çŠ¶æ…‹
 
-	// 512ƒoƒCƒg‚Ì—”‚©‚çˆÃ†ƒL[(m_byCurrentWorkKey)‚ð¶¬‚·‚é
+	// 512ãƒã‚¤ãƒˆã®ä¹±æ•°ã‹ã‚‰æš—å·ã‚­ãƒ¼(m_byCurrentWorkKey)ã‚’ç”Ÿæˆã™ã‚‹
+	// ä»Ž 512 å­—èŠ‚çš„éšæœºæ•°ç”ŸæˆåŠ å¯†å¯†é’¥ (m_byCurrentWorkKey)
 	decodeMasterKey512( send + 3, m_byCurrentWorkKey ) ;
 
-	// ˆÃ†ƒL[‚ðŒ³‚ÉŠg‘åŒ®(m_uKttWork)‚ð¶¬(ˆÃ†‰»E•œ†‚ðs‚¤‘O‚É•K‚¸Šg‘åŒ®‚ð¶¬‚·‚é‚±‚Æ)
-	// ˆê“xŠg‘åŒ®‚ð¶¬‚·‚ê‚ÎA“¯‚¶Œ®‚ÅˆÃ†‰»E•œ†‚ðs‚¤ŒÀ‚èAÄ“xŠg‘åŒ®‚Ì¶¬‚ðs‚¤•K—v‚Í‚È‚¢
+	// æš—å·ã‚­ãƒ¼ã‚’å…ƒã«æ‹¡å¤§éµ(m_uKttWork)ã‚’ç”Ÿæˆ(æš—å·åŒ–ãƒ»å¾©å·ã‚’è¡Œã†å‰ã«å¿…ãšæ‹¡å¤§éµã‚’ç”Ÿæˆã™ã‚‹ã“ã¨)
+	// ä¸€åº¦æ‹¡å¤§éµã‚’ç”Ÿæˆã™ã‚Œã°ã€åŒã˜éµã§æš—å·åŒ–ãƒ»å¾©å·ã‚’è¡Œã†é™ã‚Šã€å†åº¦æ‹¡å¤§éµã®ç”Ÿæˆã‚’è¡Œã†å¿…è¦ã¯ãªã„
+	// ä¸éœ€è¦æ‰©å±•å…³é”®ä»£å†æ¬¡å› ä¸ºå¦‚æžœåŠ å¯†å¯†é’¥æ‰©å±•çš„å…³é”® (m_uKttWork) ä»£ ï¼ˆåŠ å¯†å’Œè§£å¯†çš„äº‹å…ˆå¿…é¡»æ‰©å±•çš„å¯†é’¥ä»¥äº§ç”Ÿï¼‰ 
+	// ä¸€æ—¦æ‰©å¤§å…³é”®ç”Ÿäº§ï¼Œç”¨ç›¸åŒçš„å¯†é’¥æ¥åŠ å¯†å’Œè§£å¯†
 	Camellia_Ekeygen( 128, m_byCurrentWorkKey, m_uKttWork ) ;
 
-	// ŽóMƒoƒbƒtƒ@‚ÌƒoƒCƒg”‚ðŽæ“¾
-	dwRecvSize = getBuffSize() ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	// å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°ã‚’å–å¾—
+	dwRecvSize = getBuffSize() ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 	if ( dwRecvSize == 0 ) {
 		return H1USB_ERR_RDATA_NON;
-		//MessageBox( "ŽóMƒf[ƒ^‚ª‘¶Ý‚µ‚È‚¢‚½‚ßAˆ—‚ðI—¹‚µ‚Ü‚·", TITLE, MB_ICONEXCLAMATION ) ;
+		//MessageBox( "å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãŒå­˜åœ¨ã—ãªã„ãŸã‚ã€å‡¦ç†ã‚’çµ‚äº†ã—ã¾ã™", TITLE, MB_ICONEXCLAMATION ) ;
 	}
 
-	// ŽóMˆ—
-	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileŽ¸”s
+	// å—ä¿¡å‡¦ç†
+	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileå¤±æ•—
 		return H1USB_ERR_READFILE; 
 	}
-	else {	// ReadFile‚É‚Í¬Œ÷‚µ‚½‚ªAƒRƒ}ƒ“ƒh‚ªˆÙíI—¹
+	else {	// ReadFileã«ã¯æˆåŠŸã—ãŸãŒã€ã‚³ãƒžãƒ³ãƒ‰ãŒç•°å¸¸çµ‚äº†
 
 		if ( recv[0] != 0x00 ) {
 			return H1USB_ERR_RESPONS;
@@ -620,65 +624,65 @@ int CH1USBCom::TransScranmble()
 }
 
 /*====================================================================*/
-/* ˆ—ŠT—v  F—ÎLED‚ð“_“”‚³‚¹‚é
-/* ˆø”      F‚È‚µ
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šç·‘LEDã‚’ç‚¹ç¯ã•ã›ã‚‹
+/* å¼•æ•°      ï¼šãªã—
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::TransLedGreen( void )
 {	
 	int iReturn;
 	iReturn = H1USB_OK;
 
-	// ÔLED, —ÎLED‚ðÁ“”
+	// èµ¤LED, ç·‘LEDã‚’æ¶ˆç¯
 	iReturn = ledAllOff();
 	if ( iReturn != H1USB_OK ) {
 		return iReturn ;
 	}
 
-	// —ÎLED“_“”
+	// ç·‘LEDç‚¹ç¯
 	iReturn = ledOnOff( 0x02, 0x01 ) ;
 
 	return iReturn ;
 }
 
 /*====================================================================*/
-/* ˆ—ŠT—v  FÔLED‚ð“_“”‚³‚¹‚é
-/* ˆø”      F‚È‚µ
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šèµ¤LEDã‚’ç‚¹ç¯ã•ã›ã‚‹
+/* å¼•æ•°      ï¼šãªã—
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::TransLedRed( void )
 {
 	int iReturn;
 	iReturn = H1USB_OK;
 
-	// ÔLED, —ÎLED‚ðÁ“”
+	// èµ¤LED, ç·‘LEDã‚’æ¶ˆç¯
 	iReturn = ledAllOff();
 	if ( iReturn != H1USB_OK ) {
 		return iReturn ;
 	}
 
-	// ÔLED“_“”
+	// èµ¤LEDç‚¹ç¯
 	iReturn = ledOnOff( 0x01, 0x01 ) ;
 
 	return iReturn;
 }
 /*====================================================================*/
-/* ˆ—ŠT—v  FÔLED‚ð“_“”‚³‚¹‚é
-/* ˆø”      F‚È‚µ
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šèµ¤LEDã‚’ç‚¹ç¯ã•ã›ã‚‹
+/* å¼•æ•°      ï¼šãªã—
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::TransLedGR( void )
 {
 	int iReturn;
 	iReturn = H1USB_OK;
 
-	// ÔLED, —ÎLED‚ðÁ“”
+	// èµ¤LED, ç·‘LEDã‚’æ¶ˆç¯
 	iReturn = ledAllOff();
 	if ( iReturn != H1USB_OK ) {
 		return iReturn ;
 	}
 
-	// ÔLED“_“”
+	// èµ¤LEDç‚¹ç¯
 	iReturn = ledOnOff( 0x03, 0x01 ) ;
 
 	return iReturn ;
@@ -686,14 +690,14 @@ int CH1USBCom::TransLedGR( void )
 
 
 /*====================================================================*/
-/* ˆ—ŠT—v  FLED‚ð‘S‚ÄÁ“”‚³‚¹‚é
-/* ˆø”      F‚È‚µ
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šLEDã‚’å…¨ã¦æ¶ˆç¯ã•ã›ã‚‹
+/* å¼•æ•°      ï¼šãªã—
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::TransLedOff( void )
 {
 
-	// ÔLED, —ÎLED‚ðÁ“”
+	// èµ¤LED, ç·‘LEDã‚’æ¶ˆç¯
 	return ledOnOff( 0x03, 0x00 ) ;
 
 }
@@ -702,47 +706,47 @@ int CH1USBCom::TransLedOff( void )
 
 
 /*====================================================================*/
-/* ˆ—ŠT—v  Fƒ^ƒbƒ`ƒZƒ“ƒT[‚Ì’Ê’m‚ðŽó‚¯Žæ‚é‚æ‚¤‚ÉÝ’è‚·‚éB
-/* ˆø”      F‚È‚µ
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šã‚¿ãƒƒãƒã‚»ãƒ³ã‚µãƒ¼ã®é€šçŸ¥ã‚’å—ã‘å–ã‚‹ã‚ˆã†ã«è¨­å®šã™ã‚‹ã€‚
+/* å¼•æ•°      ï¼šãªã—
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::TransTuchNotify(BYTE byParam)
 {
 	int iReturn;
 	iReturn = H1USB_OK;
 
-	BYTE send[128] ;	// ‘—M—p
-	BYTE recv[128] ;	// ŽóM—p
+	BYTE send[128] ;	// é€ä¿¡ç”¨
+	BYTE recv[128] ;	// å—ä¿¡ç”¨
 	memset( send, 0, sizeof(send) ) ;
 	memset( recv, 0, sizeof(recv) ) ;
 
-	DWORD dwSendSize = 0 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-	DWORD dwRecvSize = 0 ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	DWORD dwSendSize = 0 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+	DWORD dwRecvSize = 0 ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mƒf[ƒ^‚ðƒZƒbƒg
-	send[0] = 0x28 ;	// ƒ^ƒbƒ`ƒZƒ“ƒT[‘€ìƒRƒ}ƒ“ƒh
-	send[1] = 0x00 ;	// Œã‘±ƒf[ƒ^‚ÌƒoƒCƒg”
-	send[2] = 0x01 ;	// V
-	send[3] = byParam ;	// ƒ^ƒbƒ`ƒZƒ“ƒT[‚Ìó‘Ô‚ª•Ï‰»‚µ‚½‚¿‚Æ‚«ƒŒƒXƒ|ƒ“ƒX‚ ‚è‚ðÝ’è
+	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚’ã‚»ãƒƒãƒˆ
+	send[0] = 0x28 ;	// ã‚¿ãƒƒãƒã‚»ãƒ³ã‚µãƒ¼æ“ä½œã‚³ãƒžãƒ³ãƒ‰
+	send[1] = 0x00 ;	// å¾Œç¶šãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒˆæ•°
+	send[2] = 0x01 ;	// ã€ƒ
+	send[3] = byParam ;	// ã‚¿ãƒƒãƒã‚»ãƒ³ã‚µãƒ¼ã®çŠ¶æ…‹ãŒå¤‰åŒ–ã—ãŸã¡ã¨ããƒ¬ã‚¹ãƒãƒ³ã‚¹ã‚ã‚Šã‚’è¨­å®š
 
-	dwSendSize = 4 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	dwSendSize = 4 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mˆ—
+	// é€ä¿¡å‡¦ç†
 	if ( sendCommEnc( send, dwSendSize ) == FALSE ) {
 		return H1USB_ERR_WRITEFILE;
 	}
 
-	// ŽóMƒoƒbƒtƒ@‚ÌƒoƒCƒg”‚ðŽæ“¾
-	dwRecvSize = getBuffSize() ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	// å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°ã‚’å–å¾—
+	dwRecvSize = getBuffSize() ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 	if ( dwRecvSize == 0 ) {
 		return H1USB_ERR_RDATA_NON;
 	}
 
-	// ŽóMˆ—
-	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileŽ¸”s
+	// å—ä¿¡å‡¦ç†
+	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileå¤±æ•—
 		return H1USB_ERR_WRITEFILE;
 	}
-	else {	// ReadFile‚É‚Í¬Œ÷‚µ‚½‚ªAƒRƒ}ƒ“ƒh‚ªˆÙíI—¹
+	else {	// ReadFileã«ã¯æˆåŠŸã—ãŸãŒã€ã‚³ãƒžãƒ³ãƒ‰ãŒç•°å¸¸çµ‚äº†
 		if ( recv[0] != 0x00 ) {
 			return H1USB_ERR_RESPONS;
 		}
@@ -751,101 +755,101 @@ int CH1USBCom::TransTuchNotify(BYTE byParam)
 }
 
 /*====================================================================*/
-/* ˆ—ŠT—v  Fƒtƒ@[ƒ€ƒEƒFƒA‚Ìƒo[ƒWƒ‡ƒ“î•ñ‚ð•Ô‹p‚·‚é
-/* ˆø”      FpFwVersion	ƒtƒ@[ƒ€ƒEƒFƒA‚Ìƒo[ƒWƒ‡ƒ“î•ñ
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šãƒ•ã‚¡ãƒ¼ãƒ ã‚¦ã‚§ã‚¢ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³æƒ…å ±ã‚’è¿”å´ã™ã‚‹
+/* å¼•æ•°      ï¼špFwVersion	ãƒ•ã‚¡ãƒ¼ãƒ ã‚¦ã‚§ã‚¢ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³æƒ…å ±
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::TransGetFwVersion( char *pFwVersion )
 {
 	int iReturn;
 	iReturn = H1USB_OK;
 
-	BYTE send[128] ;	// ‘—M—p
-	BYTE recv[128] ;	// ŽóM—p
+	BYTE send[128] ;	// é€ä¿¡ç”¨
+	BYTE recv[128] ;	// å—ä¿¡ç”¨
 	memset( send, 0, sizeof(send) ) ;
 	memset( recv, 0, sizeof(recv) ) ;
 
-	DWORD dwSendSize = 0 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-	DWORD dwRecvSize = 0 ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	DWORD dwSendSize = 0 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+	DWORD dwRecvSize = 0 ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mƒf[ƒ^‚ðƒZƒbƒg
-	send[0] = 0x14 ;		// î•ñŽæ“¾ƒRƒ}ƒ“ƒh
-	send[1] = 0x00 ;		// Œã‘±ƒf[ƒ^‚ÌƒoƒCƒg”
-	send[2] = 0x01 ;		// V
-	send[3] = 0x00 ;		// ƒtƒ@[ƒ€ƒEƒFƒA‚Ìƒo[ƒWƒ‡ƒ“î•ñ‚ðŽæ“¾
+	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚’ã‚»ãƒƒãƒˆ
+	send[0] = 0x14 ;		// æƒ…å ±å–å¾—ã‚³ãƒžãƒ³ãƒ‰
+	send[1] = 0x00 ;		// å¾Œç¶šãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒˆæ•°
+	send[2] = 0x01 ;		// ã€ƒ
+	send[3] = 0x00 ;		// ãƒ•ã‚¡ãƒ¼ãƒ ã‚¦ã‚§ã‚¢ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³æƒ…å ±ã‚’å–å¾—
 
-	dwSendSize = 4 ;		// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	dwSendSize = 4 ;		// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mˆ—
+	// é€ä¿¡å‡¦ç†
 	if ( sendCommEnc( send, dwSendSize ) == FALSE ) {
 		return H1USB_ERR_WRITEFILE;
 	}
 
-	//ŽóMƒf[ƒ^Šm”Fˆ—(V1.10---2011/5/27)
-	//16ƒoƒCƒg‚Ì•œ†‰»‚µ‚½ŽóMƒf[ƒ^‚©‚ç‘S‘Ì‚ÌŽóMƒf[ƒ^‚ðŒvŽZ‚µ‚Ä‚©‚çA
-	//‘S‘Ì‚ÌŽóMƒf[ƒ^‚©‚ç16ƒoƒCƒg‚ðˆø‚¢‚½’·‚³•ª‚Ìƒf[ƒ^‚ðŽóM‚µ‚Ä•œ†‰»‚·‚éB
+	//å—ä¿¡ãƒ‡ãƒ¼ã‚¿ç¢ºèªå‡¦ç†(V1.10---2011/5/27)
+	//16ãƒã‚¤ãƒˆã®å¾©å·åŒ–ã—ãŸå—ä¿¡ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰å…¨ä½“ã®å—ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚’è¨ˆç®—ã—ã¦ã‹ã‚‰ã€
+	//å…¨ä½“ã®å—ä¿¡ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰16ãƒã‚¤ãƒˆã‚’å¼•ã„ãŸé•·ã•åˆ†ã®ãƒ‡ãƒ¼ã‚¿ã‚’å—ä¿¡ã—ã¦å¾©å·åŒ–ã™ã‚‹ã€‚
 	//begin
-	DWORD dwRecvSizeRest = 0;//Œã‘±‚ÌŽc‚èƒoƒCƒg”
-	DWORD dwRecvSizeAll = 0;//ƒŒƒXƒ|ƒ“ƒXƒf[ƒ^‘S‘Ì‚Ì’·‚³
+	DWORD dwRecvSizeRest = 0;//å¾Œç¶šã®æ®‹ã‚Šãƒã‚¤ãƒˆæ•°
+	DWORD dwRecvSizeAll = 0;//ãƒ¬ã‚¹ãƒãƒ³ã‚¹ãƒ‡ãƒ¼ã‚¿å…¨ä½“ã®é•·ã•
 
-	BYTE *pRecv = recv ;	// recv‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	DWORD dwTmplTotalSize = 0 ;	// ŽóMƒeƒ“ƒvƒŒ[ƒgƒf[ƒ^‚Ì‡ŒvƒTƒCƒY
+	BYTE *pRecv = recv ;	// recvã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	DWORD dwTmplTotalSize = 0 ;	// å—ä¿¡ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ‡ãƒ¼ã‚¿ã®åˆè¨ˆã‚µã‚¤ã‚º
 
-	// ‘Sƒf[ƒ^‚ðŽóM‚·‚é‚©AƒGƒ‰[ƒR[ƒh‚ðƒŠƒ^[ƒ“‚·‚é‚Ü‚Å‘Ò‹@‚·‚é
+	// å…¨ãƒ‡ãƒ¼ã‚¿ã‚’å—ä¿¡ã™ã‚‹ã‹ã€ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’ãƒªã‚¿ãƒ¼ãƒ³ã™ã‚‹ã¾ã§å¾…æ©Ÿã™ã‚‹
 	for ( ; ; ) {
 
 		if(dwTmplTotalSize == 0){
 
 			while (dwRecvSize < 16) {
-				// ŽóMƒoƒbƒtƒ@‚ÌƒoƒCƒg”‚ðŽæ“¾
+				// å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°ã‚’å–å¾—
 				dwRecvSize = getBuffSize() ;
 			}
-			// ŽóMˆ—
-			if ( recvCommEnc( pRecv, 16 ) == FALSE ) {	// ReadFileŽ¸”s
+			// å—ä¿¡å‡¦ç†
+			if ( recvCommEnc( pRecv, 16 ) == FALSE ) {	// ReadFileå¤±æ•—
 				return H1USB_ERR_READFILE;
 			}
-			else {	// ReadFile¬Œ÷
-				pRecv += 16 ;	// ŽóM‚µ‚½•ª‚¾‚¯ƒ|ƒCƒ“ƒ^‚ði‚ß‚é
-				dwTmplTotalSize += 16 ;	// ŽóMƒf[ƒ^‡ŒvƒTƒCƒY(dwTmplTotalSize)‚É‰ÁŽZ
-				dwRecvSizeAll = ((recv[1]*256+recv[2]+18) & 0xFFFFFFF0);// ŽóMƒf[ƒ^‘S‘ÌƒTƒCƒY
+			else {	// ReadFileæˆåŠŸ
+				pRecv += 16 ;	// å—ä¿¡ã—ãŸåˆ†ã ã‘ãƒã‚¤ãƒ³ã‚¿ã‚’é€²ã‚ã‚‹
+				dwTmplTotalSize += 16 ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿åˆè¨ˆã‚µã‚¤ã‚º(dwTmplTotalSize)ã«åŠ ç®—
+				dwRecvSizeAll = ((recv[1]*256+recv[2]+18) & 0xFFFFFFF0);// å—ä¿¡ãƒ‡ãƒ¼ã‚¿å…¨ä½“ã‚µã‚¤ã‚º
 				dwRecvSizeRest = dwRecvSizeAll-16;
-				if ( recv[0] != 0x00 ) { // ˆÙíI—¹
+				if ( recv[0] != 0x00 ) { // ç•°å¸¸çµ‚äº†
 					return H1USB_ERR_RESPONS;
 				}
 			}
 		}
 		
 
-		// ŽóMƒoƒbƒtƒ@‚ÌƒoƒCƒg”‚ðŽæ“¾
+		// å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°ã‚’å–å¾—
 		dwRecvSize = getBuffSize() ;
 
-		// ŽóMƒf[ƒ^‚ª‚ ‚éê‡
+		// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãŒã‚ã‚‹å ´åˆ
 		if ( dwRecvSize > 0 ) {
-			// ŽóMˆ—
-			if ( recvCommEnc( pRecv, 16 ) == FALSE ) {	// ReadFileŽ¸”s
+			// å—ä¿¡å‡¦ç†
+			if ( recvCommEnc( pRecv, 16 ) == FALSE ) {	// ReadFileå¤±æ•—
 				return H1USB_ERR_READFILE;
 			}
 
-			// ŽóMƒf[ƒ^‡ŒvƒTƒCƒY(dwTmplTotalSize)‚É‰ÁŽZ
+			// å—ä¿¡ãƒ‡ãƒ¼ã‚¿åˆè¨ˆã‚µã‚¤ã‚º(dwTmplTotalSize)ã«åŠ ç®—
 			dwTmplTotalSize += 16 ;
-			pRecv += 16 ;	// ŽóM‚µ‚½•ª‚¾‚¯ƒ|ƒCƒ“ƒ^‚ði‚ß‚é
+			pRecv += 16 ;	// å—ä¿¡ã—ãŸåˆ†ã ã‘ãƒã‚¤ãƒ³ã‚¿ã‚’é€²ã‚ã‚‹
 
-			// ‘Sƒf[ƒ^‚ðŽóM‚µ‚½‚çƒ‹[ƒv‚ð”²‚¯‚é
+			// å…¨ãƒ‡ãƒ¼ã‚¿ã‚’å—ä¿¡ã—ãŸã‚‰ãƒ«ãƒ¼ãƒ—ã‚’æŠœã‘ã‚‹
 			if ( dwTmplTotalSize == dwRecvSizeAll ) {
 
 				break ;
 			}
-			// ‚Ü‚¾‘Sƒeƒ“ƒvƒŒ[ƒgƒf[ƒ^‚ðŽóM‚µ‚«‚ê‚Ä‚¢‚È‚¢
+			// ã¾ã å…¨ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ‡ãƒ¼ã‚¿ã‚’å—ä¿¡ã—ãã‚Œã¦ã„ãªã„
 			else {
 
-				// ˆ—‘±s
+				// å‡¦ç†ç¶šè¡Œ
 			}
 		}
 	}
-	//ŽóMƒf[ƒ^Šm”Fˆ—(V1.10---2011/5/27)
+	//å—ä¿¡ãƒ‡ãƒ¼ã‚¿ç¢ºèªå‡¦ç†(V1.10---2011/5/27)
 	//end
 
-	// ƒtƒ@[ƒ€ƒEƒFƒA‚Ìƒo[ƒWƒ‡ƒ“î•ñ‚ðƒRƒs[
+	// ãƒ•ã‚¡ãƒ¼ãƒ ã‚¦ã‚§ã‚¢ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³æƒ…å ±ã‚’ã‚³ãƒ”ãƒ¼
 	memcpy( pFwVersion, recv + 3, 14 ) ;
 	pFwVersion[14] = '\0' ;
 	return iReturn;
@@ -853,54 +857,54 @@ int CH1USBCom::TransGetFwVersion( char *pFwVersion )
 }
 
 /*====================================================================*/
-/* ˆ—ŠT—v  FƒVƒŠƒAƒ‹”Ô†‚ð•Ô‹p‚·‚é
-/* ˆø”      FpSerialNum	ƒVƒŠƒAƒ‹”Ô†
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šã‚·ãƒªã‚¢ãƒ«ç•ªå·ã‚’è¿”å´ã™ã‚‹
+/* å¼•æ•°      ï¼špSerialNum	ã‚·ãƒªã‚¢ãƒ«ç•ªå·
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::TransGetSerialNum( char *pSerialNum )
 {
 	int iReturn;
 	iReturn = H1USB_OK;
 
-	BYTE send[128] ;	// ‘—M—p
-	BYTE recv[128] ;	// ŽóM—p
+	BYTE send[128] ;	// é€ä¿¡ç”¨
+	BYTE recv[128] ;	// å—ä¿¡ç”¨
 	memset( send, 0, sizeof(send) ) ;
 	memset( recv, 0, sizeof(recv) ) ;
 
-	DWORD dwSendSize = 0 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-	DWORD dwRecvSize = 0 ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	DWORD dwSendSize = 0 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+	DWORD dwRecvSize = 0 ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mƒf[ƒ^‚ðƒZƒbƒg
-	send[0] = 0x14 ;		// î•ñŽæ“¾ƒRƒ}ƒ“ƒh
-	send[1] = 0x00 ;		// Œã‘±ƒf[ƒ^‚ÌƒoƒCƒg”
-	send[2] = 0x01 ;		// V
-	send[3] = 0x01 ;		// ƒVƒŠƒAƒ‹”Ô†‚ðŽæ“¾
+	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚’ã‚»ãƒƒãƒˆ
+	send[0] = 0x14 ;		// æƒ…å ±å–å¾—ã‚³ãƒžãƒ³ãƒ‰
+	send[1] = 0x00 ;		// å¾Œç¶šãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒˆæ•°
+	send[2] = 0x01 ;		// ã€ƒ
+	send[3] = 0x01 ;		// ã‚·ãƒªã‚¢ãƒ«ç•ªå·ã‚’å–å¾—
 
-	dwSendSize = 4 ;		// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	dwSendSize = 4 ;		// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mˆ—
+	// é€ä¿¡å‡¦ç†
 	if ( sendCommEnc( send, dwSendSize ) == FALSE ) {
 		return H1USB_ERR_WRITEFILE;
 	}
 
-	// ŽóMƒoƒbƒtƒ@‚ÌƒoƒCƒg”‚ðŽæ“¾
-	dwRecvSize = getBuffSize() ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	// å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°ã‚’å–å¾—
+	dwRecvSize = getBuffSize() ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 	if ( dwRecvSize == 0 ) {
-		//MessageBox( "ŽóMƒf[ƒ^‚ª‘¶Ý‚µ‚È‚¢‚½‚ßAˆ—‚ðI—¹‚µ‚Ü‚·", TITLE, MB_ICONEXCLAMATION ) ;
+		//MessageBox( "å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãŒå­˜åœ¨ã—ãªã„ãŸã‚ã€å‡¦ç†ã‚’çµ‚äº†ã—ã¾ã™", TITLE, MB_ICONEXCLAMATION ) ;
 		return H1USB_ERR_RDATA_NON;
 	}
 
-	// ŽóMˆ—
-	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileŽ¸”s
+	// å—ä¿¡å‡¦ç†
+	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileå¤±æ•—
 		return H1USB_ERR_READFILE;
 	}
-	else {	// ReadFile¬Œ÷
+	else {	// ReadFileæˆåŠŸ
 
-		if ( recv[0] != 0x00 ) { // ˆÙíI—¹
+		if ( recv[0] != 0x00 ) { // ç•°å¸¸çµ‚äº†
 			return H1USB_ERR_RESPONS;
 		}
-		else { // ³íI—¹
-			// ƒVƒŠƒAƒ‹”Ô†î•ñ‚ðƒRƒs[
+		else { // æ­£å¸¸çµ‚äº†
+			// ã‚·ãƒªã‚¢ãƒ«ç•ªå·æƒ…å ±ã‚’ã‚³ãƒ”ãƒ¼
 			memcpy( pSerialNum, recv + 3, 12 ) ;
 			pSerialNum[12] = '\0' ;
 		}
@@ -910,9 +914,9 @@ int CH1USBCom::TransGetSerialNum( char *pSerialNum )
 }
 
 /*====================================================================*/
-/* ˆ—ŠT—v  F—ÎLED‚ð“_“”‚³‚¹‚é
-/* ˆø”      F‚È‚µ
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šç·‘LEDã‚’ç‚¹ç¯ã•ã›ã‚‹
+/* å¼•æ•°      ï¼šãªã—
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::TransBUZStart( void )
 {	
@@ -925,9 +929,9 @@ int CH1USBCom::TransBUZStart( void )
 }
 
 /*====================================================================*/
-/* ˆ—ŠT—v  F—ÎLED‚ð“_“”‚³‚¹‚é
-/* ˆø”      F‚È‚µ
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šç·‘LEDã‚’ç‚¹ç¯ã•ã›ã‚‹
+/* å¼•æ•°      ï¼šãªã—
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::TransBUZStop( void )
 {
@@ -940,47 +944,47 @@ int CH1USBCom::TransBUZStop( void )
 }
 
 /*====================================================================*/
-/* ˆ—ŠT—v  Fƒ^ƒbƒ`ƒZƒ“ƒT[‚Ì’Ê’m‚ðŽó‚¯Žæ‚é‚æ‚¤‚ÉÝ’è‚·‚éB
-/* ˆø”      F‚È‚µ
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šã‚¿ãƒƒãƒã‚»ãƒ³ã‚µãƒ¼ã®é€šçŸ¥ã‚’å—ã‘å–ã‚‹ã‚ˆã†ã«è¨­å®šã™ã‚‹ã€‚
+/* å¼•æ•°      ï¼šãªã—
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::TransSetSecurity(BYTE byMode)
 {
 	int iReturn;
 	iReturn = H1USB_OK;
 
-	BYTE send[128] ;	// ‘—M—p
-	BYTE recv[128] ;	// ŽóM—p
+	BYTE send[128] ;	// é€ä¿¡ç”¨
+	BYTE recv[128] ;	// å—ä¿¡ç”¨
 	memset( send, 0, sizeof(send) ) ;
 	memset( recv, 0, sizeof(recv) ) ;
 
-	DWORD dwSendSize = 0 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-	DWORD dwRecvSize = 0 ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	DWORD dwSendSize = 0 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+	DWORD dwRecvSize = 0 ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mƒf[ƒ^‚ðƒZƒbƒg
-	send[0] = 0x20 ;	// ƒ^ƒbƒ`ƒZƒ“ƒT[‘€ìƒRƒ}ƒ“ƒh
-	send[1] = 0x00 ;	// Œã‘±ƒf[ƒ^‚ÌƒoƒCƒg”
-	send[2] = 0x01 ;	// V
-	send[3] = byMode ;	// ƒ^ƒbƒ`ƒZƒ“ƒT[‚Ìó‘Ô‚ª•Ï‰»‚µ‚½‚¿‚Æ‚«ƒŒƒXƒ|ƒ“ƒX‚ ‚è‚ðÝ’è
+	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚’ã‚»ãƒƒãƒˆ
+	send[0] = 0x20 ;	// ã‚¿ãƒƒãƒã‚»ãƒ³ã‚µãƒ¼æ“ä½œã‚³ãƒžãƒ³ãƒ‰
+	send[1] = 0x00 ;	// å¾Œç¶šãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒˆæ•°
+	send[2] = 0x01 ;	// ã€ƒ
+	send[3] = byMode ;	// ã‚¿ãƒƒãƒã‚»ãƒ³ã‚µãƒ¼ã®çŠ¶æ…‹ãŒå¤‰åŒ–ã—ãŸã¡ã¨ããƒ¬ã‚¹ãƒãƒ³ã‚¹ã‚ã‚Šã‚’è¨­å®š
 
-	dwSendSize = 4 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	dwSendSize = 4 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mˆ—
+	// é€ä¿¡å‡¦ç†
 	if ( sendCommEnc( send, dwSendSize ) == FALSE ) {
 		return H1USB_ERR_WRITEFILE;
 	}
 
-	// ŽóMƒoƒbƒtƒ@‚ÌƒoƒCƒg”‚ðŽæ“¾
-	dwRecvSize = getBuffSize() ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	// å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°ã‚’å–å¾—
+	dwRecvSize = getBuffSize() ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 	if ( dwRecvSize == 0 ) {
 		return H1USB_ERR_RDATA_NON;
 	}
 
-	// ŽóMˆ—
-	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileŽ¸”s
+	// å—ä¿¡å‡¦ç†
+	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileå¤±æ•—
 		return H1USB_ERR_READFILE;
 	}
-	else {	// ReadFile‚É‚Í¬Œ÷‚µ‚½‚ªAƒRƒ}ƒ“ƒh‚ªˆÙíI—¹
+	else {	// ReadFileã«ã¯æˆåŠŸã—ãŸãŒã€ã‚³ãƒžãƒ³ãƒ‰ãŒç•°å¸¸çµ‚äº†
 		if ( recv[0] != 0x00 ) {
 			return H1USB_ERR_RESPONS;
 		}
@@ -989,45 +993,45 @@ int CH1USBCom::TransSetSecurity(BYTE byMode)
 }
 
 /*====================================================================*/
-/* ˆ—ŠT—v  F1:1”FØ‚Ü‚½‚Í1:N”FØ‚ðs‚¤
-/* ˆø”      FbyNinshoMode	0x00=>1:N”FØ, 0x01=>1:1”FØ
-/*             nMemNo		Æ‡‚·‚éƒeƒ“ƒvƒŒ[ƒgƒƒ‚ƒŠ”Ô†(1:N”FØ‚Ìê‡‚Í”CˆÓ)
-/*             pMatchMemNo	ˆê’v‚µ‚½ƒeƒ“ƒvƒŒ[ƒgƒƒ‚ƒŠ”Ô†
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼š1:1èªè¨¼ã¾ãŸã¯1:Nèªè¨¼ã‚’è¡Œã†
+/* å¼•æ•°      ï¼šbyNinshoMode	0x00=>1:Nèªè¨¼, 0x01=>1:1èªè¨¼
+/*             nMemNo		ç…§åˆã™ã‚‹ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ¡ãƒ¢ãƒªç•ªå·(1:Nèªè¨¼ã®å ´åˆã¯ä»»æ„)
+/*             pMatchMemNo	ä¸€è‡´ã—ãŸãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ¡ãƒ¢ãƒªç•ªå·
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::TransNinsho( const BYTE byNinshoMode, const int nMemNo, BYTE *pMatchMemNo )
 {
 	int iReturn;
 	iReturn = H1USB_OK;
 
-	BYTE send[128] ;	// ‘—M—p
-	BYTE recv[2048] ;	// ŽóM—p
+	BYTE send[128] ;	// é€ä¿¡ç”¨
+	BYTE recv[2048] ;	// å—ä¿¡ç”¨
 	memset( send, 0, sizeof(send) ) ;
 	memset( recv, 0, sizeof(recv) ) ;
 
-	DWORD dwSendSize = 0 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-	DWORD dwRecvSize = 0 ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	DWORD dwSendSize = 0 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+	DWORD dwRecvSize = 0 ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mƒf[ƒ^‚ðƒZƒbƒg
-	send[0] = 0x13 ;		// ”FØŽwŽ¦ƒRƒ}ƒ“ƒh
-	send[1] = 0x00 ;		// Œã‘±ƒf[ƒ^‚ÌƒoƒCƒg”
-	send[2] = 0x02 ;		// V
-	send[3] = byNinshoMode ;// ”FØƒ‚[ƒh‚¨‚æ‚ÑƒIƒvƒVƒ‡ƒ“
-	send[4] = nMemNo ;		// ƒeƒ“ƒvƒŒ[ƒg”Ô†(1:N”FØ‚Ìê‡‚Í”CˆÓ)
+	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚’ã‚»ãƒƒãƒˆ
+	send[0] = 0x13 ;		// èªè¨¼æŒ‡ç¤ºã‚³ãƒžãƒ³ãƒ‰
+	send[1] = 0x00 ;		// å¾Œç¶šãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒˆæ•°
+	send[2] = 0x02 ;		// ã€ƒ
+	send[3] = byNinshoMode ;// èªè¨¼ãƒ¢ãƒ¼ãƒ‰ãŠã‚ˆã³ã‚ªãƒ—ã‚·ãƒ§ãƒ³
+	send[4] = nMemNo ;		// ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆç•ªå·(1:Nèªè¨¼ã®å ´åˆã¯ä»»æ„)
 
-	dwSendSize = 5 ;		// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	dwSendSize = 5 ;		// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mˆ—
+	// é€ä¿¡å‡¦ç†
 	if ( sendCommEnc( send, dwSendSize ) == FALSE ) {
 		iReturn = H1USB_ERR_WRITEFILE;
 		goto ERR_TREAT ;
 
 	}
 
-	// ƒf[ƒ^‚ðŽóM‚·‚é‚Ü‚Å‘Ò‹@‚·‚é
+	// ãƒ‡ãƒ¼ã‚¿ã‚’å—ä¿¡ã™ã‚‹ã¾ã§å¾…æ©Ÿã™ã‚‹
 	for ( ; ; ) {
-		dwRecvSize = getBuffSize() ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-		// 16ƒoƒCƒg‚ÌŽóMƒf[ƒ^‚ª‚ ‚ê‚Îƒ‹[ƒv‚ð”²‚¯‚é
+		dwRecvSize = getBuffSize() ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+		// 16ãƒã‚¤ãƒˆã®å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãŒã‚ã‚Œã°ãƒ«ãƒ¼ãƒ—ã‚’æŠœã‘ã‚‹
 		if ( 16 == dwRecvSize ) {
 			break ;
 		}
@@ -1039,77 +1043,77 @@ int CH1USBCom::TransNinsho( const BYTE byNinshoMode, const int nMemNo, BYTE *pMa
 		}
 	}
 
-	// ŽóMˆ—
-	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileŽ¸”s
+	// å—ä¿¡å‡¦ç†
+	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileå¤±æ•—
 		iReturn = H1USB_ERR_READFILE;
 		goto ERR_TREAT ;
 
 	}
-	else {	// ReadFile¬Œ÷
-		if ( recv[0] != 0x00 ) { // ”FØŽ¸”s
-			// ŽB‰eŽžƒ_ƒCƒAƒƒO‚ÌƒLƒƒƒ“ƒZƒ‹ƒ{ƒ^ƒ“‚ª‰Ÿ‰º‚³‚ê‚½ê‡
+	else {	// ReadFileæˆåŠŸ
+		if ( recv[0] != 0x00 ) { // èªè¨¼å¤±æ•—
+			// æ’®å½±æ™‚ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã®ã‚­ãƒ£ãƒ³ã‚»ãƒ«ãƒœã‚¿ãƒ³ãŒæŠ¼ä¸‹ã•ã‚ŒãŸå ´åˆ
 			if ( recv[3] == 0x10 ) {
-				// —ÎLED“_“”
+				// ç·‘LEDç‚¹ç¯
 				TransLedGreen() ;				
-				// Beep‰¹(ƒLƒƒƒ“ƒZƒ‹)‚ð–Â‚ç‚·
+				// BeepéŸ³(ã‚­ãƒ£ãƒ³ã‚»ãƒ«)ã‚’é³´ã‚‰ã™
 				beepCancel() ;
-				// ƒƒbƒZ[ƒW•\Ž¦
+				// ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¡¨ç¤º
 				return H1USB_CANCEL;
 			}
-			// ã‹LˆÈŠO‚ÍƒGƒ‰[
+			// ä¸Šè¨˜ä»¥å¤–ã¯ã‚¨ãƒ©ãƒ¼
 			else {
 				iReturn = H1USB_ERR_RESPONS;
 				goto ERR_TREAT ;
 			}
 		}
-		else { // ”FØ¬Œ÷
-			// ˆê’v‚µ‚½ƒeƒ“ƒvƒŒ[ƒgƒƒ‚ƒŠ”Ô†‚ðƒRƒs[
+		else { // èªè¨¼æˆåŠŸ
+			// ä¸€è‡´ã—ãŸãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ¡ãƒ¢ãƒªç•ªå·ã‚’ã‚³ãƒ”ãƒ¼
 			*pMatchMemNo = recv[3] ;
 		}
 	}
-	// —ÎLED“_“”
+	// ç·‘LEDç‚¹ç¯
 	TransLedGreen() ;	
-	// Beep‰¹(³í)‚ð–Â‚ç‚·
+	// BeepéŸ³(æ­£å¸¸)ã‚’é³´ã‚‰ã™
 	beepOK() ;
 	return iReturn;
 
 ERR_TREAT:
-	// ÔLED“_“”
+	// èµ¤LEDç‚¹ç¯
 	TransLedRed() ;
-	// Beep‰¹(ˆÙí)‚ð–Â‚ç‚·
+	// BeepéŸ³(ç•°å¸¸)ã‚’é³´ã‚‰ã™
 	beepNG() ;
 	return iReturn;
 
 }
 
 /*====================================================================*/
-/* ˆ—ŠT—v  Fƒoƒ“ƒNŠÔ”FØ‚ðs‚¤
-/* ˆø”      FwEnableBank		”FØ‚Ì‘ÎÛ‚Æ‚·‚éƒoƒ“ƒN”Ô†‚Ì”z—ñ
-/*             wEnableBankCnt	”FØ‚Ì‘ÎÛ‚Æ‚·‚éƒoƒ“ƒN‚Ì”
-/*             pMatchMemNo		ˆê’v‚µ‚½ƒeƒ“ƒvƒŒ[ƒgƒƒ‚ƒŠ”Ô†
-/*             pMatchBank		ˆê’v‚µ‚½ƒeƒ“ƒvƒŒ[ƒg‚ª‘¶Ý‚·‚éƒoƒ“ƒN”Ô†
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šãƒãƒ³ã‚¯é–“èªè¨¼ã‚’è¡Œã†
+/* å¼•æ•°      ï¼šwEnableBank		èªè¨¼ã®å¯¾è±¡ã¨ã™ã‚‹ãƒãƒ³ã‚¯ç•ªå·ã®é…åˆ—
+/*             wEnableBankCnt	èªè¨¼ã®å¯¾è±¡ã¨ã™ã‚‹ãƒãƒ³ã‚¯ã®æ•°
+/*             pMatchMemNo		ä¸€è‡´ã—ãŸãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ¡ãƒ¢ãƒªç•ªå·
+/*             pMatchBank		ä¸€è‡´ã—ãŸãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãŒå­˜åœ¨ã™ã‚‹ãƒãƒ³ã‚¯ç•ªå·
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::TransNinshoBank( const WORD wEnableBank[], const WORD wEnableBankCnt, BYTE *pMatchMemNo, WORD *pMatchBank )
 {
 	int iReturn;
 	iReturn = H1USB_OK;
 
-	BYTE send[8192] ;	// ‘—M—p
-	BYTE recv[2048] ;	// ŽóM—p
+	BYTE send[8192] ;	// é€ä¿¡ç”¨
+	BYTE recv[2048] ;	// å—ä¿¡ç”¨
 	memset( send, 0, sizeof(send) ) ;
 	memset( recv, 0, sizeof(recv) ) ;
 
-	DWORD dwSendSize = 0 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-	DWORD dwRecvSize = 0 ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	DWORD dwSendSize = 0 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+	DWORD dwRecvSize = 0 ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mƒf[ƒ^‚ðƒZƒbƒg
-	send[0] = 0x18 ;	// ”FØŽwŽ¦ƒRƒ}ƒ“ƒh(ƒoƒ“ƒNŠÔ”FØ)
-	send[1] = (BYTE)( ((1 + 2 * wEnableBankCnt) & 0xFF00) >> 8 ) ;			// Œã‘±ƒf[ƒ^‚ÌƒoƒCƒg”(”FØ‚Å—p‚¢‚éƒoƒ“ƒN‚Ì”‚É‚æ‚Á‚Ä•Ï‚í‚é)
-	send[2] = (BYTE)( (1 + 2 * wEnableBankCnt) & 0x00FF ) ;	// V
-	send[3] = 0x00 ;	// ƒIƒvƒVƒ‡ƒ“ƒrƒbƒg
+	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚’ã‚»ãƒƒãƒˆ
+	send[0] = 0x18 ;	// èªè¨¼æŒ‡ç¤ºã‚³ãƒžãƒ³ãƒ‰(ãƒãƒ³ã‚¯é–“èªè¨¼)
+	send[1] = (BYTE)( ((1 + 2 * wEnableBankCnt) & 0xFF00) >> 8 ) ;			// å¾Œç¶šãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒˆæ•°(èªè¨¼ã§ç”¨ã„ã‚‹ãƒãƒ³ã‚¯ã®æ•°ã«ã‚ˆã£ã¦å¤‰ã‚ã‚‹)
+	send[2] = (BYTE)( (1 + 2 * wEnableBankCnt) & 0x00FF ) ;	// ã€ƒ
+	send[3] = 0x00 ;	// ã‚ªãƒ—ã‚·ãƒ§ãƒ³ãƒ“ãƒƒãƒˆ
 	
-	// ”FØ‚Å—p‚¢‚éƒoƒ“ƒN”Ô†‚ðAsend[4]ˆÈ~‚ÉŠi”[‚·‚é(2ƒoƒCƒg‚Å1ƒoƒ“ƒN”Ô†)
+	// èªè¨¼ã§ç”¨ã„ã‚‹ãƒãƒ³ã‚¯ç•ªå·ã‚’ã€send[4]ä»¥é™ã«æ ¼ç´ã™ã‚‹(2ãƒã‚¤ãƒˆã§1ãƒãƒ³ã‚¯ç•ªå·)
 	//for ( WORD i = 0; i < wEnableBankCnt; i++ ) {
 	//	send[2*(i+2)] = (BYTE)( (wEnableBank[i] & 0xFF00) >> 8 ) ;	
 	//	send[2*(i+2)+1] = (BYTE)(wEnableBank[i] & 0x00FF ) ;
@@ -1125,17 +1129,17 @@ int CH1USBCom::TransNinshoBank( const WORD wEnableBank[], const WORD wEnableBank
 
 
 
-	dwSendSize = 4 + 2 * wEnableBankCnt ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”(”FØ‚Å—p‚¢‚éƒoƒ“ƒN‚Ì”‚É‚æ‚Á‚Ä•Ï‚í‚é)
-	// ‘—Mˆ—
+	dwSendSize = 4 + 2 * wEnableBankCnt ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°(èªè¨¼ã§ç”¨ã„ã‚‹ãƒãƒ³ã‚¯ã®æ•°ã«ã‚ˆã£ã¦å¤‰ã‚ã‚‹)
+	// é€ä¿¡å‡¦ç†
 	if ( sendCommEnc( send, dwSendSize ) == FALSE ) {
 		iReturn = iReturn;
 		goto ERR_TREAT ;
 
 	}
-	// ƒf[ƒ^‚ðŽóM‚·‚é‚Ü‚Å‘Ò‹@‚·‚é
+	// ãƒ‡ãƒ¼ã‚¿ã‚’å—ä¿¡ã™ã‚‹ã¾ã§å¾…æ©Ÿã™ã‚‹
 	for ( ; ; ) {
-		dwRecvSize = getBuffSize() ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-		// 16ƒoƒCƒg‚ÌŽóMƒf[ƒ^‚ª‚ ‚ê‚Îƒ‹[ƒv‚ð”²‚¯‚é
+		dwRecvSize = getBuffSize() ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+		// 16ãƒã‚¤ãƒˆã®å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãŒã‚ã‚Œã°ãƒ«ãƒ¼ãƒ—ã‚’æŠœã‘ã‚‹
 		if ( 16 <= dwRecvSize ) {
 			break ;
 		}
@@ -1148,64 +1152,64 @@ int CH1USBCom::TransNinshoBank( const WORD wEnableBank[], const WORD wEnableBank
 
 	}
 
-	// ŽóMˆ—
-	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileŽ¸”s
+	// å—ä¿¡å‡¦ç†
+	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileå¤±æ•—
 		iReturn = H1USB_ERR_READFILE;
 		goto ERR_TREAT ;
 	}
 
-	else {	// ReadFile¬Œ÷
-		if ( recv[0] != 0x00 ) { // ”FØŽ¸”s
-			// ŽB‰eŽžƒ_ƒCƒAƒƒO‚ÌƒLƒƒƒ“ƒZƒ‹ƒ{ƒ^ƒ“‚ª‰Ÿ‰º‚³‚ê‚½ê‡
+	else {	// ReadFileæˆåŠŸ
+		if ( recv[0] != 0x00 ) { // èªè¨¼å¤±æ•—
+			// æ’®å½±æ™‚ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã®ã‚­ãƒ£ãƒ³ã‚»ãƒ«ãƒœã‚¿ãƒ³ãŒæŠ¼ä¸‹ã•ã‚ŒãŸå ´åˆ
 			if ( recv[3] == 0x10 ) {
-				// —ÎLED“_“”
+				// ç·‘LEDç‚¹ç¯
 				TransLedGreen() ;				
-				// Beep‰¹(ƒLƒƒƒ“ƒZƒ‹)‚ð–Â‚ç‚·
+				// BeepéŸ³(ã‚­ãƒ£ãƒ³ã‚»ãƒ«)ã‚’é³´ã‚‰ã™
 				beepCancel() ;
-				// ƒƒbƒZ[ƒW•\Ž¦
+				// ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¡¨ç¤º
 				return H1USB_CANCEL;
 
 			}
-			// ã‹LˆÈŠO‚ÍƒGƒ‰[
+			// ä¸Šè¨˜ä»¥å¤–ã¯ã‚¨ãƒ©ãƒ¼
 			else {
 				iReturn = H1USB_ERR_RESPONS;
 				goto ERR_TREAT ;
 			}
 		}
-		else { // ”FØ¬Œ÷
-			// ˆê’v‚µ‚½ƒeƒ“ƒvƒŒ[ƒgƒƒ‚ƒŠ”Ô†‚ðƒRƒs[
+		else { // èªè¨¼æˆåŠŸ
+			// ä¸€è‡´ã—ãŸãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ¡ãƒ¢ãƒªç•ªå·ã‚’ã‚³ãƒ”ãƒ¼
 			*pMatchMemNo = recv[3] ;
-			// ƒoƒ“ƒN”Ô†‚ðƒRƒs[
+			// ãƒãƒ³ã‚¯ç•ªå·ã‚’ã‚³ãƒ”ãƒ¼
 			*pMatchBank = ( recv[4] << 8 ) | recv[5] ;
 		}
 	}
 
-	// —ÎLED“_“”
+	// ç·‘LEDç‚¹ç¯
 	TransLedGreen() ;
 	
-	// Beep‰¹(³í)‚ð–Â‚ç‚·
+	// BeepéŸ³(æ­£å¸¸)ã‚’é³´ã‚‰ã™
 	beepOK() ;
 
 	return iReturn ;
 
 ERR_TREAT:
 
-	// ÔLED“_“”
+	// èµ¤LEDç‚¹ç¯
 	TransLedRed() ;
-	// Beep‰¹(ˆÙí)‚ð–Â‚ç‚·
+	// BeepéŸ³(ç•°å¸¸)ã‚’é³´ã‚‰ã™
 	beepNG() ;
-	// ƒGƒ‰[ƒƒbƒZ[ƒW•\Ž¦
+	// ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¡¨ç¤º
 	//	MessageBox( cMsg, TITLE, MB_ICONSTOP ) ;
 	return iReturn ;
 
 }
 
 /*====================================================================*/
-/* ˆ—ŠT—v  Fƒeƒ“ƒvƒŒ[ƒg•t‚«”FØ‚ðs‚¤
-/* ˆø”      FpTempU			ƒeƒ“ƒvƒŒ[ƒgƒ†ƒjƒbƒg\‘¢‘Ì‚Ì”z—ñ
-/*             byCount			ƒeƒ“ƒvƒŒ[ƒgƒ†ƒjƒbƒg\‘¢‘Ì‚Ì”z—ñ‚Ì”
-/*             pMatchNum		ˆê’v‚µ‚½ƒeƒ“ƒvƒŒ[ƒgƒƒ‚ƒŠ”Ô†
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆä»˜ãèªè¨¼ã‚’è¡Œã†
+/* å¼•æ•°      ï¼špTempU			ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ¦ãƒ‹ãƒƒãƒˆæ§‹é€ ä½“ã®é…åˆ—
+/*             byCount			ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ¦ãƒ‹ãƒƒãƒˆæ§‹é€ ä½“ã®é…åˆ—ã®æ•°
+/*             pMatchNum		ä¸€è‡´ã—ãŸãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ¡ãƒ¢ãƒªç•ªå·
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::TransNinshoWithTemplate(const PTEMPU pTempU, const BYTE byCount, BYTE *pMatchNum)
 {
@@ -1213,7 +1217,7 @@ int CH1USBCom::TransNinshoWithTemplate(const PTEMPU pTempU, const BYTE byCount, 
 	iReturn = H1USB_OK;
 
 	BYTE* pSend;
-	BYTE recv[2048] ;	// ŽóM—p
+	BYTE recv[2048] ;	// å—ä¿¡ç”¨
 	UINT uiSendBuffSize;
 	UINT uiSendLength;
 	UINT uiTemplateSize;
@@ -1226,40 +1230,40 @@ int CH1USBCom::TransNinshoWithTemplate(const PTEMPU pTempU, const BYTE byCount, 
 	pSend = new BYTE[uiSendBuffSize];
 	ZeroMemory(pSend, uiSendBuffSize);
 	memset( recv, 0, sizeof(recv) ) ;
-	DWORD dwSendSize = 0 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-	DWORD dwRecvSize = 0 ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-	// ‘—Mƒf[ƒ^‚ðƒZƒbƒg
-	pSend[0] = 0x19 ;		// ”FØŽwŽ¦ƒRƒ}ƒ“ƒh(ƒeƒ“ƒvƒŒ[ƒg•t‚«)
-	pSend[1] = bw.byte[1] ;	// Œã‘±ƒf[ƒ^‚ÌƒoƒCƒg”
-	pSend[2] = bw.byte[0] ;	// V
-	pSend[3] = 0x08 ;			// ‘—Mæ‚Ìƒeƒ“ƒvƒŒ[ƒgƒƒ‚ƒŠ”Ô†(0x00`0x63)
-	// ƒeƒ“ƒvƒŒ[ƒgƒf[ƒ^‚ðsend[4]`send[539]‚ÉƒRƒs[
+	DWORD dwSendSize = 0 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+	DWORD dwRecvSize = 0 ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚’ã‚»ãƒƒãƒˆ
+	pSend[0] = 0x19 ;		// èªè¨¼æŒ‡ç¤ºã‚³ãƒžãƒ³ãƒ‰(ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆä»˜ã)
+	pSend[1] = bw.byte[1] ;	// å¾Œç¶šãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒˆæ•°
+	pSend[2] = bw.byte[0] ;	// ã€ƒ
+	pSend[3] = 0x08 ;			// é€ä¿¡å…ˆã®ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ¡ãƒ¢ãƒªç•ªå·(0x00ã€œ0x63)
+	// ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ‡ãƒ¼ã‚¿ã‚’send[4]ã€œsend[539]ã«ã‚³ãƒ”ãƒ¼
 	for(i=0; i<byCount; i++){
 		memcpy(&pSend[4+i*536], pTempU[i].byTemplate, 536);
 	}
 
-	// ƒ`ƒFƒbƒNƒTƒ€‚ÌŒvŽZ
-	DWORD dwCheckSum = 0 ;	// ƒ`ƒFƒbƒNƒTƒ€
+	// ãƒã‚§ãƒƒã‚¯ã‚µãƒ ã®è¨ˆç®—
+	DWORD dwCheckSum = 0 ;	// ãƒã‚§ãƒƒã‚¯ã‚µãƒ 
 	DWORD *pd = ( DWORD * )pSend ;
 
 	for ( UINT ui = 0; ui < (uiTemplateSize+4)/4; ui++, pd++ ) {
 		dwCheckSum ^= *pd ;
 	}
 
-	// ƒ`ƒFƒbƒNƒTƒ€‚ðsend[540]`send[543]‚ÉƒRƒs[
+	// ãƒã‚§ãƒƒã‚¯ã‚µãƒ ã‚’send[540]ã€œsend[543]ã«ã‚³ãƒ”ãƒ¼
 	*pd = dwCheckSum ;
 
-	dwSendSize = uiSendLength ;		// ‘—Mƒf[ƒ^ƒTƒCƒY‚ÌƒoƒCƒg”
+	dwSendSize = uiSendLength ;		// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚ºã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mˆ—
+	// é€ä¿¡å‡¦ç†
 	if ( sendCommEnc( pSend, dwSendSize ) == FALSE ) {
 		iReturn = H1USB_ERR_WRITEFILE;
 		goto ERR_TREAT ;
 	}
 
 	for ( ; ; ) {
-		dwRecvSize = getBuffSize() ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-		// 16ƒoƒCƒg‚ÌŽóMƒf[ƒ^‚ª‚ ‚ê‚Îƒ‹[ƒv‚ð”²‚¯‚é
+		dwRecvSize = getBuffSize() ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+		// 16ãƒã‚¤ãƒˆã®å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãŒã‚ã‚Œã°ãƒ«ãƒ¼ãƒ—ã‚’æŠœã‘ã‚‹
 		if ( 16 == dwRecvSize ) {
 			break ;
 		}
@@ -1272,22 +1276,22 @@ int CH1USBCom::TransNinshoWithTemplate(const PTEMPU pTempU, const BYTE byCount, 
 	}
 
 
-	// ŽóMˆ—
-	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileŽ¸”s
+	// å—ä¿¡å‡¦ç†
+	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileå¤±æ•—
 		iReturn = H1USB_ERR_READFILE;
 		goto ERR_TREAT ;
 
 	}
-	else {	// ReadFile‚É‚Í¬Œ÷‚µ‚½‚ªAƒRƒ}ƒ“ƒh‚ªˆÙíI—¹
+	else {	// ReadFileã«ã¯æˆåŠŸã—ãŸãŒã€ã‚³ãƒžãƒ³ãƒ‰ãŒç•°å¸¸çµ‚äº†
 		if ( recv[0] != 0x00 ) {
 			iReturn = H1USB_ERR_RESPONS;
 			goto ERR_TREAT ;
 		}
 	}
-	// —ÎLED“_“”
+	// ç·‘LEDç‚¹ç¯
 	TransLedGreen() ;
 	
-	// Beep‰¹(³í)‚ð–Â‚ç‚·
+	// BeepéŸ³(æ­£å¸¸)ã‚’é³´ã‚‰ã™
 	beepOK() ;
 
 	if(pSend){
@@ -1297,9 +1301,9 @@ int CH1USBCom::TransNinshoWithTemplate(const PTEMPU pTempU, const BYTE byCount, 
 
 ERR_TREAT:
 
-	// ÔLED“_“”
+	// èµ¤LEDç‚¹ç¯
 	TransLedRed() ;
-	// Beep‰¹(ˆÙí)‚ð–Â‚ç‚·
+	// BeepéŸ³(ç•°å¸¸)ã‚’é³´ã‚‰ã™
 	beepNG() ;
 
 	if(pSend){
@@ -1311,79 +1315,79 @@ ERR_TREAT:
 
 
 /*====================================================================*/
-/* ˆ—ŠT—v  Fƒeƒ“ƒvƒŒ[ƒg‚ðŽB‰e‚µAH1E-USB‚©‚çŽóM‚·‚é
-/* ˆø”      FpTemplate	ƒeƒ“ƒvƒŒ[ƒg
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã‚’æ’®å½±ã—ã€H1E-USBã‹ã‚‰å—ä¿¡ã™ã‚‹
+/* å¼•æ•°      ï¼špTemplate	ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆ
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::TransGetTemplate(PTEMPU pTempU)
 {
 	int iReturn;
 	iReturn = H1USB_OK;
 
-	BYTE send[128] ;	// ‘—M—p
-	BYTE recv[640] ;	// ŽóM—p
+	BYTE send[128] ;	// é€ä¿¡ç”¨
+	BYTE recv[640] ;	// å—ä¿¡ç”¨
 	memset( send, 0, sizeof(send) ) ;
 	memset( recv, 0, sizeof(recv) ) ;
-	BYTE *pRecv = recv ;	// recv‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	DWORD dwSendSize = 0 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-	DWORD dwRecvSize = 0 ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-	DWORD dwTmplTotalSize = 0 ;	// ŽóMƒeƒ“ƒvƒŒ[ƒgƒf[ƒ^‚Ì‡ŒvƒTƒCƒY
+	BYTE *pRecv = recv ;	// recvã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	DWORD dwSendSize = 0 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+	DWORD dwRecvSize = 0 ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+	DWORD dwTmplTotalSize = 0 ;	// å—ä¿¡ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ‡ãƒ¼ã‚¿ã®åˆè¨ˆã‚µã‚¤ã‚º
 
-	// ‘—Mƒf[ƒ^‚ðƒZƒbƒg
-	send[0] = 0x15 ;	// ƒeƒ“ƒvƒŒ[ƒgŽóMƒRƒ}ƒ“ƒh(H1E-USB => ƒzƒXƒg‹@)
-	send[1] = 0x00 ;	// Œã‘±ƒf[ƒ^‚ÌƒoƒCƒg”
-	send[2] = 0x00 ;	// V
+	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚’ã‚»ãƒƒãƒˆ
+	send[0] = 0x15 ;	// ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆå—ä¿¡ã‚³ãƒžãƒ³ãƒ‰(H1E-USB => ãƒ›ã‚¹ãƒˆæ©Ÿ)
+	send[1] = 0x00 ;	// å¾Œç¶šãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒˆæ•°
+	send[2] = 0x00 ;	// ã€ƒ
 
-	dwSendSize = 3 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	dwSendSize = 3 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mˆ—
+	// é€ä¿¡å‡¦ç†
 	if ( sendCommEnc( send, dwSendSize ) == FALSE ) {
 		iReturn = H1USB_ERR_WRITEFILE;
 		goto ERR_TREAT ;
 	}
-	//ŽóMƒf[ƒ^Šm”Fˆ—(V1.10---2011/5/27)
-	//16ƒoƒCƒg‚Ì•œ†‰»‚µ‚½ŽóMƒf[ƒ^‚©‚ç‘S‘Ì‚ÌŽóMƒf[ƒ^‚ðŒvŽZ‚µ‚Ä‚©‚çA
-	//‘S‘Ì‚ÌŽóMƒf[ƒ^‚©‚ç16ƒoƒCƒg‚ðˆø‚¢‚½’·‚³•ª‚Ìƒf[ƒ^‚ðŽóM‚µ‚Ä•œ†‰»‚·‚éB
+	//å—ä¿¡ãƒ‡ãƒ¼ã‚¿ç¢ºèªå‡¦ç†(V1.10---2011/5/27)
+	//16ãƒã‚¤ãƒˆã®å¾©å·åŒ–ã—ãŸå—ä¿¡ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰å…¨ä½“ã®å—ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚’è¨ˆç®—ã—ã¦ã‹ã‚‰ã€
+	//å…¨ä½“ã®å—ä¿¡ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰16ãƒã‚¤ãƒˆã‚’å¼•ã„ãŸé•·ã•åˆ†ã®ãƒ‡ãƒ¼ã‚¿ã‚’å—ä¿¡ã—ã¦å¾©å·åŒ–ã™ã‚‹ã€‚
 	//begin
-	DWORD dwRecvSizeRest = 0;//Œã‘±‚ÌŽc‚èƒoƒCƒg”
-	DWORD dwRecvSizeAll = 0;//ƒŒƒXƒ|ƒ“ƒXƒf[ƒ^‘S‘Ì‚Ì’·‚³
-	// ‘Sƒeƒ“ƒvƒŒ[ƒgƒf[ƒ^(544ƒoƒCƒg)‚ðŽóM‚·‚é‚©AƒGƒ‰[ƒR[ƒh‚ðƒŠƒ^[ƒ“‚·‚é‚Ü‚Å‘Ò‹@‚·‚é
+	DWORD dwRecvSizeRest = 0;//å¾Œç¶šã®æ®‹ã‚Šãƒã‚¤ãƒˆæ•°
+	DWORD dwRecvSizeAll = 0;//ãƒ¬ã‚¹ãƒãƒ³ã‚¹ãƒ‡ãƒ¼ã‚¿å…¨ä½“ã®é•·ã•
+	// å…¨ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ‡ãƒ¼ã‚¿(544ãƒã‚¤ãƒˆ)ã‚’å—ä¿¡ã™ã‚‹ã‹ã€ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’ãƒªã‚¿ãƒ¼ãƒ³ã™ã‚‹ã¾ã§å¾…æ©Ÿã™ã‚‹
 	for ( ; ; ) {
 		if(dwTmplTotalSize == 0){
 			while (dwRecvSize < 16) {
-				// ŽB‰eŽžƒ_ƒCƒAƒƒO‚ÌƒLƒƒƒ“ƒZƒ‹ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½ê‡
+				// æ’®å½±æ™‚ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã®ã‚­ãƒ£ãƒ³ã‚»ãƒ«ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸå ´åˆ
 				//if ( m_pDlg->IsCancel() ) {
 				//	cancel() ;
 				//}
-				// ŽóMƒoƒbƒtƒ@‚ÌƒoƒCƒg”‚ðŽæ“¾
+				// å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°ã‚’å–å¾—
 				dwRecvSize = getBuffSize() ;
-				// ƒƒbƒZ[ƒWƒ|ƒ“ƒv
+				// ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒãƒ³ãƒ—
 				//messagePump() ;
 			}
-			// ŽóMˆ—
-			if ( recvCommEnc( pRecv, 16 ) == FALSE ) {	// ReadFileŽ¸”s
+			// å—ä¿¡å‡¦ç†
+			if ( recvCommEnc( pRecv, 16 ) == FALSE ) {	// ReadFileå¤±æ•—
 				iReturn = H1USB_ERR_READFILE;
 				goto ERR_TREAT ;
 			}
-			else {	// ReadFile¬Œ÷				
-				pRecv += 16 ;	// ŽóM‚µ‚½•ª‚¾‚¯ƒ|ƒCƒ“ƒ^‚ði‚ß‚é
-				dwTmplTotalSize += 16 ;	// ŽóMƒf[ƒ^‡ŒvƒTƒCƒY(dwTmplTotalSize)‚É‰ÁŽZ
-				dwRecvSizeAll = ((recv[1]*256+recv[2]+18) & 0xFFFFFFF0);// ŽóMƒf[ƒ^‘S‘ÌƒTƒCƒY
+			else {	// ReadFileæˆåŠŸ				
+				pRecv += 16 ;	// å—ä¿¡ã—ãŸåˆ†ã ã‘ãƒã‚¤ãƒ³ã‚¿ã‚’é€²ã‚ã‚‹
+				dwTmplTotalSize += 16 ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿åˆè¨ˆã‚µã‚¤ã‚º(dwTmplTotalSize)ã«åŠ ç®—
+				dwRecvSizeAll = ((recv[1]*256+recv[2]+18) & 0xFFFFFFF0);// å—ä¿¡ãƒ‡ãƒ¼ã‚¿å…¨ä½“ã‚µã‚¤ã‚º
 				dwRecvSizeRest = dwRecvSizeAll-16;
-				if ( recv[0] != 0 ) {	// ˆÙíI—¹
-					// ŽB‰eŽžƒ_ƒCƒAƒƒO‚ÌƒLƒƒƒ“ƒZƒ‹ƒ{ƒ^ƒ“‚ª‰Ÿ‰º‚³‚ê‚½ê‡
+				if ( recv[0] != 0 ) {	// ç•°å¸¸çµ‚äº†
+					// æ’®å½±æ™‚ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã®ã‚­ãƒ£ãƒ³ã‚»ãƒ«ãƒœã‚¿ãƒ³ãŒæŠ¼ä¸‹ã•ã‚ŒãŸå ´åˆ
 					if ( recv[3] == 0x10 ) {
-						// —ÎLED“_“”
+						// ç·‘LEDç‚¹ç¯
 						TransLedGreen() ;						
-						// Beep‰¹(ƒLƒƒƒ“ƒZƒ‹)‚ð–Â‚ç‚·
+						// BeepéŸ³(ã‚­ãƒ£ãƒ³ã‚»ãƒ«)ã‚’é³´ã‚‰ã™
 						beepCancel() ;
-						// ƒƒbƒZ[ƒW•\Ž¦
+						// ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¡¨ç¤º
 						return H1USB_CANCEL;
 
 					}
-					// ã‹LˆÈŠO‚ÍƒGƒ‰[
+					// ä¸Šè¨˜ä»¥å¤–ã¯ã‚¨ãƒ©ãƒ¼
 					else {
-						// ƒ_ƒCƒAƒƒO‚ð•Â‚¶‚é
+						// ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’é–‰ã˜ã‚‹
 					iReturn = H1USB_ERR_RESPONS;
 						goto ERR_TREAT ;
 					}
@@ -1392,69 +1396,69 @@ int CH1USBCom::TransGetTemplate(PTEMPU pTempU)
 		}
 		
 
-		// ŽóMƒoƒbƒtƒ@‚ÌƒoƒCƒg”‚ðŽæ“¾
+		// å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°ã‚’å–å¾—
 		dwRecvSize = getBuffSize() ;
 
-		// ŽóMƒf[ƒ^‚ª‚ ‚éê‡
+		// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãŒã‚ã‚‹å ´åˆ
 		if ( dwRecvSize > 0 ) {
-			// ŽóMˆ—
-			if ( recvCommEnc( pRecv, 16 ) == FALSE ) {	// ReadFileŽ¸”s
+			// å—ä¿¡å‡¦ç†
+			if ( recvCommEnc( pRecv, 16 ) == FALSE ) {	// ReadFileå¤±æ•—
 				iReturn = H1USB_ERR_READFILE;
 				goto ERR_TREAT ;
 			}
-			// ŽóMƒf[ƒ^‡ŒvƒTƒCƒY(dwTmplTotalSize)‚É‰ÁŽZ
+			// å—ä¿¡ãƒ‡ãƒ¼ã‚¿åˆè¨ˆã‚µã‚¤ã‚º(dwTmplTotalSize)ã«åŠ ç®—
 			dwTmplTotalSize += 16 ;
-			pRecv += 16 ;	// ŽóM‚µ‚½•ª‚¾‚¯ƒ|ƒCƒ“ƒ^‚ði‚ß‚é
-			// ‘Sƒeƒ“ƒvƒŒ[ƒgƒf[ƒ^(544ƒoƒCƒg)‚ðŽóM‚µ‚½‚çƒ‹[ƒv‚ð”²‚¯‚é
+			pRecv += 16 ;	// å—ä¿¡ã—ãŸåˆ†ã ã‘ãƒã‚¤ãƒ³ã‚¿ã‚’é€²ã‚ã‚‹
+			// å…¨ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ‡ãƒ¼ã‚¿(544ãƒã‚¤ãƒˆ)ã‚’å—ä¿¡ã—ãŸã‚‰ãƒ«ãƒ¼ãƒ—ã‚’æŠœã‘ã‚‹
 			if ( dwTmplTotalSize == dwRecvSizeAll ) {
 				break ;
 			}
-			// ‚Ü‚¾‘Sƒeƒ“ƒvƒŒ[ƒgƒf[ƒ^‚ðŽóM‚µ‚«‚ê‚Ä‚¢‚È‚¢
+			// ã¾ã å…¨ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ‡ãƒ¼ã‚¿ã‚’å—ä¿¡ã—ãã‚Œã¦ã„ãªã„
 			else {
-				// ˆ—‘±s
+				// å‡¦ç†ç¶šè¡Œ
 			}
 		}
 	}
-	//ŽóMƒf[ƒ^Šm”Fˆ—(V1.10---2011/5/27)
+	//å—ä¿¡ãƒ‡ãƒ¼ã‚¿ç¢ºèªå‡¦ç†(V1.10---2011/5/27)
 	//end
 
-	// H1E-USB‚©‚çŽóM‚µ‚½ƒf[ƒ^—ñ‚©‚çƒ`ƒFƒbƒNƒTƒ€‚ðŒvŽZ‚·‚é
+	// H1E-USBã‹ã‚‰å—ä¿¡ã—ãŸãƒ‡ãƒ¼ã‚¿åˆ—ã‹ã‚‰ãƒã‚§ãƒƒã‚¯ã‚µãƒ ã‚’è¨ˆç®—ã™ã‚‹
 	DWORD dwCheckSum = 0 ;
 	DWORD *pd = ( DWORD * )recv ;
 	for ( int i = 0; i < 540/4; i++, pd++ ) {
 		dwCheckSum ^= *pd ;
 	}
-	// H1E-USB‚©‚çŽóM‚µ‚½ƒ`ƒFƒbƒNƒTƒ€‚Æ“¯‚¶‚Å‚ ‚é‚©Šm”F
+	// H1E-USBã‹ã‚‰å—ä¿¡ã—ãŸãƒã‚§ãƒƒã‚¯ã‚µãƒ ã¨åŒã˜ã§ã‚ã‚‹ã‹ç¢ºèª
 	if ( *pd != dwCheckSum ) {
 		goto ERR_TREAT ;
 	}
-	// ŽóM‚µ‚½ƒeƒ“ƒvƒŒ[ƒg‚ð pTemplate ‚ÉƒRƒs[
+	// å—ä¿¡ã—ãŸãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã‚’ pTemplate ã«ã‚³ãƒ”ãƒ¼
 	SYSTEMTIME st;
 	GetLocalTime(&st);
 	pTempU->uiTmpNum = 0xFF;
 	pTempU->time = st;
 	memcpy( pTempU->byTemplate, recv+4, 536 ) ;
 
-	// —ÎLED“_“”
+	// ç·‘LEDç‚¹ç¯
 	TransLedGreen() ;	
-	// Beep‰¹(³í)‚ð–Â‚ç‚·
+	// BeepéŸ³(æ­£å¸¸)ã‚’é³´ã‚‰ã™
 	beepOK() ;
 	return iReturn;
 
 ERR_TREAT:
 
-	// ƒ`ƒFƒbƒNƒTƒ€ƒGƒ‰[‚ª‹N‚«‚½ê‡Aƒf[ƒ^‘S‘Ì‚ðŽóM‚µØ‚ê‚Ä‚¢‚È‚¢‰Â”\«‚ª‚ ‚é
-	// ‘—ŽóMƒoƒbƒtƒ@‚Éƒf[ƒ^‚ªŽc‚Á‚Ä‚¢‚é‚ÆŒã‘±ˆ—‚ÉŽxá‚ð‚«‚½‚·‚½‚ßA‘—ŽóMƒoƒbƒtƒ@‚ð‰Šú‰»‚µ‚Ä‚¨‚­
-	dwRecvSize = getBuffSize() ;	// ŽóMƒoƒbƒtƒ@‚ÌƒoƒCƒg”‚ðŽæ“¾
+	// ãƒã‚§ãƒƒã‚¯ã‚µãƒ ã‚¨ãƒ©ãƒ¼ãŒèµ·ããŸå ´åˆã€ãƒ‡ãƒ¼ã‚¿å…¨ä½“ã‚’å—ä¿¡ã—åˆ‡ã‚Œã¦ã„ãªã„å¯èƒ½æ€§ãŒã‚ã‚‹
+	// é€å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã«ãƒ‡ãƒ¼ã‚¿ãŒæ®‹ã£ã¦ã„ã‚‹ã¨å¾Œç¶šå‡¦ç†ã«æ”¯éšœã‚’ããŸã™ãŸã‚ã€é€å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã‚’åˆæœŸåŒ–ã—ã¦ãŠã
+	dwRecvSize = getBuffSize() ;	// å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°ã‚’å–å¾—
 	if ( dwRecvSize != 0 ) {
-		// ‘—ŽóMƒoƒbƒtƒ@‚Ì‰Šú‰»
+		// é€å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã®åˆæœŸåŒ–
 		PurgeComm( m_hCom, PURGE_TXABORT|PURGE_RXABORT|PURGE_TXCLEAR|PURGE_RXCLEAR ) ;
 	}
-	// ÔLED“_“”
+	// èµ¤LEDç‚¹ç¯
 	TransLedRed() ;
-	// Beep‰¹(ˆÙí)‚ð–Â‚ç‚·
+	// BeepéŸ³(ç•°å¸¸)ã‚’é³´ã‚‰ã™
 	beepNG() ;
-	// ƒGƒ‰[ƒƒbƒZ[ƒW•\Ž¦
+	// ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¡¨ç¤º
 	//MessageBox( cMsg, TITLE, MB_ICONSTOP ) ;	
 	return iReturn ;
 
@@ -1462,45 +1466,45 @@ ERR_TREAT:
 
 
 /*====================================================================*/
-/* ˆ—ŠT—v  Fƒeƒ“ƒvƒŒ[ƒgŠi”[ƒoƒ“ƒN‚ðØ‚è‘Ö‚¦‚é
-/* ˆø”      FwBankNo	Ø‘Öæ‚Ìƒoƒ“ƒN”Ô†
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆæ ¼ç´ãƒãƒ³ã‚¯ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
+/* å¼•æ•°      ï¼šwBankNo	åˆ‡æ›¿å…ˆã®ãƒãƒ³ã‚¯ç•ªå·
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::TransChangeBank( const WORD wBankNo )
 {
 	int iReturn;
 	iReturn = H1USB_OK;
 
-	BYTE send[128] ;	// ‘—M—p
-	BYTE recv[128] ;	// ŽóM—p
+	BYTE send[128] ;	// é€ä¿¡ç”¨
+	BYTE recv[128] ;	// å—ä¿¡ç”¨
 	memset( send, 0, sizeof(send) ) ;
 	memset( recv, 0, sizeof(recv) ) ;
-	DWORD dwSendSize = 0 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-	DWORD dwRecvSize = 0 ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-	// ‘—Mƒf[ƒ^‚ðƒZƒbƒg
-	send[0] = 0x1C ;	// ƒeƒ“ƒvƒŒ[ƒgŠi”[ƒoƒ“ƒNŽw’èƒRƒ}ƒ“ƒh
-	send[1] = 0x00 ;	// Œã‘±ƒf[ƒ^‚ÌƒoƒCƒg”
-	send[2] = 0x02 ;	// V
-	send[3] = (BYTE)(( wBankNo & 0xFF00 ) >> 8) ;	// ƒoƒ“ƒN”Ô†(ãˆÊƒoƒCƒg)
-	send[4] = (BYTE)( wBankNo & 0x00FF ) ;		// ƒoƒ“ƒN”Ô†(‰ºˆÊƒoƒCƒg)
-	dwSendSize = 5 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	DWORD dwSendSize = 0 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+	DWORD dwRecvSize = 0 ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚’ã‚»ãƒƒãƒˆ
+	send[0] = 0x1C ;	// ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆæ ¼ç´ãƒãƒ³ã‚¯æŒ‡å®šã‚³ãƒžãƒ³ãƒ‰
+	send[1] = 0x00 ;	// å¾Œç¶šãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒˆæ•°
+	send[2] = 0x02 ;	// ã€ƒ
+	send[3] = (BYTE)(( wBankNo & 0xFF00 ) >> 8) ;	// ãƒãƒ³ã‚¯ç•ªå·(ä¸Šä½ãƒã‚¤ãƒˆ)
+	send[4] = (BYTE)( wBankNo & 0x00FF ) ;		// ãƒãƒ³ã‚¯ç•ªå·(ä¸‹ä½ãƒã‚¤ãƒˆ)
+	dwSendSize = 5 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mˆ—
+	// é€ä¿¡å‡¦ç†
 	if ( sendCommEnc( send, dwSendSize ) == FALSE ) {
 		return H1USB_ERR_WRITEFILE;
 	}
 	
-	// ŽóMƒoƒbƒtƒ@‚ÌƒoƒCƒg”‚ðŽæ“¾
-	dwRecvSize = getBuffSize() ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	// å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°ã‚’å–å¾—
+	dwRecvSize = getBuffSize() ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 	if ( dwRecvSize == 0 ) {
 		return H1USB_ERR_RDATA_NON;
 	}
 
-	// ŽóMˆ—
-	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileŽ¸”s
+	// å—ä¿¡å‡¦ç†
+	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileå¤±æ•—
 		return H1USB_ERR_READFILE;
 	}
-	else {	// ReadFile‚É‚Í¬Œ÷‚µ‚½‚ªAƒRƒ}ƒ“ƒh‚ªˆÙíI—¹
+	else {	// ReadFileã«ã¯æˆåŠŸã—ãŸãŒã€ã‚³ãƒžãƒ³ãƒ‰ãŒç•°å¸¸çµ‚äº†
 		if ( recv[0] != 0x00 ) {
 			return H1USB_ERR_RESPONS;
 		}
@@ -1511,55 +1515,55 @@ int CH1USBCom::TransChangeBank( const WORD wBankNo )
 
 
 /*====================================================================*/
-/* ˆ—ŠT—v  Fƒeƒ“ƒvƒŒ[ƒg‚ðŽw’è‚µ‚½ƒƒ‚ƒŠ‚É‘—M‚·‚é
-/* ˆø”      FpTemplate	ƒeƒ“ƒvƒŒ[ƒg
-/*             nMemNo		‘—Mæ‚Ìƒeƒ“ƒvƒŒ[ƒgƒƒ‚ƒŠ”Ô†
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã‚’æŒ‡å®šã—ãŸãƒ¡ãƒ¢ãƒªã«é€ä¿¡ã™ã‚‹
+/* å¼•æ•°      ï¼špTemplate	ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆ
+/*             nMemNo		é€ä¿¡å…ˆã®ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ¡ãƒ¢ãƒªç•ªå·
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::TransSetTemplate(PTEMPU pTempU)
 {
 	int iReturn;
 	iReturn = H1USB_OK;
 
-	BYTE send[640] ;	// ‘—M—p
-	BYTE recv[128] ;	// ŽóM—p
+	BYTE send[640] ;	// é€ä¿¡ç”¨
+	BYTE recv[128] ;	// å—ä¿¡ç”¨
 	memset( send, 0, sizeof(send) ) ;
 	memset( recv, 0, sizeof(recv) ) ;
-	DWORD dwSendSize = 0 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-	DWORD dwRecvSize = 0 ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-	// ‘—Mƒf[ƒ^‚ðƒZƒbƒg
-	send[0] = 0x12 ;			// ƒeƒ“ƒvƒŒ[ƒg‘—MƒRƒ}ƒ“ƒh(ƒzƒXƒg‹@ => H1E-USB)
-	send[1] = 0x02 ;			// Œã‘±ƒf[ƒ^‚ÌƒoƒCƒg”
-	send[2] = 0x1D ;			// V
-	send[3] = pTempU->uiTmpNum;	// ‘—Mæ‚Ìƒeƒ“ƒvƒŒ[ƒgƒƒ‚ƒŠ”Ô†(0x00`0x63)
-	// ƒeƒ“ƒvƒŒ[ƒgƒf[ƒ^‚ðsend[4]`send[539]‚ÉƒRƒs[
+	DWORD dwSendSize = 0 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+	DWORD dwRecvSize = 0 ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚’ã‚»ãƒƒãƒˆ
+	send[0] = 0x12 ;			// ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆé€ä¿¡ã‚³ãƒžãƒ³ãƒ‰(ãƒ›ã‚¹ãƒˆæ©Ÿ => H1E-USB)
+	send[1] = 0x02 ;			// å¾Œç¶šãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒˆæ•°
+	send[2] = 0x1D ;			// ã€ƒ
+	send[3] = pTempU->uiTmpNum;	// é€ä¿¡å…ˆã®ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ¡ãƒ¢ãƒªç•ªå·(0x00ã€œ0x63)
+	// ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ‡ãƒ¼ã‚¿ã‚’send[4]ã€œsend[539]ã«ã‚³ãƒ”ãƒ¼
 	memcpy( send + 4, pTempU->byTemplate, 536 ) ;	
-	// ƒ`ƒFƒbƒNƒTƒ€‚ÌŒvŽZ
-	DWORD dwCheckSum = 0 ;	// ƒ`ƒFƒbƒNƒTƒ€
+	// ãƒã‚§ãƒƒã‚¯ã‚µãƒ ã®è¨ˆç®—
+	DWORD dwCheckSum = 0 ;	// ãƒã‚§ãƒƒã‚¯ã‚µãƒ 
 	DWORD *pd = ( DWORD * )send ;
 	for ( int i = 0; i < 540/4; i++, pd++ ) {
 		dwCheckSum ^= *pd ;
 	}
-	// ƒ`ƒFƒbƒNƒTƒ€‚ðsend[540]`send[543]‚ÉƒRƒs[
+	// ãƒã‚§ãƒƒã‚¯ã‚µãƒ ã‚’send[540]ã€œsend[543]ã«ã‚³ãƒ”ãƒ¼
 	*pd = dwCheckSum ;
-	dwSendSize = 544 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	dwSendSize = 544 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mˆ—
+	// é€ä¿¡å‡¦ç†
 	if ( sendCommEnc( send, dwSendSize ) == FALSE ) {
 		return H1USB_ERR_WRITEFILE;
 	}
 
-	// ŽóMƒoƒbƒtƒ@‚ÌƒoƒCƒg”‚ðŽæ“¾
-	dwRecvSize = getBuffSize() ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	// å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°ã‚’å–å¾—
+	dwRecvSize = getBuffSize() ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 	if ( dwRecvSize == 0 ) {
 		return H1USB_ERR_RDATA_NON;
 	}
 
-	// ŽóMˆ—
-	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileŽ¸”s
+	// å—ä¿¡å‡¦ç†
+	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileå¤±æ•—
 		return H1USB_ERR_READFILE;
 	}
-	else {	// ReadFile‚É‚Í¬Œ÷‚µ‚½‚ªAƒRƒ}ƒ“ƒh‚ªˆÙíI—¹
+	else {	// ReadFileã«ã¯æˆåŠŸã—ãŸãŒã€ã‚³ãƒžãƒ³ãƒ‰ãŒç•°å¸¸çµ‚äº†
 		if ( recv[0] != 0x00 ) {
 			return H1USB_ERR_RESPONS;
 		}
@@ -1570,69 +1574,69 @@ int CH1USBCom::TransSetTemplate(PTEMPU pTempU)
 
 
 /*====================================================================*/
-/* ˆ—ŠT—v  FH1E-USB‚©‚çƒeƒ“ƒvƒŒ[ƒg‚ðíœ‚·‚é
-/* ˆø”      FnMemNo	ƒeƒ“ƒvƒŒ[ƒg”Ô†
-                          0`99 : Žw’è‚µ‚½ƒeƒ“ƒvƒŒ[ƒg”Ô†‚©‚çíœ
-						  -1    : Œ»Ý‚Ìƒoƒ“ƒN‚Ì‘Sƒeƒ“ƒvƒŒ[ƒg‚ðíœ
-                          -2    : ‘Sƒoƒ“ƒN‚Ì‘Sƒeƒ“ƒvƒŒ[ƒg‚ðíœ
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šH1E-USBã‹ã‚‰ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã‚’å‰Šé™¤ã™ã‚‹
+/* å¼•æ•°      ï¼šnMemNo	ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆç•ªå·
+                          0ã€œ99 : æŒ‡å®šã—ãŸãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆç•ªå·ã‹ã‚‰å‰Šé™¤
+						  -1    : ç¾åœ¨ã®ãƒãƒ³ã‚¯ã®å…¨ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã‚’å‰Šé™¤
+                          -2    : å…¨ãƒãƒ³ã‚¯ã®å…¨ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã‚’å‰Šé™¤
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::TransDelTemplate(const int nMemNo)
 {
 	int iReturn;
 	iReturn = H1USB_OK;
 
-	BYTE send[128] ;	// ‘—M—p
-	BYTE recv[128] ;	// ŽóM—p
+	BYTE send[128] ;	// é€ä¿¡ç”¨
+	BYTE recv[128] ;	// å—ä¿¡ç”¨
 	memset( send, 0, sizeof(send) ) ;
 	memset( recv, 0, sizeof(recv) ) ;
 
-	DWORD dwSendSize = 0 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-	DWORD dwRecvSize = 0 ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	DWORD dwSendSize = 0 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+	DWORD dwRecvSize = 0 ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mƒf[ƒ^‚ðƒZƒbƒg
-	send[0] = 0x16 ;	// ƒeƒ“ƒvƒŒ[ƒgíœƒRƒ}ƒ“ƒh
-	send[1] = 0x00 ;	// Œã‘±ƒf[ƒ^‚ÌƒoƒCƒg”
-	send[2] = 0x01 ;	// V
+	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚’ã‚»ãƒƒãƒˆ
+	send[0] = 0x16 ;	// ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆå‰Šé™¤ã‚³ãƒžãƒ³ãƒ‰
+	send[1] = 0x00 ;	// å¾Œç¶šãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒˆæ•°
+	send[2] = 0x01 ;	// ã€ƒ
 
-	// Œ»Ý‚Ìƒoƒ“ƒN‚ÌŽw’è‚µ‚½ƒeƒ“ƒvƒŒ[ƒg”Ô†‚©‚çíœ
+	// ç¾åœ¨ã®ãƒãƒ³ã‚¯ã®æŒ‡å®šã—ãŸãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆç•ªå·ã‹ã‚‰å‰Šé™¤
 	if ( 0x00 <= nMemNo && nMemNo <= 0x63 ) {
-		send[3] = nMemNo ;	// ƒeƒ“ƒvƒŒ[ƒg”Ô†
+		send[3] = nMemNo ;	// ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆç•ªå·
 	}
 	else {
 
-		// Œ»Ý‚Ìƒoƒ“ƒN‚Ì‘Sƒeƒ“ƒvƒŒ[ƒg‚ðíœ
+		// ç¾åœ¨ã®ãƒãƒ³ã‚¯ã®å…¨ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã‚’å‰Šé™¤
 		if ( nMemNo == -1 ) {
-			send[3] = 0xFF ;	// ƒeƒ“ƒvƒŒ[ƒg”Ô†
+			send[3] = 0xFF ;	// ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆç•ªå·
 		}
-		// ‘Sƒoƒ“ƒN‚Ì‘Sƒeƒ“ƒvƒŒ[ƒg‚ðíœ
+		// å…¨ãƒãƒ³ã‚¯ã®å…¨ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã‚’å‰Šé™¤
 		else if ( nMemNo == -2 ) {
-			send[3] = 0xFE ;	// ƒeƒ“ƒvƒŒ[ƒg”Ô†
+			send[3] = 0xFE ;	// ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆç•ªå·
 		}
-		// ã‹LˆÈŠO
+		// ä¸Šè¨˜ä»¥å¤–
 		else {
 
 		}
 	}
 
-	dwSendSize = 4 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	dwSendSize = 4 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mˆ—
+	// é€ä¿¡å‡¦ç†
 	if ( sendCommEnc( send, dwSendSize ) == FALSE ) {
 		return H1USB_ERR_WRITEFILE;
 	}
 
-	// ŽóMƒoƒbƒtƒ@‚ÌƒoƒCƒg”‚ðŽæ“¾
-	dwRecvSize = getBuffSize() ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	// å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°ã‚’å–å¾—
+	dwRecvSize = getBuffSize() ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 	if ( dwRecvSize == 0 ) {
 		return H1USB_ERR_RDATA_NON;
 	}
 
-	// ŽóMˆ—
-	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileŽ¸”s
+	// å—ä¿¡å‡¦ç†
+	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileå¤±æ•—
 		iReturn = H1USB_ERR_READFILE;
 	}
-	else {	// ReadFile‚É‚Í¬Œ÷‚µ‚½‚ªAƒRƒ}ƒ“ƒh‚ªˆÙíI—¹
+	else {	// ReadFileã«ã¯æˆåŠŸã—ãŸãŒã€ã‚³ãƒžãƒ³ãƒ‰ãŒç•°å¸¸çµ‚äº†
 		if ( recv[0] != 0x00 ) { 
 			return H1USB_ERR_RESPONS;
 		}
@@ -1643,9 +1647,9 @@ int CH1USBCom::TransDelTemplate(const int nMemNo)
 }
 
 /*====================================================================*/
-/* ˆ—ŠT—v  Fƒn[ƒhƒEƒFƒA‚ðƒŠƒZƒbƒg‚·‚é
-/* ˆø”      F‚È‚µ
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šãƒãƒ¼ãƒ‰ã‚¦ã‚§ã‚¢ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹
+/* å¼•æ•°      ï¼šãªã—
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::TransHardWare( void )
 {
@@ -1654,21 +1658,21 @@ int CH1USBCom::TransHardWare( void )
 
 
 
-	BYTE send[128] ;	// ‘—M—p
-	BYTE recv[128] ;	// ŽóM—p
+	BYTE send[128] ;	// é€ä¿¡ç”¨
+	BYTE recv[128] ;	// å—ä¿¡ç”¨
 	memset( send, 0, sizeof(send) ) ;
 	memset( recv, 0, sizeof(recv) ) ;
 
 
 	DWORD dwRecvSize;
 
-	DWORD dwSendSize = 0 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-	// ‘—Mƒf[ƒ^‚ðƒZƒbƒg
-	send[0] = 0x17 ;	// ƒn[ƒhƒEƒFƒAƒŠƒZƒbƒgƒRƒ}ƒ“ƒh
-	send[1] = 0x00 ;	// Œã‘±ƒf[ƒ^‚ÌƒoƒCƒg”
-	send[2] = 0x00 ;	// V
-	dwSendSize = 3 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-	// ‘—Mˆ—
+	DWORD dwSendSize = 0 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚’ã‚»ãƒƒãƒˆ
+	send[0] = 0x17 ;	// ãƒãƒ¼ãƒ‰ã‚¦ã‚§ã‚¢ãƒªã‚»ãƒƒãƒˆã‚³ãƒžãƒ³ãƒ‰
+	send[1] = 0x00 ;	// å¾Œç¶šãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒˆæ•°
+	send[2] = 0x00 ;	// ã€ƒ
+	dwSendSize = 3 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+	// é€ä¿¡å‡¦ç†
 	if ( sendCommEnc( send, dwSendSize ) == FALSE ) {
 		return H1USB_ERR_WRITEFILE;
 	}
@@ -1681,8 +1685,8 @@ int CH1USBCom::TransHardWare( void )
 			break;
 		}
 
-	// ŽóMƒoƒbƒtƒ@‚ÌƒoƒCƒg”‚ðŽæ“¾
-		dwRecvSize = getBuffSize() ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	// å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°ã‚’å–å¾—
+		dwRecvSize = getBuffSize() ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 		recvCommEnc( recv, dwRecvSize );
 
 	}while(dwRecvSize > 0);
@@ -1695,23 +1699,23 @@ int CH1USBCom::TransHardWare( void )
 
 
 /*====================================================================*/
-/* ˆ—ŠT—v  FLED‚ð‘S‚ÄÁ“”‚³‚¹‚é
-/* ˆø”      F‚È‚µ
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šLEDã‚’å…¨ã¦æ¶ˆç¯ã•ã›ã‚‹
+/* å¼•æ•°      ï¼šãªã—
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::ledAllOff( void )
 {
 
-	// ÔLED, —ÎLED‚ðÁ“”
+	// èµ¤LED, ç·‘LEDã‚’æ¶ˆç¯
 	return ledOnOff( 0x03, 0x00 ) ;
 
 }
 
 /*====================================================================*/
-/* ˆ—ŠT—v  FLED(—Î)‚Ì“_–Å‚ðŠJŽn‚·‚é
-/* ˆø”      FbyOffTime	“_–ÅŽž‚ÌÁ“”ŽžŠÔ(10ms’PˆÊ‚ÅŽw’è)
-/*             byOnTime		“_–ÅŽž‚Ì“_“”ŽžŠÔ(10ms’PˆÊ‚ÅŽw’è)
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šLED(ç·‘)ã®ç‚¹æ»…ã‚’é–‹å§‹ã™ã‚‹
+/* å¼•æ•°      ï¼šbyOffTime	ç‚¹æ»…æ™‚ã®æ¶ˆç¯æ™‚é–“(10mså˜ä½ã§æŒ‡å®š)
+/*             byOnTime		ç‚¹æ»…æ™‚ã®ç‚¹ç¯æ™‚é–“(10mså˜ä½ã§æŒ‡å®š)
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::ledStartBlink( const BYTE byOffTime, const BYTE byOnTime )
 {
@@ -1719,12 +1723,12 @@ int CH1USBCom::ledStartBlink( const BYTE byOffTime, const BYTE byOnTime )
 
 	iReturn = H1USB_OK;
 
-	// ÔLED, —ÎLED‚ðÁ“”
+	// èµ¤LED, ç·‘LEDã‚’æ¶ˆç¯
 	iReturn = ledAllOff();
 	if(iReturn != H1USB_OK){
 		return iReturn;
 	}
-	// —ÎLED“_–Å
+	// ç·‘LEDç‚¹æ»…
 	iReturn = ledBlink( byOffTime, byOnTime ) ;
 
 	return iReturn;
@@ -1732,49 +1736,49 @@ int CH1USBCom::ledStartBlink( const BYTE byOffTime, const BYTE byOnTime )
 }
 
 /*====================================================================*/
-/* ˆ—ŠT—v  FLED‚ð“_“”A‚Ü‚½‚ÍÁ“”‚³‚¹‚é
-/* ˆø”      FbyColor	0x01:Ô, 0x02:—Î, 0x01:Ô‚Æ—Î
-/*             byOnOff	0x00:Á“”, 0x01:“_“”
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šLEDã‚’ç‚¹ç¯ã€ã¾ãŸã¯æ¶ˆç¯ã•ã›ã‚‹
+/* å¼•æ•°      ï¼šbyColor	0x01:èµ¤, 0x02:ç·‘, 0x01:èµ¤ã¨ç·‘
+/*             byOnOff	0x00:æ¶ˆç¯, 0x01:ç‚¹ç¯
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::ledOnOff( const BYTE byColor, const BYTE byOnOff )
 {
 	int iReturn;
 	iReturn = H1USB_OK;
 
-	BYTE send[128] ;	// ‘—M—p
-	BYTE recv[128] ;	// ŽóM—p
+	BYTE send[128] ;	// é€ä¿¡ç”¨
+	BYTE recv[128] ;	// å—ä¿¡ç”¨
 	memset( send, 0, sizeof(send) ) ;
 	memset( recv, 0, sizeof(recv) ) ;
 
-	DWORD dwSendSize = 0 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-	DWORD dwRecvSize = 0 ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	DWORD dwSendSize = 0 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+	DWORD dwRecvSize = 0 ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mƒf[ƒ^‚ðƒZƒbƒg
-	send[0] = 0x11 ;	// LED§ŒäƒRƒ}ƒ“ƒh
-	send[1] = 0x00 ;	// Œã‘±ƒf[ƒ^‚ÌƒoƒCƒg”
-	send[2] = 0x02 ;	// V
-	send[3] = byColor ; // 0x01:Ô, 0x02:—Î, 0x01:Ô‚Æ—Î
-	send[4] = byOnOff ;	// 0x00:Á“”, 0x01:“_“”
+	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚’ã‚»ãƒƒãƒˆ
+	send[0] = 0x11 ;	// LEDåˆ¶å¾¡ã‚³ãƒžãƒ³ãƒ‰
+	send[1] = 0x00 ;	// å¾Œç¶šãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒˆæ•°
+	send[2] = 0x02 ;	// ã€ƒ
+	send[3] = byColor ; // 0x01:èµ¤, 0x02:ç·‘, 0x01:èµ¤ã¨ç·‘
+	send[4] = byOnOff ;	// 0x00:æ¶ˆç¯, 0x01:ç‚¹ç¯
 
-	dwSendSize = 5 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	dwSendSize = 5 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mˆ—
+	// é€ä¿¡å‡¦ç†
 	if ( sendCommEnc( send, dwSendSize ) == FALSE ) {
 		return H1USB_ERR_WRITEFILE;
 	}
 
-	// ŽóMƒoƒbƒtƒ@‚ÌƒoƒCƒg”‚ðŽæ“¾
-	dwRecvSize = getBuffSize() ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	// å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°ã‚’å–å¾—
+	dwRecvSize = getBuffSize() ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 	if ( dwRecvSize == 0 ) {
 		return H1USB_ERR_RDATA_NON;
 	}
 
-	// ŽóMˆ—
-	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileŽ¸”s
+	// å—ä¿¡å‡¦ç†
+	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileå¤±æ•—
 		return H1USB_ERR_READFILE;
 	}
-	else {	// ReadFile‚É‚Í¬Œ÷‚µ‚½‚ªAƒRƒ}ƒ“ƒh‚ªˆÙíI—¹
+	else {	// ReadFileã«ã¯æˆåŠŸã—ãŸãŒã€ã‚³ãƒžãƒ³ãƒ‰ãŒç•°å¸¸çµ‚äº†
 		if ( recv[0] != 0x00 ) {
 			return H1USB_ERR_RESPONS;
 		}
@@ -1784,51 +1788,51 @@ int CH1USBCom::ledOnOff( const BYTE byColor, const BYTE byOnOff )
 }
 
 /*====================================================================*/
-/* ˆ—ŠT—v  FLED(—Î)‚Ì“_–Å‚³‚¹‚é
-/* ˆø”      FbyOffTime	“_–ÅŽž‚ÌÁ“”ŽžŠÔ(10ms’PˆÊ‚ÅŽw’è)
-/*             byOnTime		“_–ÅŽž‚Ì“_“”ŽžŠÔ(10ms’PˆÊ‚ÅŽw’è)
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šLED(ç·‘)ã®ç‚¹æ»…ã•ã›ã‚‹
+/* å¼•æ•°      ï¼šbyOffTime	ç‚¹æ»…æ™‚ã®æ¶ˆç¯æ™‚é–“(10mså˜ä½ã§æŒ‡å®š)
+/*             byOnTime		ç‚¹æ»…æ™‚ã®ç‚¹ç¯æ™‚é–“(10mså˜ä½ã§æŒ‡å®š)
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::ledBlink( const BYTE byOffTime, const BYTE byOnTime )
 {
 	int iReturn;
 	iReturn = H1USB_OK;
 
-	BYTE send[128] ;	// ‘—M—p
-	BYTE recv[128] ;	// ŽóM—p
+	BYTE send[128] ;	// é€ä¿¡ç”¨
+	BYTE recv[128] ;	// å—ä¿¡ç”¨
 	memset( send, 0, sizeof(send) ) ;
 	memset( recv, 0, sizeof(recv) ) ;
 
-	DWORD dwSendSize = 0 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-	DWORD dwRecvSize = 0 ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	DWORD dwSendSize = 0 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+	DWORD dwRecvSize = 0 ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mƒf[ƒ^‚ðƒZƒbƒg
-	send[0] = 0x11 ;	// LED§ŒäƒRƒ}ƒ“ƒh
-	send[1] = 0x00 ;	// Œã‘±ƒf[ƒ^‚ÌƒoƒCƒg”
-	send[2] = 0x04 ;	// V
-	send[3] = 0x02 ;	// 0x02:—Î
-	send[4] = 0x02 ;	// 0x02:“_–Å
-	send[5] = byOffTime ;	// “_–ÅŽž‚ÌÁ“”ŽžŠÔ(10ms’PˆÊ‚ÅŽw’è)
-	send[6] = byOnTime ;	// “_–ÅŽž‚Ì“_“”ŽžŠÔ(10ms’PˆÊ‚ÅŽw’è)
+	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚’ã‚»ãƒƒãƒˆ
+	send[0] = 0x11 ;	// LEDåˆ¶å¾¡ã‚³ãƒžãƒ³ãƒ‰
+	send[1] = 0x00 ;	// å¾Œç¶šãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒˆæ•°
+	send[2] = 0x04 ;	// ã€ƒ
+	send[3] = 0x02 ;	// 0x02:ç·‘
+	send[4] = 0x02 ;	// 0x02:ç‚¹æ»…
+	send[5] = byOffTime ;	// ç‚¹æ»…æ™‚ã®æ¶ˆç¯æ™‚é–“(10mså˜ä½ã§æŒ‡å®š)
+	send[6] = byOnTime ;	// ç‚¹æ»…æ™‚ã®ç‚¹ç¯æ™‚é–“(10mså˜ä½ã§æŒ‡å®š)
 
-	dwSendSize = 7 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	dwSendSize = 7 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mˆ—
+	// é€ä¿¡å‡¦ç†
 	if ( sendCommEnc( send, dwSendSize ) == FALSE ) {
 		return H1USB_ERR_WRITEFILE;
 	}
 
-	// ŽóMƒoƒbƒtƒ@‚ÌƒoƒCƒg”‚ðŽæ“¾
-	dwRecvSize = getBuffSize() ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	// å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°ã‚’å–å¾—
+	dwRecvSize = getBuffSize() ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 	if ( dwRecvSize == 0 ) {
 		return H1USB_ERR_RDATA_NON;
 	}
 
-	// ŽóMˆ—
-	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileŽ¸”s
+	// å—ä¿¡å‡¦ç†
+	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileå¤±æ•—
 		return H1USB_ERR_READFILE;
 	}
-	else {	// ReadFile‚É‚Í¬Œ÷‚µ‚½‚ªAƒRƒ}ƒ“ƒh‚ªˆÙíI—¹
+	else {	// ReadFileã«ã¯æˆåŠŸã—ãŸãŒã€ã‚³ãƒžãƒ³ãƒ‰ãŒç•°å¸¸çµ‚äº†
 		if ( recv[0] != 0x00 ) {
 			return H1USB_ERR_RESPONS;
 		}
@@ -1840,99 +1844,99 @@ int CH1USBCom::ledBlink( const BYTE byOffTime, const BYTE byOnTime )
 
 
 /*====================================================================*/
-/* ˆ—ŠT—v  F³íI—¹Žž‚ÌBeep‰¹‚ð–Â‚ç‚·
-/* ˆø”      F‚È‚µ
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šæ­£å¸¸çµ‚äº†æ™‚ã®BeepéŸ³ã‚’é³´ã‚‰ã™
+/* å¼•æ•°      ï¼šãªã—
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::beepOK( void )
 {
 
-	// ƒsEƒs ‚Æ–Â‚ç‚·
+	// ãƒ”ãƒ»ãƒ” ã¨é³´ã‚‰ã™
 	return beepSound( 0x00, 0x02 ) ;
 
 }
 
 /*====================================================================*/
-/* ˆ—ŠT—v  FˆÙíI—¹Žž‚ÌBeep‰¹‚ð–Â‚ç‚·
-/* ˆø”      F‚È‚µ
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šç•°å¸¸çµ‚äº†æ™‚ã®BeepéŸ³ã‚’é³´ã‚‰ã™
+/* å¼•æ•°      ï¼šãªã—
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::beepNG( void )
 {
 
-	// ƒsEƒs[ ‚Æ–Â‚ç‚·
+	// ãƒ”ãƒ»ãƒ”ãƒ¼ ã¨é³´ã‚‰ã™
 	return beepSound( 0x40, 0x02 ) ;
 
 }
 
 /*====================================================================*/
-/* ˆ—ŠT—v  FƒLƒƒƒ“ƒZƒ‹Žž‚ÌBeep‰¹‚ð–Â‚ç‚·
-/* ˆø”      F‚È‚µ
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šã‚­ãƒ£ãƒ³ã‚»ãƒ«æ™‚ã®BeepéŸ³ã‚’é³´ã‚‰ã™
+/* å¼•æ•°      ï¼šãªã—
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::beepCancel( void )
 {
 
-	// ƒs[ ‚Æ–Â‚ç‚·
+	// ãƒ”ãƒ¼ ã¨é³´ã‚‰ã™
 	return beepSound( 0x80, 0x01 ) ;
 
 }
 
 /*====================================================================*/
-/* ˆ—ŠT—v  FŽw’è‚³‚ê‚½ƒpƒ^[ƒ“‚ÅBeep‰¹‚ð–Â‚ç‚·
-/* ˆø”      FbyPattern	–Â“®ƒpƒ^[ƒ“(ƒrƒbƒg‚Ì’l => 0:’Z‚¢‰¹, 1:’·‚¢‰¹)
-/*             byCount		–Â“®ƒpƒ^[ƒ“”(æ“ª‚©‚ç‰½ƒrƒbƒg•ª–Â‚ç‚·‚©‚ð1`8‚ÅŽw’è)
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šæŒ‡å®šã•ã‚ŒãŸãƒ‘ã‚¿ãƒ¼ãƒ³ã§BeepéŸ³ã‚’é³´ã‚‰ã™
+/* å¼•æ•°      ï¼šbyPattern	é³´å‹•ãƒ‘ã‚¿ãƒ¼ãƒ³(ãƒ“ãƒƒãƒˆã®å€¤ => 0:çŸ­ã„éŸ³, 1:é•·ã„éŸ³)
+/*             byCount		é³´å‹•ãƒ‘ã‚¿ãƒ¼ãƒ³æ•°(å…ˆé ­ã‹ã‚‰ä½•ãƒ“ãƒƒãƒˆåˆ†é³´ã‚‰ã™ã‹ã‚’1ã€œ8ã§æŒ‡å®š)
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 int CH1USBCom::beepSound( const BYTE byPattern, const BYTE byCount )
 {
 	int iReturn;
 	iReturn = H1USB_OK;
 
-	BYTE send[128] ;	// ‘—M—p
-	BYTE recv[128] ;	// ŽóM—p
+	BYTE send[128] ;	// é€ä¿¡ç”¨
+	BYTE recv[128] ;	// å—ä¿¡ç”¨
 	memset( send, 0, sizeof(send) ) ;
 	memset( recv, 0, sizeof(recv) ) ;
 
-	DWORD dwSendSize = 0 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-	DWORD dwRecvSize = 0 ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	DWORD dwSendSize = 0 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+	DWORD dwRecvSize = 0 ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mƒf[ƒ^‚ðƒZƒbƒg
-	send[0] = 0x10 ;	// ƒuƒU[§ŒäƒRƒ}ƒ“ƒh
-	send[1] = 0x00 ;	// Œã‘±ƒf[ƒ^‚ÌƒoƒCƒg”
-	send[2] = 0x03 ;	// V
+	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚’ã‚»ãƒƒãƒˆ
+	send[0] = 0x10 ;	// ãƒ–ã‚¶ãƒ¼åˆ¶å¾¡ã‚³ãƒžãƒ³ãƒ‰
+	send[1] = 0x00 ;	// å¾Œç¶šãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒˆæ•°
+	send[2] = 0x03 ;	// ã€ƒ
 	if((byPattern == 0) && (byCount == 0)){
-		send[3] = 0x00 ;	// 0x00:–Â“®’âŽ~
+		send[3] = 0x00 ;	// 0x00:é³´å‹•åœæ­¢
 	}
 	else{
 		if(byCount == 0){
-			send[3] = 0x01 ;	// 0x01:–Â“®ŠJŽn
+			send[3] = 0x01 ;	// 0x01:é³´å‹•é–‹å§‹
 		}
 		else{
-			send[3] = 0x02 ;	// 0x02:–Â“®ƒpƒ^[ƒ“‚É]‚Á‚Ä–Â“®ŠJŽn
+			send[3] = 0x02 ;	// 0x02:é³´å‹•ãƒ‘ã‚¿ãƒ¼ãƒ³ã«å¾“ã£ã¦é³´å‹•é–‹å§‹
 		}
 	}
-	send[4] = byPattern ;	// –Â“®ƒpƒ^[ƒ“(ƒrƒbƒg‚Ì’l => 0:’Z‚¢‰¹, 1:’·‚¢‰¹)
-	send[5] = byCount ;		// –Â“®ƒpƒ^[ƒ“”(æ“ª‚©‚ç‰½ƒrƒbƒg•ª–Â‚ç‚·‚©‚ð1`8‚ÅŽw’è)
+	send[4] = byPattern ;	// é³´å‹•ãƒ‘ã‚¿ãƒ¼ãƒ³(ãƒ“ãƒƒãƒˆã®å€¤ => 0:çŸ­ã„éŸ³, 1:é•·ã„éŸ³)
+	send[5] = byCount ;		// é³´å‹•ãƒ‘ã‚¿ãƒ¼ãƒ³æ•°(å…ˆé ­ã‹ã‚‰ä½•ãƒ“ãƒƒãƒˆåˆ†é³´ã‚‰ã™ã‹ã‚’1ã€œ8ã§æŒ‡å®š)
 
-	dwSendSize = 6 ;	// ‘—Mƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	dwSendSize = 6 ;	// é€ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 
-	// ‘—Mˆ—
+	// é€ä¿¡å‡¦ç†
 	if ( sendCommEnc( send, dwSendSize ) == FALSE ) {
 		return H1USB_ERR_WRITEFILE;
 	}
 
-	// ŽóMƒoƒbƒtƒ@‚ÌƒoƒCƒg”‚ðŽæ“¾
-	dwRecvSize = getBuffSize() ;	// ŽóMƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+	// å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°ã‚’å–å¾—
+	dwRecvSize = getBuffSize() ;	// å—ä¿¡ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 	if ( dwRecvSize == 0 ) {
 		return H1USB_ERR_RDATA_NON;
 	}
 
-	// ŽóMˆ—
-	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileŽ¸”s
+	// å—ä¿¡å‡¦ç†
+	if ( recvCommEnc( recv, dwRecvSize ) == FALSE ) {	// ReadFileå¤±æ•—
 		return H1USB_ERR_READFILE;
 	}
-	else {	// ReadFile‚É‚Í¬Œ÷‚µ‚½‚ªAƒRƒ}ƒ“ƒh‚ªˆÙíI—¹
+	else {	// ReadFileã«ã¯æˆåŠŸã—ãŸãŒã€ã‚³ãƒžãƒ³ãƒ‰ãŒç•°å¸¸çµ‚äº†
 		if ( recv[0] != 0x00 ) {
 			return H1USB_ERR_RESPONS;
 		}
@@ -1949,80 +1953,80 @@ int CH1USBCom::beepSound( const BYTE byPattern, const BYTE byCount )
 
 
 /*====================================================================*/
-/* ˆ—ŠT—v  FƒRƒ}ƒ“ƒh‚ðH1E-USB‚É‘—M‚·‚é(ƒm[ƒ}ƒ‹ó‘Ô)
-/* ˆø”      FpComm	ƒf[ƒ^ƒoƒbƒtƒ@
-/*             dwSize	‘—M‚·‚éƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šã‚³ãƒžãƒ³ãƒ‰ã‚’H1E-USBã«é€ä¿¡ã™ã‚‹(ãƒŽãƒ¼ãƒžãƒ«çŠ¶æ…‹)
+/* å¼•æ•°      ï¼špComm	ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡
+/*             dwSize	é€ä¿¡ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 BOOL CH1USBCom::sendComm( const BYTE *pComm, const DWORD dwSize )
 {
 
-	//----- ‘—Mˆ— -----//
+	//----- é€ä¿¡å‡¦ç† -----//
 	DWORD dwLen = 0 ;
 
 	BOOL bRet = WriteFile(
-		m_hCom,	// ƒfƒoƒCƒX‚Ìƒnƒ“ƒhƒ‹
-		pComm,	// ƒf[ƒ^ƒoƒbƒtƒ@
-		dwSize,	// ‘‚«ž‚Ý‘ÎÛ‚ÌƒoƒCƒg”
-		&dwLen,	// ‘‚«ž‚ñ‚¾ƒoƒCƒg”
-		NULL	// ƒI[ƒo[ƒ‰ƒbƒv\‘¢‘Ì‚Ìƒoƒbƒtƒ@
+		m_hCom,	// ãƒ‡ãƒã‚¤ã‚¹ã®ãƒãƒ³ãƒ‰ãƒ«
+		pComm,	// ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡
+		dwSize,	// æ›¸ãè¾¼ã¿å¯¾è±¡ã®ãƒã‚¤ãƒˆæ•°
+		&dwLen,	// æ›¸ãè¾¼ã‚“ã ãƒã‚¤ãƒˆæ•°
+		NULL	// ã‚ªãƒ¼ãƒãƒ¼ãƒ©ãƒƒãƒ—æ§‹é€ ä½“ã®ãƒãƒƒãƒ•ã‚¡
 		) ;
 
-	// WriteFile()’¼Œã‚ÉClearCommError()‚ðŒÄ‚Ño‚·‚ÆAComStat.cbInQue‚ª
-	// ‚µ‚Î‚µ‚Î0‚É‚È‚é(ŽóMƒoƒbƒtƒ@‚ÌƒoƒCƒg”‚ðŽæ“¾o—ˆ‚È‚¢)‚½‚ßASleep‚ð“ü‚ê‚é
+	// WriteFile()ç›´å¾Œã«ClearCommError()ã‚’å‘¼ã³å‡ºã™ã¨ã€ComStat.cbInQueãŒ
+	// ã—ã°ã—ã°0ã«ãªã‚‹(å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°ã‚’å–å¾—å‡ºæ¥ãªã„)ãŸã‚ã€Sleepã‚’å…¥ã‚Œã‚‹
 	Sleep(100) ;
 
 	return bRet ;
 }
 
 /*====================================================================*/
-/* ˆ—ŠT—v  FƒRƒ}ƒ“ƒh‚ðH1E-USB‚É‘—M‚·‚é(ˆÃ†’ÊMó‘Ô)
-/* ˆø”      FpComm	ƒf[ƒ^ƒoƒbƒtƒ@
-/*             dwSize	‘—M‚·‚éƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šã‚³ãƒžãƒ³ãƒ‰ã‚’H1E-USBã«é€ä¿¡ã™ã‚‹(æš—å·é€šä¿¡çŠ¶æ…‹)
+/* å¼•æ•°      ï¼špComm	ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡
+/*             dwSize	é€ä¿¡ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 BOOL CH1USBCom::sendCommEnc( const BYTE *pComm, DWORD dwSize )
 {
 
-	// ˆÃ†’ÊMó‘Ô‚Å‚Í‚È‚¢ê‡
+	// æš—å·é€šä¿¡çŠ¶æ…‹ã§ã¯ãªã„å ´åˆ
 	if ( m_bCamelliaEnabled == FALSE ) {
 
 		return sendComm( pComm, dwSize) ;
 	}
 
-	//----- ˆÃ†‰»ˆ— -----//
-	// dwSize‚É‰ž‚¶‚Ä16ƒoƒCƒg‚Ì”{”‚Ì—Ìˆæ‚ðŠm•Û‚·‚é
-	// (dwSize‚ª1`16‚Ìê‡:16ƒoƒCƒg, 17`32‚Ìê‡:32ƒoƒCƒg c)
+	//----- æš—å·åŒ–å‡¦ç† -----//
+	// dwSizeã«å¿œã˜ã¦16ãƒã‚¤ãƒˆã®å€æ•°ã®é ˜åŸŸã‚’ç¢ºä¿ã™ã‚‹
+	// (dwSizeãŒ1ã€œ16ã®å ´åˆ:16ãƒã‚¤ãƒˆ, 17ã€œ32ã®å ´åˆ:32ãƒã‚¤ãƒˆ â€¦)
 	BYTE *pBuff = NULL ;
 	pBuff = (BYTE *)malloc( dwSize = (dwSize + 15) & ~15 ) ;
 	memset( pBuff, 0, dwSize ) ;
 
-	// 16ƒoƒCƒg–ˆ‚ÉpComm‚Ì“à—e‚ðˆÃ†‰»‚µ‚ÄpBuff‚ÉŠi”[‚·‚é
+	// 16ãƒã‚¤ãƒˆæ¯Žã«pCommã®å†…å®¹ã‚’æš—å·åŒ–ã—ã¦pBuffã«æ ¼ç´ã™ã‚‹
 	for ( DWORD i = 0; i < dwSize; i+=16 ) {
 		Camellia_EncryptBlock(
-			128,		// Œ®’·
-			pComm + i,	// •½•¶‚Ìƒ|ƒCƒ“ƒ^
-			m_uKttWork,	// Šg‘åŒ®
-			pBuff + i	// ˆÃ†‰»‚³‚ê‚½•¶‚Ìƒ|ƒCƒ“ƒ^
+			128,		// éµé•·
+			pComm + i,	// å¹³æ–‡ã®ãƒã‚¤ãƒ³ã‚¿
+			m_uKttWork,	// æ‹¡å¤§éµ
+			pBuff + i	// æš—å·åŒ–ã•ã‚ŒãŸæ–‡ã®ãƒã‚¤ãƒ³ã‚¿
 			) ;
 	}
 
-	//----- ‘—Mˆ— -----//
+	//----- é€ä¿¡å‡¦ç† -----//
 	DWORD dwLen = 0 ;
 	
 	BOOL bRet = WriteFile(
-			m_hCom,	// ƒfƒoƒCƒX‚Ìƒnƒ“ƒhƒ‹
-			pBuff,	// ˆÃ†‰»‚³‚ê‚½ƒf[ƒ^ƒoƒbƒtƒ@
-			dwSize,	// ˆÃ†‰»‚³‚ê‚½‘‚«ž‚Ý‘ÎÛ‚ÌƒoƒCƒg”
-			&dwLen,	// ‘‚«ž‚ñ‚¾ƒoƒCƒg”
-			NULL	// ƒI[ƒo[ƒ‰ƒbƒv\‘¢‘Ì‚Ìƒoƒbƒtƒ@
+			m_hCom,	// ãƒ‡ãƒã‚¤ã‚¹ã®ãƒãƒ³ãƒ‰ãƒ«
+			pBuff,	// æš—å·åŒ–ã•ã‚ŒãŸãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡
+			dwSize,	// æš—å·åŒ–ã•ã‚ŒãŸæ›¸ãè¾¼ã¿å¯¾è±¡ã®ãƒã‚¤ãƒˆæ•°
+			&dwLen,	// æ›¸ãè¾¼ã‚“ã ãƒã‚¤ãƒˆæ•°
+			NULL	// ã‚ªãƒ¼ãƒãƒ¼ãƒ©ãƒƒãƒ—æ§‹é€ ä½“ã®ãƒãƒƒãƒ•ã‚¡
 			) ;
 
-	// Šm•Û‚µ‚½ƒƒ‚ƒŠ‚ð‰ð•ú‚·‚é
+	// ç¢ºä¿ã—ãŸãƒ¡ãƒ¢ãƒªã‚’è§£æ”¾ã™ã‚‹
 	free( pBuff ) ;
 
-	// WriteFile()’¼Œã‚ÉClearCommError()‚ðŒÄ‚Ño‚·‚ÆAComStat.cbInQue‚ª
-	// ‚µ‚Î‚µ‚Î0‚É‚È‚é(ŽóMƒoƒbƒtƒ@‚ÌƒoƒCƒg”‚ðŽæ“¾o—ˆ‚È‚¢)‚½‚ßASleep‚ð“ü‚ê‚é
+	// WriteFile()ç›´å¾Œã«ClearCommError()ã‚’å‘¼ã³å‡ºã™ã¨ã€ComStat.cbInQueãŒ
+	// ã—ã°ã—ã°0ã«ãªã‚‹(å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°ã‚’å–å¾—å‡ºæ¥ãªã„)ãŸã‚ã€Sleepã‚’å…¥ã‚Œã‚‹
 	Sleep(100) ;
 
 	return bRet ;
@@ -2030,45 +2034,45 @@ BOOL CH1USBCom::sendCommEnc( const BYTE *pComm, DWORD dwSize )
 }
 
 /*====================================================================*/
-/* ˆ—ŠT—v  FH1E-USB‚©‚çƒf[ƒ^‚ðŽóM‚·‚é(ƒm[ƒ}ƒ‹ó‘Ô)
-/* ˆø”      FpComm	ƒf[ƒ^ƒoƒbƒtƒ@
-/*             dwSize	ŽóM‚·‚éƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šH1E-USBã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ã‚’å—ä¿¡ã™ã‚‹(ãƒŽãƒ¼ãƒžãƒ«çŠ¶æ…‹)
+/* å¼•æ•°      ï¼špComm	ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡
+/*             dwSize	å—ä¿¡ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 BOOL CH1USBCom::recvComm( BYTE *pComm, const DWORD dwSize )
 {
 
-	//----- ŽóMˆ— -----//
+	//----- å—ä¿¡å‡¦ç† -----//
 	DWORD dwLen = 0 ;
 
 	return ReadFile(
-		m_hCom,	// ƒfƒoƒCƒX‚Ìƒnƒ“ƒhƒ‹
-		pComm,	// ƒf[ƒ^ƒoƒbƒtƒ@
-		dwSize,	// “Ç‚ÝŽæ‚è‘ÎÛ‚ÌƒoƒCƒg”
-		&dwLen,	// “Ç‚ÝŽæ‚Á‚½ƒoƒCƒg”
-		NULL	// ƒI[ƒo[ƒ‰ƒbƒv\‘¢‘Ì‚Ìƒoƒbƒtƒ@
+		m_hCom,	// ãƒ‡ãƒã‚¤ã‚¹ã®ãƒãƒ³ãƒ‰ãƒ«
+		pComm,	// ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡
+		dwSize,	// èª­ã¿å–ã‚Šå¯¾è±¡ã®ãƒã‚¤ãƒˆæ•°
+		&dwLen,	// èª­ã¿å–ã£ãŸãƒã‚¤ãƒˆæ•°
+		NULL	// ã‚ªãƒ¼ãƒãƒ¼ãƒ©ãƒƒãƒ—æ§‹é€ ä½“ã®ãƒãƒƒãƒ•ã‚¡
 		) ;
 
 }
 
 /*====================================================================*/
-/* ˆ—ŠT—v  FH1E-USB‚©‚çƒf[ƒ^‚ðŽóM‚·‚é(ˆÃ†’ÊMó‘Ô)
-/* ˆø”      FpComm	ƒf[ƒ^ƒoƒbƒtƒ@
-/*             dwSize	ŽóM‚·‚éƒf[ƒ^ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-/* –ß‚è’l    F¬Œ÷:0ˆÈŠOAŽ¸”s:0
+/* å‡¦ç†æ¦‚è¦  ï¼šH1E-USBã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ã‚’å—ä¿¡ã™ã‚‹(æš—å·é€šä¿¡çŠ¶æ…‹)
+/* å¼•æ•°      ï¼špComm	ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡
+/*             dwSize	å—ä¿¡ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0ä»¥å¤–ã€å¤±æ•—:0
 /*====================================================================*/
 BOOL CH1USBCom::recvCommEnc( BYTE *pComm, DWORD dwSize )
 {
 
-	// ˆÃ†’ÊMó‘Ô‚Å‚Í‚È‚¢ê‡
+	// æš—å·é€šä¿¡çŠ¶æ…‹ã§ã¯ãªã„å ´åˆ
 	if ( m_bCamelliaEnabled == FALSE ) {
 
 		return recvComm( pComm, dwSize) ;
 	}
 
-	//----- ŽóMˆ— -----//
-	// dwSize‚É‰ž‚¶‚Ä16ƒoƒCƒg‚Ì”{”‚Ì—Ìˆæ‚ðŠm•Û‚·‚é
-	// (dwSize‚ª1`16‚Ìê‡:16ƒoƒCƒg, 17`32‚Ìê‡:32ƒoƒCƒg c)
+	//----- å—ä¿¡å‡¦ç† -----//
+	// dwSizeã«å¿œã˜ã¦16ãƒã‚¤ãƒˆã®å€æ•°ã®é ˜åŸŸã‚’ç¢ºä¿ã™ã‚‹
+	// (dwSizeãŒ1ã€œ16ã®å ´åˆ:16ãƒã‚¤ãƒˆ, 17ã€œ32ã®å ´åˆ:32ãƒã‚¤ãƒˆ â€¦)
 	BYTE *pBuff = NULL ;
 	pBuff = (BYTE *)malloc( dwSize = (dwSize + 15) & ~15 ) ;
 	memset( pBuff, 0, dwSize ) ;
@@ -2076,40 +2080,41 @@ BOOL CH1USBCom::recvCommEnc( BYTE *pComm, DWORD dwSize )
 	DWORD dwLen = 0 ;
 
 	BOOL bRet = ReadFile(
-			m_hCom,	// ƒfƒoƒCƒX‚Ìƒnƒ“ƒhƒ‹
-			pBuff,	// ˆÃ†‰»‚³‚ê‚½ƒf[ƒ^ƒoƒbƒtƒ@
-			dwSize,	// ˆÃ†‰»‚³‚ê‚½“Ç‚ÝŽæ‚è‘ÎÛ‚ÌƒoƒCƒg”
-			&dwLen,	// “Ç‚ÝŽæ‚Á‚½ƒoƒCƒg”
-			NULL	// ƒI[ƒo[ƒ‰ƒbƒv\‘¢‘Ì‚Ìƒoƒbƒtƒ@
+			m_hCom,	// ãƒ‡ãƒã‚¤ã‚¹ã®ãƒãƒ³ãƒ‰ãƒ«
+			pBuff,	// æš—å·åŒ–ã•ã‚ŒãŸãƒ‡ãƒ¼ã‚¿ãƒãƒƒãƒ•ã‚¡
+			dwSize,	// æš—å·åŒ–ã•ã‚ŒãŸèª­ã¿å–ã‚Šå¯¾è±¡ã®ãƒã‚¤ãƒˆæ•°
+			&dwLen,	// èª­ã¿å–ã£ãŸãƒã‚¤ãƒˆæ•°
+			NULL	// ã‚ªãƒ¼ãƒãƒ¼ãƒ©ãƒƒãƒ—æ§‹é€ ä½“ã®ãƒãƒƒãƒ•ã‚¡
  			) ;
 
 	if ( bRet == FALSE ) {
 		goto EXIT_TREAT ;
 	}
 
-	//“Ç‚ÝŽæ‚è‘ÎÛ‚ÌƒoƒCƒg”‚Æ“Ç‚ÝŽæ‚Á‚½ƒoƒCƒg”‚ªˆÙ‚È‚éê‡‚ÍŽóMƒGƒ‰[‚Æ‚·‚éB(V1.10---2011/5/25)
+	//èª­ã¿å–ã‚Šå¯¾è±¡ã®ãƒã‚¤ãƒˆæ•°ã¨èª­ã¿å–ã£ãŸãƒã‚¤ãƒˆæ•°ãŒç•°ãªã‚‹å ´åˆã¯å—ä¿¡ã‚¨ãƒ©ãƒ¼ã¨ã™ã‚‹ã€‚(V1.10---2011/5/25)
 	//begin
 	if ( dwSize != dwLen ) {
 
 		return FALSE;
 	}
-	//“Ç‚ÝŽæ‚è‘ÎÛ‚ÌƒoƒCƒg”‚Æ“Ç‚ÝŽæ‚Á‚½ƒoƒCƒg”‚ªˆÙ‚È‚éê‡‚ÍŽóMƒGƒ‰[‚Æ‚·‚éB(V1.10---2011/5/25)
+	//èª­ã¿å–ã‚Šå¯¾è±¡ã®ãƒã‚¤ãƒˆæ•°ã¨èª­ã¿å–ã£ãŸãƒã‚¤ãƒˆæ•°ãŒç•°ãªã‚‹å ´åˆã¯å—ä¿¡ã‚¨ãƒ©ãƒ¼ã¨ã™ã‚‹ã€‚(V1.10---2011/5/25)
 	//end
 
-	//----- •œ†ˆ— -----//
-	// 16ƒoƒCƒg–ˆ‚ÉpBuff‚Ì“à—e‚ð•œ†‚µ‚ÄpComm‚ÉŠi”[‚·‚é
+	//----- å¾©å·å‡¦ç† -----//
+	// 16ãƒã‚¤ãƒˆæ¯Žã«pBuffã®å†…å®¹ã‚’å¾©å·ã—ã¦pCommã«æ ¼ç´ã™ã‚‹
+	//	è§£ç  pBuff å†…å®¹ï¼Œåœ¨ pComm ä¸­å­˜å‚¨çš„æ¯ä¸ª 16 å­—èŠ‚
 	for ( DWORD i = 0; i < dwSize; i+=16 ) {
 		Camellia_DecryptBlock(
-			128,		// Œ®’·
-			pBuff + i,	// ˆÃ†•¶‚Ìƒ|ƒCƒ“ƒ^
-			m_uKttWork, // Šg‘åŒ®
-			pComm + i	// •œ†‚³‚ê‚½•¶‚Ìƒ|ƒCƒ“ƒ^
+			128,		// éµé•·
+			pBuff + i,	// æš—å·æ–‡ã®ãƒã‚¤ãƒ³ã‚¿//å¯†ç æ–‡æœ¬æŒ‡é’ˆ
+			m_uKttWork, // æ‹¡å¤§éµ//æ‰©å¤§çš„å…³é”®
+			pComm + i	// å¾©å·ã•ã‚ŒãŸæ–‡ã®ãƒã‚¤ãƒ³ã‚¿//è§£ç çš„æ–‡æœ¬æŒ‡é’ˆ
 			) ;
 	}
 
 EXIT_TREAT:
 
-	// Šm•Û‚µ‚½ƒƒ‚ƒŠ‚ð‰ð•ú‚·‚é
+	// ç¢ºä¿ã—ãŸãƒ¡ãƒ¢ãƒªã‚’è§£æ”¾ã™ã‚‹
 	free( pBuff ) ;
 
 	return bRet ;
@@ -2117,12 +2122,12 @@ EXIT_TREAT:
 }
 
 /*====================================================================*/
-/* ˆ—ŠT—v  FŽóMƒoƒbƒtƒ@‚ÌƒoƒCƒg”‚ð•Ô‹p‚·‚é
-/* ˆø”      F‚È‚µ
-/* –ß‚è’l    FŽóMƒoƒbƒtƒ@‚ÌƒoƒCƒg”
+/* å‡¦ç†æ¦‚è¦  ï¼šå—ä¿¡ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°ã‚’è¿”å´ã™ã‚‹
+/* å¼•æ•°      ï¼šãªã—
+/* æˆ»ã‚Šå€¤    ï¼šå—ä¿¡ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
 /*====================================================================*/
-/* ReadFile()‚ÅŽw’è‚·‚éƒoƒCƒg”‚ªAŽÀÛ‚É“Çž‚ÞƒoƒCƒg”‚Æˆê’v‚µ‚Ä‚¢‚È‚¢‚Æ
-   ŽóM‘Ò‚¿‚ÅŽ~‚Ü‚Á‚Ä‚µ‚Ü‚¤‚½‚ßA–{ŠÖ”‚ÅŽóMƒoƒbƒtƒ@‚ÌƒTƒCƒY‚ðŽæ“¾‚µ‚Ä‚¨‚­ */
+/* ReadFile()ã§æŒ‡å®šã™ã‚‹ãƒã‚¤ãƒˆæ•°ãŒã€å®Ÿéš›ã«èª­è¾¼ã‚€ãƒã‚¤ãƒˆæ•°ã¨ä¸€è‡´ã—ã¦ã„ãªã„ã¨
+   å—ä¿¡å¾…ã¡ã§æ­¢ã¾ã£ã¦ã—ã¾ã†ãŸã‚ã€æœ¬é–¢æ•°ã§å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã®ã‚µã‚¤ã‚ºã‚’å–å¾—ã—ã¦ãŠã */
 DWORD CH1USBCom::getBuffSize( void )
 {
 	DWORD dwErrors = 0 ;
@@ -2131,9 +2136,9 @@ DWORD CH1USBCom::getBuffSize( void )
 	memset( &ComStat, 0, sizeof(COMSTAT) ) ;
 	
 	ClearCommError(
-		m_hCom,		// ’ÊMƒfƒoƒCƒX‚Ìƒnƒ“ƒhƒ‹
-		&dwErrors,	// ƒGƒ‰[ƒR[ƒh‚ðŽó‚¯Žæ‚é•Ï”‚Ö‚Ìƒ|ƒCƒ“ƒ^
-		&ComStat	// ’ÊMó‘Ôƒoƒbƒtƒ@‚Ö‚Ìƒ|ƒCƒ“ƒ^
+		m_hCom,		// é€šä¿¡ãƒ‡ãƒã‚¤ã‚¹ã®ãƒãƒ³ãƒ‰ãƒ«
+		&dwErrors,	// ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’å—ã‘å–ã‚‹å¤‰æ•°ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+		&ComStat	// é€šä¿¡çŠ¶æ…‹ãƒãƒƒãƒ•ã‚¡ã¸ã®ãƒã‚¤ãƒ³ã‚¿
 		) ;
 	
 	return ComStat.cbInQue ;
@@ -2141,14 +2146,17 @@ DWORD CH1USBCom::getBuffSize( void )
 }
 
 /*====================================================================*/
-/* ˆ—ŠT—v  F512ƒoƒCƒg‚Ì—”‚©‚çˆÃ†ƒL[‚ð¶¬‚·‚é
-/*  step1 4096ƒrƒbƒg(512ƒoƒCƒg)‚ÌƒrƒbƒgƒAƒhƒŒƒX•ÏŠ·‚É‚æ‚èAƒrƒbƒg‚ðŒðŠ·
-/*  step2 32ŒÂ‚Ì16ƒoƒCƒgƒuƒƒbƒN‚Å˜_—‰‰ŽZ
-/* ˆø”      Fsrc	512ƒoƒCƒg‚Ì—”
-/*             dst	ƒXƒNƒ‰ƒ“ƒuƒ‹‚ð‰ðœ‚µ‚½16ƒoƒCƒg‚Ìƒf[ƒ^
-/* –ß‚è’l    F¬Œ÷:0
+/* å‡¦ç†æ¦‚è¦  ï¼š512ãƒã‚¤ãƒˆã®ä¹±æ•°ã‹ã‚‰æš—å·ã‚­ãƒ¼ã‚’ç”Ÿæˆã™ã‚‹
+				ä»Ž 512 å­—èŠ‚çš„éšæœºæ•°ç”Ÿæˆä¸€ä¸ªåŠ å¯†å¯†é’¥
+/*  step1 4096ãƒ“ãƒƒãƒˆ(512ãƒã‚¤ãƒˆ)ã®ãƒ“ãƒƒãƒˆã‚¢ãƒ‰ãƒ¬ã‚¹å¤‰æ›ã«ã‚ˆã‚Šã€ãƒ“ãƒƒãƒˆã‚’äº¤æ›
+			æ›´æ¢é’»å¤´ 4096 ä½ ï¼ˆ512 å­—èŠ‚ï¼‰ çš„åœ°å€ä½è½¬æ¢
+/*  step2 32å€‹ã®16ãƒã‚¤ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã§è«–ç†æ¼”ç®—  32 16 å­—èŠ‚é€»è¾‘å—
+/* å¼•æ•°      ï¼šsrc	512ãƒã‚¤ãƒˆã®ä¹±æ•° 512 å­—èŠ‚çš„éšæœºæ•°
+/*             dst	ã‚¹ã‚¯ãƒ©ãƒ³ãƒ–ãƒ«ã‚’è§£é™¤ã—ãŸ16ãƒã‚¤ãƒˆã®ãƒ‡ãƒ¼ã‚¿ ä½ è§£é”ç‚’ 16 ä¸ªå­—èŠ‚çš„æ•°æ®
+/* æˆ»ã‚Šå€¤    ï¼šæˆåŠŸ:0
 /*====================================================================*/
-// H1E-USBƒRƒ}ƒ“ƒhƒCƒ“ƒ^[ƒtƒF[ƒXŽd—l‘(ƒXƒNƒ‰ƒ“ƒuƒ‹ˆÃ†ƒL[•Ò)‚æ‚èˆø—p
+// H1E-USBã‚³ãƒžãƒ³ãƒ‰ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ä»•æ§˜æ›¸(ã‚¹ã‚¯ãƒ©ãƒ³ãƒ–ãƒ«æš—å·ã‚­ãƒ¼ç·¨)ã‚ˆã‚Šå¼•ç”¨
+//ï¼ˆç½®ä¹±åŠ å¯†å¯†é’¥å¸ï¼‰ çš„æŠ¥ä»· H1E USB å‘½ä»¤æŽ¥å£è§„èŒƒ
 int CH1USBCom::decodeMasterKey512( const BYTE *src, BYTE *dst )
 {
 
@@ -2157,11 +2165,11 @@ int CH1USBCom::decodeMasterKey512( const BYTE *src, BYTE *dst )
 	int i, j, k ;
 	
 	work = (BYTE*)_work ;
-	for ( i = 0; i < sizeof(_work) / 4; i++ ) {  // ì‹Æ—Ìˆæ‚Ì‰Šú‰»
+	for ( i = 0; i < sizeof(_work) / 4; i++ ) {  // ä½œæ¥­é ˜åŸŸã®åˆæœŸåŒ–
 		_work[i] = 0 ;
 	}
 	
-	// ƒrƒbƒgƒAƒhƒŒƒX•ÏŠ·
+	// ãƒ“ãƒƒãƒˆã‚¢ãƒ‰ãƒ¬ã‚¹å¤‰æ›
 	for ( srcAddr = 0; srcAddr < 4096; srcAddr++ ) {
 
 		dstAddr = 0 ;
@@ -2184,7 +2192,7 @@ int CH1USBCom::decodeMasterKey512( const BYTE *src, BYTE *dst )
 		}
 	}
 
-	// ˜_—‰‰ŽZ
+	// è«–ç†æ¼”ç®—
 	bp = work + 16 ;
 	for ( i = 0; i < 10; i++, bp += 16*3 ) {
 		
@@ -2195,7 +2203,7 @@ int CH1USBCom::decodeMasterKey512( const BYTE *src, BYTE *dst )
 			sp = work ;
 			for ( k = 0; k < 16; k++, dp++, sp++ ) {
 			
-				// ˜_—‰‰ŽZƒRƒ}ƒ“ƒh‚ÌŽæ‚èo‚µ
+				// è«–ç†æ¼”ç®—ã‚³ãƒžãƒ³ãƒ‰ã®å–ã‚Šå‡ºã—
 				if ( k & 1 ) {
 					cmd = cp[k/2] & 0x0F ;
 					cp++ ;
@@ -2204,7 +2212,8 @@ int CH1USBCom::decodeMasterKey512( const BYTE *src, BYTE *dst )
 					cmd = cp[k/2] >> 4 ;
 				}
 
-				// ˜_—‰‰ŽZ‚ÌŽÀŽ{(‰‰ŽZŒ‹‰Ê‚Ì‰ºˆÊƒoƒCƒg‚ð¶•Ó‚É‘ã“ü)
+				// è«–ç†æ¼”ç®—ã®å®Ÿæ–½(æ¼”ç®—çµæžœã®ä¸‹ä½ãƒã‚¤ãƒˆã‚’å·¦è¾ºã«ä»£å…¥)
+				// æ‰§è¡Œçš„é€»è¾‘æ“ä½œ ï¼ˆåˆ†é…ç»™å·¦è¾¹çš„ç»“æžœçš„ä½Žåºä½å­—èŠ‚ï¼‰
 				switch( cmd ) {
 					case 0x00:
 						*sp = *sp ^ *dp ;
@@ -2227,12 +2236,12 @@ int CH1USBCom::decodeMasterKey512( const BYTE *src, BYTE *dst )
 						break ;
 
 					case 0x05:
-						#pragma warning( push ) // Šù‘¶‚ÌŒxó‘Ô‚ð•Û‘¶
-						#pragma warning( disable:4244 ) // 4244”Ô‚ÌŒx‚ð—}§
+						#pragma warning( push ) // æ—¢å­˜ã®è­¦å‘ŠçŠ¶æ…‹ã‚’ä¿å­˜
+						#pragma warning( disable:4244 ) // 4244ç•ªã®è­¦å‘Šã‚’æŠ‘åˆ¶
 						
 						*sp = (DWORD)*sp * (DWORD)*dp ;
 						
-						#pragma warning( pop ) // •Û‘¶‚µ‚½Œxó‘Ô‚ð•œŒ³
+						#pragma warning( pop ) // ä¿å­˜ã—ãŸè­¦å‘ŠçŠ¶æ…‹ã‚’å¾©å…ƒ
 						break ;
 
 					case 0x06:

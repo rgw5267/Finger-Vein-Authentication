@@ -1,40 +1,40 @@
 #pragma once
 #include "afx.h"
 #include "H1EUSB_Thread.h"
-#include "Camellia.h"	// ˆÃ†‰»‚Åg—p
+#include "Camellia.h"	// æš—å·åŒ–ã§ä½¿ç”¨
 #include "H1EUSB.h"
 /********************************************************************************************/
-/* CH1USBComƒNƒ‰ƒXƒwƒbƒ_																	*/
+/* CH1USBComã‚¯ãƒ©ã‚¹ãƒ˜ãƒƒãƒ€																	*/
 /*------------------------------------------------------------------------------------------*/
-/*[ì¬]		<ì¬Ò><ì¬“ú><ƒo[ƒWƒ‡ƒ“]ƒŠƒrƒWƒ‡ƒ“>									*/
-/*				<”’ŒË><20080110>@Initial Version.                                          */
+/*[ä½œæˆ]		<ä½œæˆè€…><ä½œæˆæ—¥><ãƒãƒ¼ã‚¸ãƒ§ãƒ³â€ãƒªãƒ“ã‚¸ãƒ§ãƒ³>									*/
+/*				<ç™½æˆ¸><20080110>ã€€Initial Version.                                          */
 /*------------------------------------------------------------------------------------------*/
-/*[C³—ˆ—ğ]	<C³Ò><C³“ú><ƒo[ƒWƒ‡ƒ“]ƒŠƒrƒWƒ‡ƒ“><áŠQŠÇ—”Ô†><C³“à—e>	    	*/
+/*[ä¿®æ­£æ¥æ­´]	<ä¿®æ­£è€…><ä¿®æ­£æ—¥><ãƒãƒ¼ã‚¸ãƒ§ãƒ³â€ãƒªãƒ“ã‚¸ãƒ§ãƒ³><éšœå®³ç®¡ç†ç•ªå·><ä¿®æ­£å†…å®¹>	    	*/
 /*                                                                          				*/
 /*------------------------------------------------------------------------------------------*/
 /********************************************************************************************/
-#define MAX_NINSHO_TEMPS				6					//ƒeƒ“ƒvƒŒ[ƒg•t”FØ‚ÌÅ‘å”
-#define H1USB_STATUS_TUCH_ON			0x0001				//ƒ^ƒbƒ`ƒZƒ“ƒT[‚ª‚n‚mó‘Ô
-#define H1USB_STATUS_TUCH_OFF			0x0002				//ƒ^ƒbƒ`ƒZƒ“ƒT[‚ª‚n‚e‚eó‘Ô
-#define H1USB_STATUS_INVDATA			0xFFFF				//—\Šú‚µ‚È‚¢ƒf[ƒ^‚ğóM‚µ‚½
+#define MAX_NINSHO_TEMPS				6					//ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆä»˜èªè¨¼ã®æœ€å¤§æ•°
+#define H1USB_STATUS_TUCH_ON			0x0001				//ã‚¿ãƒƒãƒã‚»ãƒ³ã‚µãƒ¼ãŒï¼¯ï¼®çŠ¶æ…‹
+#define H1USB_STATUS_TUCH_OFF			0x0002				//ã‚¿ãƒƒãƒã‚»ãƒ³ã‚µãƒ¼ãŒï¼¯ï¼¦ï¼¦çŠ¶æ…‹
+#define H1USB_STATUS_INVDATA			0xFFFF				//äºˆæœŸã—ãªã„ãƒ‡ãƒ¼ã‚¿ã‚’å—ä¿¡ã—ãŸ
 
-//ƒR[ƒ‹ƒoƒbƒNƒGƒ“ƒgƒŠ[’è‹`
-typedef LRESULT (CALLBACK* H1ECALBACK_TUCH_NTOTIFICATION)(DWORD dwStatus, LPVOID pObj);	//ƒ^ƒbƒ`ƒZƒ“ƒT[ó‘Ô’Ê’m
-typedef LRESULT (CALLBACK* H1ECALBACK_SENNOTIFI)(DWORD dwStatus, LPVOID pObj);			//‘—MI—¹’Ê’m
+//ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ã‚¨ãƒ³ãƒˆãƒªãƒ¼å®šç¾©
+typedef LRESULT (CALLBACK* H1ECALBACK_TUCH_NTOTIFICATION)(DWORD dwStatus, LPVOID pObj);	//ã‚¿ãƒƒãƒã‚»ãƒ³ã‚µãƒ¼çŠ¶æ…‹é€šçŸ¥
+typedef LRESULT (CALLBACK* H1ECALBACK_SENNOTIFI)(DWORD dwStatus, LPVOID pObj);			//é€ä¿¡çµ‚äº†é€šçŸ¥
 
 
-//ƒR[ƒ‹ƒoƒbƒNƒGƒ“ƒgƒŠ[\‘¢‘Ì
+//ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ã‚¨ãƒ³ãƒˆãƒªãƒ¼æ§‹é€ ä½“
 typedef struct _h1ecallbacks
 {
-	H1ECALBACK_TUCH_NTOTIFICATION			OnTuchNotification;		//ƒ^ƒbƒ`ƒZƒ“ƒT[î•ñ’Ê’mæ
-	H1ECALBACK_SENNOTIFI					OnSendEnd;				//‘—MI—¹’Ê’m	
+	H1ECALBACK_TUCH_NTOTIFICATION			OnTuchNotification;		//ã‚¿ãƒƒãƒã‚»ãƒ³ã‚µãƒ¼æƒ…å ±é€šçŸ¥å…ˆ
+	H1ECALBACK_SENNOTIFI					OnSendEnd;				//é€ä¿¡çµ‚äº†é€šçŸ¥	
 } H1ECALLBACKS, *PH1ECALLBACKS;
 
-//ƒGƒ“ƒhƒ|ƒCƒ“ƒgî•ñiH1ECOMOBJEP\‘¢‘Ìj
+//ã‚¨ãƒ³ãƒ‰ãƒã‚¤ãƒ³ãƒˆæƒ…å ±ï¼ˆH1ECOMOBJEPæ§‹é€ ä½“ï¼‰
 typedef struct _h1ecomobjep
 {
-	LPVOID			pObj;				//ƒR[ƒ‹ƒoƒbƒNæ‚ÌƒIƒuƒWƒFƒNƒg
-	H1ECALLBACKS	H1ECallBacks;		//ƒR[ƒ‹ƒoƒbƒNƒGƒ“ƒgƒŠ[		
+	LPVOID			pObj;				//ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯å…ˆã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+	H1ECALLBACKS	H1ECallBacks;		//ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ã‚¨ãƒ³ãƒˆãƒªãƒ¼		
 } H1ECOMOBJEP, *PH1ECOMOBJEP;
 
 
@@ -42,50 +42,50 @@ class CH1USBCom :
 	public CA2GObjThread
 {
 public:
-	CH1USBCom(PH1ECOMOBJEP pH1EComObjEP);														//–{ƒNƒ‰ƒX‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	virtual ~CH1USBCom(void);																	//–{ƒNƒ‰ƒX‚ÌƒfƒXƒgƒ‰ƒNƒ^
-	int Open(LPCTSTR pComPort, LPDWORD pdwError);												//COMƒ|[ƒgƒI[ƒvƒ“
-	int Close(LPDWORD pdwError);																//COMƒ|[ƒgƒNƒ[ƒY
-	int StartEndPoint(void);																	//ƒGƒ“ƒhƒ|ƒCƒ“ƒg‚Ì‹@”\ŠJn
-	int StopEndPoint(void);																		//ƒGƒ“ƒhƒ|ƒCƒ“ƒg‚Ì‹@”\’â~
-	int TransToDevice(UINT uiMsg, WPARAM wParam, LPARAM lParam);								//ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“ƒƒCƒ“ˆ—
-	int SetEnableBank(WORD* pwEnableBank, WORD wEnableBankCount);								//—LŒø‚Èƒoƒ“ƒN‚Ì”z—ñ‚ğƒZƒbƒg‚·‚é
-	int SetTempU(PTEMPU pTempU, UINT uiCounts, BOOL bInit);										//ƒeƒ“ƒvƒŒ[ƒgî•ñ‚ğƒZƒbƒg‚·‚é
-	int GetTempU(PTEMPU pTempU);																//ƒeƒ“ƒvƒŒ[ƒgî•ñ‚ğæ“¾‚·‚é
-	char m_cFwVersion[50];																		//ƒtƒ@[ƒ€ƒEƒFƒAƒo[ƒWƒ‡ƒ“Ši”[”z—ñ
-	char m_cSerialNum[50];																		//ƒVƒŠƒAƒ‹ƒiƒ“ƒo[Ši”[”z—ñ
-	WORD* m_pwEnableBank;																		//ƒoƒ“ƒN‚Ì”z—ñ‚Ìƒ|ƒCƒ“ƒ^
-	WORD m_wEnableBankCount;																	//—LŒø‚Èƒoƒ“ƒN”
-	HANDLE			m_hCom;																		//COMƒ|[ƒgƒnƒ“ƒhƒ‹
+	CH1USBCom(PH1ECOMOBJEP pH1EComObjEP);														//æœ¬ã‚¯ãƒ©ã‚¹ã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	virtual ~CH1USBCom(void);																	//æœ¬ã‚¯ãƒ©ã‚¹ã®ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	int Open(LPCTSTR pComPort, LPDWORD pdwError);												//COMãƒãƒ¼ãƒˆã‚ªãƒ¼ãƒ—ãƒ³
+	int Close(LPDWORD pdwError);																//COMãƒãƒ¼ãƒˆã‚¯ãƒ­ãƒ¼ã‚º
+	int StartEndPoint(void);																	//ã‚¨ãƒ³ãƒ‰ãƒã‚¤ãƒ³ãƒˆã®æ©Ÿèƒ½é–‹å§‹
+	int StopEndPoint(void);																		//ã‚¨ãƒ³ãƒ‰ãƒã‚¤ãƒ³ãƒˆã®æ©Ÿèƒ½åœæ­¢
+	int TransToDevice(UINT uiMsg, WPARAM wParam, LPARAM lParam);								//ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³ãƒ¡ã‚¤ãƒ³å‡¦ç†
+	int SetEnableBank(WORD* pwEnableBank, WORD wEnableBankCount);								//æœ‰åŠ¹ãªãƒãƒ³ã‚¯ã®é…åˆ—ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
+	int SetTempU(PTEMPU pTempU, UINT uiCounts, BOOL bInit);										//ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆæƒ…å ±ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
+	int GetTempU(PTEMPU pTempU);																//ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆæƒ…å ±ã‚’å–å¾—ã™ã‚‹
+	char m_cFwVersion[50];																		//ãƒ•ã‚¡ãƒ¼ãƒ ã‚¦ã‚§ã‚¢ãƒãƒ¼ã‚¸ãƒ§ãƒ³æ ¼ç´é…åˆ—
+	char m_cSerialNum[50];																		//ã‚·ãƒªã‚¢ãƒ«ãƒŠãƒ³ãƒãƒ¼æ ¼ç´é…åˆ—
+	WORD* m_pwEnableBank;																		//ãƒãƒ³ã‚¯ã®é…åˆ—ã®ãƒã‚¤ãƒ³ã‚¿
+	WORD m_wEnableBankCount;																	//æœ‰åŠ¹ãªãƒãƒ³ã‚¯æ•°
+	HANDLE			m_hCom;																		//COMãƒãƒ¼ãƒˆãƒãƒ³ãƒ‰ãƒ«
 
 
 private:
-	static LRESULT CALLBACK OnThreadBefor(LPVOID pObj);											//ƒXƒŒƒbƒh‘Oˆ—‚ÌƒR[ƒ‹ƒoƒbƒNˆ—
-	static LRESULT CALLBACK OnThread(LPVOID pObj);												//ƒXƒŒƒbƒh’èüŠúƒR[ƒ‹ƒoƒbƒNˆ—
-	static LRESULT CALLBACK OnThreadAfter(LPVOID pObj);											//ƒXƒŒƒbƒhŒãˆ—‚ÌƒR[ƒ‹ƒoƒbƒNˆ—
-	static LRESULT CALLBACK OnComMessage(UINT uiMsg, WPARAM wParam, LPARAM lParam, LPVOID pObj);//ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“ƒƒbƒZ[ƒWˆ—
+	static LRESULT CALLBACK OnThreadBefor(LPVOID pObj);											//ã‚¹ãƒ¬ãƒƒãƒ‰å‰å‡¦ç†ã®ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯å‡¦ç†
+	static LRESULT CALLBACK OnThread(LPVOID pObj);												//ã‚¹ãƒ¬ãƒƒãƒ‰å®šå‘¨æœŸã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯å‡¦ç†
+	static LRESULT CALLBACK OnThreadAfter(LPVOID pObj);											//ã‚¹ãƒ¬ãƒƒãƒ‰å¾Œå‡¦ç†ã®ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯å‡¦ç†
+	static LRESULT CALLBACK OnComMessage(UINT uiMsg, WPARAM wParam, LPARAM lParam, LPVOID pObj);//ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å‡¦ç†
 
-	int decodeMasterKey512( const BYTE *, BYTE * ) ;											// 512ƒoƒCƒg‚Ì—”‚©‚çˆÃ†ƒL[‚ğ¶¬
-	int TransScranmble(void);																	//ˆÃ†‰»ƒRƒ}ƒ“ƒhƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“
-	int TransLedGreen(void);																	//—ÎLEDƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“
-	int TransLedRed(void);																		//ÔLEDƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“
-	int TransLedGR(void);																		//—Î{ÔLEDƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“
-	int TransLedOff(void);																		//LEDÁ“”ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“
-	int TransTuchNotify(BYTE byParam);																//ƒ^ƒbƒ`ƒZƒ“ƒT[ó‘Ô’Ê’m‹–‰Âƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“
-	int TransGetFwVersion( char *pFwVersion );													//ƒtƒ@[ƒ€ƒEƒFƒAƒo[ƒWƒ‡ƒ“æ“¾ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“
-	int TransGetSerialNum( char *pSerialNum );													//ƒVƒŠƒAƒ‹ƒiƒ“ƒo[æ“¾ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“
-	int TransBUZStart( void );																	//ƒuƒU[–Â“®ŠJnƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“
-	int TransBUZStop( void );																	//ƒuƒU[–Â“®’â~ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“
-	int TransSetSecurity(BYTE byMode);															//ƒZƒLƒ…ƒŠƒeƒBƒŒƒxƒ‹İ’èƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“
-	int TransNinsho( const BYTE byNinshoMode, const int nMemNo, BYTE *pMatchMemNo );			//‚PF‚P”FØƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“
-	int TransNinshoBank( const WORD wEnableBank[], const WORD wEnableBankCnt, BYTE *pMatchMemNo, WORD *pMatchBank );	//ƒoƒ“ƒN”FØƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“
-	int TransNinshoWithTemplate(const PTEMPU pTempU, const BYTE byCount, BYTE *pMatchNum);		//ƒeƒ“ƒvƒŒ[ƒg•t”FØƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“
-	int TransGetTemplate(PTEMPU pTempU);														//ƒeƒ“ƒvƒŒ[ƒgæ“¾ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“
-	int TransChangeBank( const WORD wBankNo);													//ƒoƒ“ƒN•ÏXƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“
-	int TransSetTemplate(PTEMPU pTempU);														//ƒeƒ“ƒvƒŒ[ƒg“o˜^ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“
-	int TransDelTemplate(const int nMemNo);														//ƒeƒ“ƒvƒŒ[ƒgíœƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“
-	int TransHardWare( void );																	//ƒn[ƒhƒEƒFƒAƒŠƒZƒbƒgƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“
-	int CheckASyncData(LPDWORD pdwState);														//”FØ‚Ì“¯ŠúƒŒƒXƒ|ƒ“ƒXæ“¾
+	int decodeMasterKey512( const BYTE *, BYTE * ) ;											// 512ãƒã‚¤ãƒˆã®ä¹±æ•°ã‹ã‚‰æš—å·ã‚­ãƒ¼ã‚’ç”Ÿæˆ
+	int TransScranmble(void);																	//æš—å·åŒ–ã‚³ãƒãƒ³ãƒ‰ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³
+	int TransLedGreen(void);																	//ç·‘LEDãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³
+	int TransLedRed(void);																		//èµ¤LEDãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³
+	int TransLedGR(void);																		//ç·‘ï¼‹èµ¤LEDãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³
+	int TransLedOff(void);																		//LEDæ¶ˆç¯ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³
+	int TransTuchNotify(BYTE byParam);																//ã‚¿ãƒƒãƒã‚»ãƒ³ã‚µãƒ¼çŠ¶æ…‹é€šçŸ¥è¨±å¯ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³
+	int TransGetFwVersion( char *pFwVersion );													//ãƒ•ã‚¡ãƒ¼ãƒ ã‚¦ã‚§ã‚¢ãƒãƒ¼ã‚¸ãƒ§ãƒ³å–å¾—ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³
+	int TransGetSerialNum( char *pSerialNum );													//ã‚·ãƒªã‚¢ãƒ«ãƒŠãƒ³ãƒãƒ¼å–å¾—ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³
+	int TransBUZStart( void );																	//ãƒ–ã‚¶ãƒ¼é³´å‹•é–‹å§‹ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³
+	int TransBUZStop( void );																	//ãƒ–ã‚¶ãƒ¼é³´å‹•åœæ­¢ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³
+	int TransSetSecurity(BYTE byMode);															//ã‚»ã‚­ãƒ¥ãƒªãƒ†ã‚£ãƒ¬ãƒ™ãƒ«è¨­å®šãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³
+	int TransNinsho( const BYTE byNinshoMode, const int nMemNo, BYTE *pMatchMemNo );			//ï¼‘ï¼šï¼‘èªè¨¼ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³
+	int TransNinshoBank( const WORD wEnableBank[], const WORD wEnableBankCnt, BYTE *pMatchMemNo, WORD *pMatchBank );	//ãƒãƒ³ã‚¯èªè¨¼ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³
+	int TransNinshoWithTemplate(const PTEMPU pTempU, const BYTE byCount, BYTE *pMatchNum);		//ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆä»˜èªè¨¼ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³
+	int TransGetTemplate(PTEMPU pTempU);														//ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆå–å¾—ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³
+	int TransChangeBank( const WORD wBankNo);													//ãƒãƒ³ã‚¯å¤‰æ›´ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³
+	int TransSetTemplate(PTEMPU pTempU);														//ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆç™»éŒ²ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³
+	int TransDelTemplate(const int nMemNo);														//ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆå‰Šé™¤ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³
+	int TransHardWare( void );																	//ãƒãƒ¼ãƒ‰ã‚¦ã‚§ã‚¢ãƒªã‚»ãƒƒãƒˆãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³
+	int CheckASyncData(LPDWORD pdwState);														//èªè¨¼æ™‚ã®åŒæœŸãƒ¬ã‚¹ãƒãƒ³ã‚¹å–å¾—
 	int ledAllOff(void);
 	int ledOnOff( const BYTE byColor, const BYTE byOnOff );
 	int ledStartBlink( const BYTE byOffTime, const BYTE byOnTime);
@@ -95,20 +95,20 @@ private:
 	int beepCancel( void );
 	int beepSound( const BYTE byPattern, const BYTE byCount );
 
-	BOOL sendComm( const BYTE *, const DWORD ) ;										//ƒRƒ}ƒ“ƒh‚ğH1E-USB‚É‘—M(ƒm[ƒ}ƒ‹ó‘Ô)
-	BOOL sendCommEnc( const BYTE *, DWORD ) ;											//ƒRƒ}ƒ“ƒh‚ğH1E-USB‚É‘—M(ˆÃ†’ÊMó‘Ô)
-	DWORD getBuffSize( void ) ;															//óMƒoƒbƒtƒ@‚ÌƒoƒCƒg”‚ğ•Ô‹p
-	BOOL recvComm( BYTE *, const DWORD ) ;												//H1E-USB‚©‚çƒf[ƒ^‚ğóM‚·‚é(ƒm[ƒ}ƒ‹ó‘Ô)
-	BOOL recvCommEnc( BYTE *, DWORD ) ;													//H1E-USB‚©‚çƒf[ƒ^‚ğóM‚·‚é(ˆÃ†’ÊMó‘Ô)
-	BYTE m_byCurrentWorkKey[16] ;														//ˆÃ†Œ®
-	BOOL			m_bCamelliaEnabled ;												//ˆÃ†’ÊMó‘Ô‚©”Û‚©‚ğ•\‚·ƒtƒ‰ƒO(TRUE: ˆÃ†’ÊMó‘Ô, FALSE:ƒm[ƒ}ƒ‹ó‘Ô)
-	KEY_TABLE_TYPE	m_uKttWork ;														//Šg‘åŒ®
-	H1ECOMOBJEP		m_H1EComObjEP;														//ƒGƒ“ƒhƒ|ƒCƒ“ƒgî•ñiH1ECOMOBJEP\‘¢‘Ìj
-	HANDLE			m_hTEnd;															//ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“I—¹ƒCƒxƒ“ƒgƒnƒ“ƒhƒ‹
-	TEMPU			m_TempU[MAX_NINSHO_TEMPS];											//ƒeƒ“ƒvƒŒ[ƒgƒ†ƒjƒbƒgƒe[ƒuƒ‹
-	UINT			m_uiTempUs;															//ƒeƒ“ƒvƒŒ[ƒgƒ†ƒjƒbƒg‚ÌŒÂ”
-	int				m_iLastError;														//ƒGƒ‰[Ši”[•Ï”
-	BOOL			m_bTransEnable;														//ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“’†
+	BOOL sendComm( const BYTE *, const DWORD ) ;										//ã‚³ãƒãƒ³ãƒ‰ã‚’H1E-USBã«é€ä¿¡(ãƒãƒ¼ãƒãƒ«çŠ¶æ…‹)
+	BOOL sendCommEnc( const BYTE *, DWORD ) ;											//ã‚³ãƒãƒ³ãƒ‰ã‚’H1E-USBã«é€ä¿¡(æš—å·é€šä¿¡çŠ¶æ…‹)
+	DWORD getBuffSize( void ) ;															//å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°ã‚’è¿”å´
+	BOOL recvComm( BYTE *, const DWORD ) ;												//H1E-USBã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ã‚’å—ä¿¡ã™ã‚‹(ãƒãƒ¼ãƒãƒ«çŠ¶æ…‹)
+	BOOL recvCommEnc( BYTE *, DWORD ) ;													//H1E-USBã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ã‚’å—ä¿¡ã™ã‚‹(æš—å·é€šä¿¡çŠ¶æ…‹)
+	BYTE m_byCurrentWorkKey[16] ;														//æš—å·éµ
+	BOOL			m_bCamelliaEnabled ;												//æš—å·é€šä¿¡çŠ¶æ…‹ã‹å¦ã‹ã‚’è¡¨ã™ãƒ•ãƒ©ã‚°(TRUE: æš—å·é€šä¿¡çŠ¶æ…‹, FALSE:ãƒãƒ¼ãƒãƒ«çŠ¶æ…‹)
+	KEY_TABLE_TYPE	m_uKttWork ;														//æ‹¡å¤§éµ
+	H1ECOMOBJEP		m_H1EComObjEP;														//ã‚¨ãƒ³ãƒ‰ãƒã‚¤ãƒ³ãƒˆæƒ…å ±ï¼ˆH1ECOMOBJEPæ§‹é€ ä½“ï¼‰
+	HANDLE			m_hTEnd;															//ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³çµ‚äº†ã‚¤ãƒ™ãƒ³ãƒˆãƒãƒ³ãƒ‰ãƒ«
+	TEMPU			m_TempU[MAX_NINSHO_TEMPS];											//ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ¦ãƒ‹ãƒƒãƒˆãƒ†ãƒ¼ãƒ–ãƒ«
+	UINT			m_uiTempUs;															//ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ¦ãƒ‹ãƒƒãƒˆã®å€‹æ•°
+	int				m_iLastError;														//ã‚¨ãƒ©ãƒ¼æ ¼ç´å¤‰æ•°
+	BOOL			m_bTransEnable;														//ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³ä¸­
 
 
 };
