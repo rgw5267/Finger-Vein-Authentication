@@ -201,3 +201,5 @@ FVA-NET/src/MDK-ARM/List/
 *.uvgui.*
 *.uvopt
 *.PrjPcbStructure
+FVA-USB/pcb/__Previews/
+FVA-NET/pcb/__Previews/
